@@ -15,463 +15,527 @@
         
         body {
             min-height: 100vh;
-            background: #f8f9fa;
-            color: #333;
+            background: linear-gradient(135deg, #0c0b15 0%, #1a172c 100%);
+            color: #f0f0ff;
             line-height: 1.6;
-            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%);
+            padding: 20px;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 1100px;
             width: 100%;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            background: rgba(20, 18, 36, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
             overflow: hidden;
+            border: 1px solid rgba(100, 100, 150, 0.15);
+            position: relative;
+            z-index: 10;
         }
         
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #e67e22, #f1c40f);
-            color: white;
+            padding: 50px 30px;
             position: relative;
+            background: linear-gradient(to bottom, rgba(230, 126, 34, 0.1), transparent);
         }
         
         .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
-            background: white;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #e67e22, #f1c40f);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: pulse 4s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(230, 126, 34, 0); }
         }
         
         .logo i {
-            font-size: 36px;
-            color: #e67e22;
+            font-size: 42px;
+            color: #fff;
         }
         
         h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            font-weight: 700;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #f1c40f, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .tagline {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            color: rgba(230, 230, 255, 0.85);
             max-width: 500px;
             margin: 0 auto;
+            font-weight: 300;
         }
         
         .portal-sections {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            padding: 30px;
-        }
-        
-        @media (min-width: 900px) {
-            .portal-sections {
-                grid-template-columns: 1fr 1fr;
-            }
+            padding: 40px;
         }
         
         .section {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-            border: 1px solid #eee;
+            background: rgba(30, 28, 46, 0.6);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 100, 150, 0.1);
+            margin-bottom: 30px;
         }
         
         .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f1c40f;
-            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #f1c40f;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            position: relative;
+            font-weight: 600;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #e67e22, #f1c40f);
+            border-radius: 3px;
         }
         
         .section-title i {
+            font-size: 1.5em;
             color: #e67e22;
-        }
-        
-        /* Class Locations */
-        .locations-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .location-card {
-            padding: 20px;
-            border-radius: 10px;
-            background: #f8f9fa;
-            border: 1px solid #eee;
-            transition: all 0.3s ease;
-        }
-        
-        .location-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-color: #f1c40f;
-        }
-        
-        .location-name {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #e67e22;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .location-details {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .location-schedule {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #eee;
-        }
-        
-        .schedule-item {
-            display: flex;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .schedule-day {
-            min-width: 80px;
-            font-weight: 600;
-            color: #555;
         }
         
         /* Check-in Section */
         .checkin-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
         }
         
         .form-group {
-            margin-bottom: 15px;
+            position: relative;
         }
         
         .form-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-weight: 600;
-            color: #555;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: rgba(220, 220, 240, 0.9);
+            padding-left: 5px;
+            font-size: 1.1rem;
         }
         
         .form-input {
             width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            background: #f9f9f9;
-            color: #333;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            padding: 18px 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 100, 150, 0.3);
+            background: rgba(40, 38, 60, 0.5);
+            color: #f0f0ff;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
         }
         
         .form-input:focus {
             outline: none;
             border-color: #f1c40f;
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.1);
+            background: rgba(50, 48, 70, 0.5);
+            box-shadow: 0 0 0 4px rgba(241, 196, 15, 0.2);
+            transform: translateY(-3px);
         }
         
         .submit-btn {
-            background: #27ae60;
-            color: white;
+            background: linear-gradient(135deg, #e67e22, #f1c40f);
+            color: #0a0915;
             border: none;
-            border-radius: 8px;
-            padding: 14px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s ease;
+            margin-top: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.5);
+            letter-spacing: 1px;
         }
         
         .submit-btn:hover {
-            background: #2ecc71;
-            transform: translateY(-2px);
-        }
-        
-        .message {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            text-align: center;
-            font-style: italic;
-            color: #555;
-            border-left: 3px solid #f1c40f;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(230, 126, 34, 0.7);
         }
         
         /* Video Section */
-        .video-list {
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .video-card {
+            padding: 30px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(40, 38, 60, 0.7), rgba(60, 55, 100, 0.3));
+            transition: all 0.4s ease;
+            border: 1px solid rgba(100, 100, 150, 0.2);
+            text-decoration: none;
+            color: #f0f0ff;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 15px;
+            min-height: 200px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .video-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            border-radius: 8px;
-            background: #f8f9fa;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: #333;
-            border: 1px solid #eee;
-        }
-        
-        .video-item:hover {
-            background: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border-color: #f1c40f;
         }
         
-        .video-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(230, 126, 34, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .video-icon i {
-            color: #e67e22;
-            font-size: 1.2rem;
-        }
-        
-        .video-info {
-            flex: 1;
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.1), rgba(241, 196, 15, 0.1));
+            z-index: -1;
         }
         
         .video-title {
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .video-title i {
+            color: #f1c40f;
+            font-size: 1.8rem;
         }
         
         .video-description {
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 1.1rem;
+            color: rgba(220, 220, 240, 0.8);
+            flex: 1;
+        }
+        
+        .video-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .video-link:hover {
+            color: #e67e22;
+            transform: translateX(5px);
         }
         
         footer {
             text-align: center;
-            padding: 25px;
-            background: #f8f9fa;
-            color: #666;
-            font-size: 0.95rem;
-            border-top: 1px solid #eee;
+            padding: 40px 30px 30px;
+            color: rgba(220, 220, 240, 0.7);
+            font-size: 1rem;
+            border-top: 1px solid rgba(100, 100, 150, 0.1);
         }
         
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 25px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
         
         .footer-link {
-            color: #e67e22;
+            color: #f1c40f;
             text-decoration: none;
             transition: color 0.3s ease;
+            font-size: 1.1rem;
         }
         
         .footer-link:hover {
-            color: #d35400;
+            color: #e67e22;
+        }
+        
+        /* Animated Background Elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(40px);
+        }
+        
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: #e67e22;
+            top: 10%;
+            left: 5%;
+            animation: float 25s infinite ease-in-out;
+        }
+        
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            background: #f1c40f;
+            bottom: 15%;
+            right: 10%;
+            animation: float 30s infinite ease-in-out;
+            animation-delay: 5s;
+        }
+        
+        .circle-3 {
+            width: 250px;
+            height: 250px;
+            background: #9b59b6;
+            top: 40%;
+            right: 20%;
+            animation: float 35s infinite ease-in-out;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -150px) rotate(20deg); }
+            50% { transform: translate(-150px, 100px) rotate(-20deg); }
+            75% { transform: translate(150px, 100px) rotate(10deg); }
+        }
+        
+        /* Confirmation Animation */
+        .confirmation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 9, 20, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+        
+        .confirmation.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .checkmark {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            animation: scaleIn 0.8s ease;
+        }
+        
+        .checkmark i {
+            font-size: 60px;
+            color: white;
+        }
+        
+        .welcome-message {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #f1c40f, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 600px;
+            line-height: 1.4;
+        }
+        
+        .inspiration {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: rgba(220, 220, 240, 0.9);
+            text-align: center;
+            max-width: 700px;
+            margin-bottom: 50px;
+            line-height: 1.5;
+        }
+        
+        .continue-btn {
+            background: transparent;
+            color: #f1c40f;
+            border: 2px solid #f1c40f;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .continue-btn:hover {
+            background: rgba(241, 196, 15, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section {
+                padding: 30px;
+            }
+            
+            .form-input {
+                padding: 16px 20px;
+                font-size: 1.1rem;
+            }
+            
+            .submit-btn {
+                padding: 18px;
+                font-size: 1.2rem;
+            }
+            
+            .welcome-message {
+                font-size: 2rem;
+            }
+            
+            .inspiration {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .portal-sections {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 25px 20px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-message {
+                font-size: 1.6rem;
+            }
+            
+            .inspiration {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="bg-elements">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+    
     <div class="container">
         <header>
             <div class="logo">
                 <i class="fas fa-music"></i>
             </div>
-            <h1>Daniel Palacios Dance</h1>
-            <p class="tagline">Student Portal - Locations, Check-in & Practice</p>
+            <h1>Dance Portal</h1>
+            <p class="tagline">Where passion transforms into movement</p>
         </header>
         
         <div class="portal-sections">
-            <!-- Left Column -->
-            <div>
-                <!-- Class Locations Section -->
-                <div class="section">
-                    <h2 class="section-title">
-                        <i class="fas fa-map-marker-alt"></i> Class Locations
-                    </h2>
-                    <p>Where we dance together:</p>
-                    
-                    <div class="locations-container">
-                        <!-- Stardust Ballroom -->
-                        <div class="location-card">
-                            <div class="location-name">
-                                <i class="fas fa-star"></i> Stardust Ballroom
-                            </div>
-                            <div class="location-details">
-                                <i class="fas fa-map-pin"></i> Bellmawr, New Jersey
-                            </div>
-                            <div class="location-schedule">
-                                <div class="schedule-item">
-                                    <div class="schedule-day">Monday:</div>
-                                    <div>Bachata 6:30pm + next level</div>
-                                </div>
-                                <div class="schedule-item">
-                                    <div class="schedule-day">Thursday:</div>
-                                    <div>Salsa 6:30pm & Bachata</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Let's Bailar -->
-                        <div class="location-card">
-                            <div class="location-name">
-                                <i class="fas fa-city"></i> Let's Bailar
-                            </div>
-                            <div class="location-details">
-                                <i class="fas fa-map-pin"></i> Philly - Chinese Assoc.
-                            </div>
-                            <div class="location-schedule">
-                                <div class="schedule-item">
-                                    <div class="schedule-day">Friday:</div>
-                                    <div>7pm: Salsa & Bachata</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Estilo Dance Studio -->
-                        <div class="location-card">
-                            <div class="location-name">
-                                <i class="fas fa-building"></i> Estilo Dance Studio
-                            </div>
-                            <div class="location-details">
-                                <i class="fas fa-map-pin"></i> Fishtown, Philadelphia
-                            </div>
-                            <div class="location-schedule">
-                                <div class="schedule-item">
-                                    <div class="schedule-day">Saturday:</div>
-                                    <div>Salsa & Bachata at 4pm</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Video Section -->
-                <div class="section">
-                    <h2 class="section-title">
-                        <i class="fas fa-video"></i> Practice Videos
-                    </h2>
-                    <p>Fundamental videos for your practice:</p>
-                    
-                    <div class="video-list">
-                        <a href="#" class="video-item">
-                            <div class="video-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-info">
-                                <div class="video-title">Bachata Fundamentals</div>
-                                <div class="video-description">Basic steps, timing, and footwork</div>
-                            </div>
-                        </a>
-                        
-                        <a href="#" class="video-item">
-                            <div class="video-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-info">
-                                <div class="video-title">Salsa Essentials</div>
-                                <div class="video-description">Core movements and timing</div>
-                            </div>
-                        </a>
-                        
-                        <a href="#" class="video-item">
-                            <div class="video-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="video-info">
-                                <div class="video-title">Bachata Turns</div>
-                                <div class="video-description">Intermediate techniques</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Right Column - Check-in Section -->
+            <!-- Check-in Section -->
             <div class="section">
                 <h2 class="section-title">
-                    <i class="fas fa-check-circle"></i> Class Check-in
+                    <i class="fas fa-arrow-right-to-bracket"></i> Express Check-in
                 </h2>
-                <p>Let us know you're here for class:</p>
                 
-                <form class="checkin-form">
+                <form class="checkin-form" id="checkin-form">
                     <div class="form-group">
-                        <label for="student-name" class="form-label">
-                            <i class="fas fa-user"></i> Your Name
-                        </label>
-                        <input type="text" id="student-name" class="form-input" placeholder="First and last name">
+                        <label for="student-name" class="form-label">Your Name</label>
+                        <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
                     </div>
                     
                     <div class="form-group">
-                        <label for="class-location" class="form-label">
-                            <i class="fas fa-map-marker-alt"></i> Class Location
-                        </label>
+                        <label for="class-location" class="form-label">Studio Location</label>
                         <select id="class-location" class="form-input">
-                            <option value="">Select location</option>
+                            <option value="">Select your studio</option>
                             <option value="stardust">Stardust Ballroom</option>
                             <option value="letsbailar">Let's Bailar</option>
-                            <option value="estilo">Estilo Dance Studio</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="payment-method" class="form-label">
-                            <i class="fas fa-money-bill-wave"></i> Payment Method
-                        </label>
+                        <label for="payment-method" class="form-label">Payment Method</label>
                         <select id="payment-method" class="form-input">
                             <option value="">Select payment option</option>
                             <option value="cash">Cash</option>
@@ -481,29 +545,84 @@
                     </div>
                     
                     <button type="submit" class="submit-btn">
-                        <i class="fas fa-check"></i> Check In
+                        <i class="fas fa-arrow-right"></i> CHECK IN NOW
                     </button>
                 </form>
+            </div>
+            
+            <!-- Video Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-video"></i> Master Fundamentals
+                </h2>
                 
-                <div class="message">
-                    "Every step is progress. Enjoy your dance journey today!"
+                <div class="video-grid">
+                    <a href="#" class="video-card">
+                        <div class="video-title">
+                            <i class="fas fa-play-circle"></i> Bachata Fundamentals
+                        </div>
+                        <div class="video-description">
+                            Master the basic steps, timing, and footwork for authentic Bachata
+                        </div>
+                        <span class="video-link">Watch Now <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    
+                    <a href="#" class="video-card">
+                        <div class="video-title">
+                            <i class="fas fa-play-circle"></i> Salsa Essentials
+                        </div>
+                        <div class="video-description">
+                            Core movements, timing, and partner connection techniques
+                        </div>
+                        <span class="video-link">Watch Now <i class="fas fa-arrow-right"></i></span>
+                    </a>
                 </div>
             </div>
         </div>
         
         <footer>
-            <p>© 2023 Daniel Palacios Dance | Professional Instruction</p>
+            <p>Daniel Palacios Dance © 2023 | Transforming passion into movement</p>
             <div class="footer-links">
-                <a href="#" class="footer-link">Class Schedule</a>
+                <a href="#" class="footer-link">Schedule</a>
                 <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">Privacy</a>
+                <a href="#" class="footer-link">About</a>
             </div>
         </footer>
+    </div>
+    
+    <!-- Confirmation Screen -->
+    <div class="confirmation" id="confirmation">
+        <div class="checkmark">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="welcome-message" id="welcome-message">Welcome, Dancer!</div>
+        <div class="inspiration" id="inspiration">"Dance is the hidden language of the soul"</div>
+        <button class="continue-btn" id="continue-btn">CONTINUE</button>
     </div>
 
     <script>
         // Form submission
-        document.querySelector('.checkin-form').addEventListener('submit', function(e) {
+        const form = document.getElementById('checkin-form');
+        const confirmation = document.getElementById('confirmation');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const inspiration = document.getElementById('inspiration');
+        const continueBtn = document.getElementById('continue-btn');
+        
+        // Inspirational quotes
+        const quotes = [
+            "Every step you take is progress. Dance with your heart today!",
+            "Movement is medicine for the spirit. Heal and express yourself!",
+            "The dance floor is your canvas. Create something beautiful!",
+            "Rhythm flows through you - let it guide your movements!",
+            "Today is your day to dance like nobody's watching!",
+            "You are becoming the dancer you've always imagined. Keep going!",
+            "Let your body tell a story through movement today!",
+            "Your energy transforms the dance floor. Own it!",
+            "Dancing is dreaming with your feet. Dream big today!",
+            "Your dedication inspires everyone around you. Keep dancing!"
+        ];
+        
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
             
             const name = document.getElementById('student-name').value;
@@ -511,7 +630,16 @@
             const payment = document.getElementById('payment-method').value;
             
             if (!name || !location || !payment) {
-                alert('Please fill in all fields');
+                // Highlight empty fields
+                const inputs = document.querySelectorAll('.form-input');
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        input.style.borderColor = '#e74c3c';
+                        setTimeout(() => {
+                            input.style.borderColor = '';
+                        }, 2000);
+                    }
+                });
                 return;
             }
             
@@ -520,23 +648,33 @@
             switch(location) {
                 case "stardust": locationName = "Stardust Ballroom"; break;
                 case "letsbailar": locationName = "Let's Bailar"; break;
-                case "estilo": locationName = "Estilo Dance Studio"; break;
             }
             
-            // Show confirmation
-            alert(`Thank you ${name}! You're checked in at ${locationName} with ${payment} payment. Enjoy your class!`);
+            // Create personalized message
+            const firstName = name.split(' ')[0] || name;
+            welcomeMessage.textContent = `Welcome, ${firstName}!`;
             
-            // Reset form
-            this.reset();
+            // Random inspirational quote
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            inspiration.textContent = `"${randomQuote}"`;
+            
+            // Show confirmation
+            confirmation.classList.add('active');
         });
         
-        // Simple hover effect for cards
-        document.querySelectorAll('.location-card, .video-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
+        // Continue button
+        continueBtn.addEventListener('click', function() {
+            confirmation.classList.remove('active');
+            form.reset();
+        });
+        
+        // Add hover effect to video cards
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
             });
             
-            item.addEventListener('mouseleave', function() {
+            card.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0)';
             });
         });
