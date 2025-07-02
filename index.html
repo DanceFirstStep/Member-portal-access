@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dance Portal Check-in</title>
+    <title>Dance Studio Check-in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0c0f1a 0%, #151a29 100%);
-            color: #f8f9fa;
-            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,30 +25,35 @@
         .container {
             width: 100%;
             max-width: 500px;
-            background: rgba(22, 25, 37, 0.9);
-            backdrop-filter: blur(10px);
+            background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            border: 1px solid rgba(100, 100, 150, 0.15);
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(to bottom, rgba(230, 126, 34, 0.1), transparent);
+            padding: 30px;
+            background: #8E2DE2;
+            color: white;
         }
         
         .logo {
             width: 80px;
             height: 80px;
             margin: 0 auto 15px;
-            background: linear-gradient(135deg, #e67e22, #f1c40f);
+            background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: pulse 4s infinite;
+            animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
@@ -60,20 +63,18 @@
         
         .logo i {
             font-size: 36px;
-            color: white;
+            color: #8E2DE2;
         }
         
         h1 {
             font-size: 2.2rem;
-            font-family: 'Montserrat', sans-serif;
             margin-bottom: 10px;
+            font-weight: 700;
         }
         
         .tagline {
             font-size: 1.1rem;
-            color: #cbd5e0;
-            max-width: 400px;
-            margin: 0 auto;
+            opacity: 0.9;
         }
         
         .form-section {
@@ -88,24 +89,22 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: #cbd5e0;
+            color: #333;
+            font-size: 1.1rem;
         }
         
         .form-input {
             width: 100%;
             padding: 16px 20px;
             border-radius: 12px;
-            border: 1px solid rgba(100, 100, 150, 0.2);
-            background: rgba(40, 45, 60, 0.4);
-            color: white;
+            border: 2px solid #e0e0e0;
+            background: #f9f9f9;
             font-size: 1rem;
-            font-family: 'Open Sans', sans-serif;
         }
         
         .form-input:focus {
             outline: none;
-            border-color: #f1c40f;
-            background: rgba(50, 55, 70, 0.5);
+            border-color: #8E2DE2;
         }
         
         .payment-options {
@@ -118,107 +117,116 @@
         .payment-option {
             display: flex;
             align-items: center;
-            padding: 16px;
-            background: rgba(40, 45, 60, 0.4);
+            padding: 15px;
             border-radius: 12px;
-            border: 1px solid rgba(100, 100, 150, 0.1);
-            transition: all 0.3s ease;
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
             cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .payment-option:hover {
-            background: rgba(50, 55, 70, 0.5);
-            transform: translateY(-2px);
+        .payment-option.selected {
+            border-color: #8E2DE2;
+            background: rgba(142, 45, 226, 0.1);
         }
         
         .payment-option input {
             margin-right: 15px;
             width: 20px;
             height: 20px;
-            accent-color: #f1c40f;
+            accent-color: #8E2DE2;
         }
         
         .payment-option label {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            flex-grow: 1;
+            font-size: 1.1rem;
         }
         
         .payment-icon {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             width: 30px;
             text-align: center;
         }
         
-        .cash-icon { color: #38a169; }
+        .cash-icon { color: #27ae60; }
         .venmo-icon { color: #3d95ce; }
         .later-icon { color: #e67e22; }
         
         .submit-btn {
             width: 100%;
-            background: linear-gradient(135deg, #e67e22, #f1c40f);
-            color: #1a1f36;
+            background: #8E2DE2;
+            color: white;
             border: none;
             border-radius: 12px;
             padding: 18px;
             font-size: 1.2rem;
             font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
             cursor: pointer;
             margin-top: 10px;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: all 0.3s;
         }
         
         .submit-btn:hover {
+            background: #7a1fcc;
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(230, 126, 34, 0.3);
+            box-shadow: 0 5px 15px rgba(142, 45, 226, 0.4);
         }
         
         .inspiration-card {
-            background: rgba(30, 34, 47, 0.7);
+            background: white;
             border-radius: 16px;
-            padding: 25px;
+            padding: 30px;
             margin-top: 25px;
             display: none;
             text-align: center;
-            border: 1px solid rgba(241, 196, 15, 0.2);
+            border: 2px solid #8E2DE2;
+            animation: fadeIn 0.5s;
         }
         
         .inspiration-card h2 {
-            color: #f1c40f;
-            margin-bottom: 15px;
-            font-family: 'Montserrat', sans-serif;
+            color: #8E2DE2;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
         
         .card-icon {
-            font-size: 3rem;
-            color: #f1c40f;
-            margin-bottom: 15px;
+            font-size: 3.5rem;
+            color: #8E2DE2;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .card-content p {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             line-height: 1.6;
+            font-size: 1.1rem;
+            color: #555;
         }
         
         .highlight {
-            color: #f1c40f;
-            font-weight: 600;
+            color: #8E2DE2;
+            font-weight: 700;
         }
         
         footer {
             text-align: center;
             padding: 25px;
-            color: #cbd5e0;
+            color: #777;
             font-size: 0.9rem;
-            border-top: 1px solid rgba(100, 100, 150, 0.1);
+            border-top: 1px solid #eee;
         }
         
         .footer-links {
@@ -230,22 +238,9 @@
         }
         
         .footer-link {
-            color: #f1c40f;
+            color: #8E2DE2;
             text-decoration: none;
-        }
-        
-        @media (max-width: 480px) {
-            header {
-                padding: 30px 15px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .form-section {
-                padding: 20px;
-            }
+            font-weight: 600;
         }
     </style>
 </head>
@@ -255,8 +250,8 @@
             <div class="logo">
                 <i class="fas fa-music"></i>
             </div>
-            <h1>Dance Portal</h1>
-            <p class="tagline">Complete your check-in to join the class</p>
+            <h1>Dance Studio Check-in</h1>
+            <p class="tagline">Get ready to dance!</p>
         </header>
         
         <div class="form-section">
@@ -269,32 +264,33 @@
                 <label for="class-location" class="form-label">Studio Location</label>
                 <select id="class-location" class="form-input">
                     <option value="">Select your studio</option>
-                    <option value="stardust">Stardust Ballroom</option>
-                    <option value="letsbailar">Let's Bailar</option>
+                    <option value="downtown">Downtown Studio</option>
+                    <option value="uptown">Uptown Studio</option>
                 </select>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Payment Method</label>
                 <div class="payment-options">
-                    <div class="payment-option">
-                        <input type="radio" name="payment" id="cash" value="cash">
+                    <!-- Payment options with EXACT labels -->
+                    <div class="payment-option" id="cash-option">
+                        <input type="radio" name="payment" id="cash" checked>
                         <label for="cash">
                             <i class="fas fa-money-bill-wave payment-icon cash-icon"></i>
-                            <span>Pay Cash</span>
+                            <span>Paid Cash</span>
                         </label>
                     </div>
                     
-                    <div class="payment-option">
-                        <input type="radio" name="payment" id="venmo" value="venmo">
+                    <div class="payment-option" id="venmo-option">
+                        <input type="radio" name="payment" id="venmo">
                         <label for="venmo">
                             <i class="fab fa-vimeo payment-icon venmo-icon"></i>
-                            <span>Pay Venmo</span>
+                            <span>Paid Venmo</span>
                         </label>
                     </div>
                     
-                    <div class="payment-option">
-                        <input type="radio" name="payment" id="later" value="later" checked>
+                    <div class="payment-option" id="later-option">
+                        <input type="radio" name="payment" id="later">
                         <label for="later">
                             <i class="fas fa-clock payment-icon later-icon"></i>
                             <span>Pay After Check-in</span>
@@ -304,7 +300,7 @@
             </div>
             
             <button class="submit-btn" id="checkin-btn">
-                <i class="fas fa-arrow-right"></i> COMPLETE CHECK-IN
+                <i class="fas fa-check-circle"></i> COMPLETE CHECK-IN
             </button>
             
             <div class="inspiration-card" id="inspiration-card">
@@ -315,40 +311,59 @@
                 <div class="card-content">
                     <p>We're excited to dance with you today!</p>
                     <p>Your journey to becoming a <span class="highlight">better dancer</span> starts now.</p>
-                    <p>Get ready to move, learn, and have fun!</p>
                 </div>
             </div>
         </div>
         
         <footer>
-            <p>Daniel Palacios Dance © 2023</p>
+            <p>Dance Studio © 2023</p>
             <div class="footer-links">
                 <a href="#" class="footer-link">Schedule</a>
                 <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">About</a>
             </div>
         </footer>
     </div>
 
     <script>
+        // Set up payment selection
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selection from all options
+                paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selection to clicked option
+                this.classList.add('selected');
+                
+                // Check the radio button inside
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+            });
+        });
+        
+        // Initialize with Paid Cash selected
+        document.getElementById('cash-option').classList.add('selected');
+        
+        // Check-in button
         document.getElementById('checkin-btn').addEventListener('click', function() {
             const name = document.getElementById('student-name').value;
             const location = document.getElementById('class-location').value;
-            const payLater = document.getElementById('later').checked;
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').id;
             
             // Simple validation
             if (!name || !location) {
-                alert('Please enter your name and select a studio location');
+                alert('Please enter your name and select a studio');
                 return;
             }
             
             // Show inspiration card
             const card = document.getElementById('inspiration-card');
             card.style.display = 'block';
-            card.scrollIntoView({ behavior: 'smooth' });
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
             // If "Pay After Check-in" is selected, open Venmo
-            if (payLater) {
+            if (paymentMethod === 'later') {
                 setTimeout(function() {
                     window.open('https://venmo.com/', '_blank');
                 }, 800);
