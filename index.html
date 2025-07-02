@@ -22,14 +22,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%);
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             width: 100%;
             background: white;
             border-radius: 16px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             overflow: hidden;
         }
         
@@ -38,6 +39,7 @@
             padding: 40px 20px;
             background: linear-gradient(135deg, #e67e22, #f1c40f);
             color: white;
+            position: relative;
         }
         
         .logo {
@@ -49,6 +51,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .logo i {
@@ -69,15 +72,15 @@
             margin: 0 auto;
         }
         
-        .portal-content {
+        .portal-sections {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 30px;
+            gap: 25px;
             padding: 30px;
         }
         
-        @media (min-width: 768px) {
-            .portal-content {
+        @media (min-width: 900px) {
+            .portal-sections {
                 grid-template-columns: 1fr 1fr;
             }
         }
@@ -105,6 +108,65 @@
             color: #e67e22;
         }
         
+        /* Class Locations */
+        .locations-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .location-card {
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+        
+        .location-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-color: #f1c40f;
+        }
+        
+        .location-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #e67e22;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .location-details {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .location-schedule {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #eee;
+        }
+        
+        .schedule-item {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .schedule-day {
+            min-width: 80px;
+            font-weight: 600;
+            color: #555;
+        }
+        
         /* Check-in Section */
         .checkin-form {
             display: flex;
@@ -121,6 +183,9 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #555;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .form-input {
@@ -179,6 +244,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            margin-top: 15px;
         }
         
         .video-item {
@@ -266,11 +332,116 @@
                 <i class="fas fa-music"></i>
             </div>
             <h1>Daniel Palacios Dance</h1>
-            <p class="tagline">Simple portal for students</p>
+            <p class="tagline">Student Portal - Locations, Check-in & Practice</p>
         </header>
         
-        <div class="portal-content">
-            <!-- Check-in Section -->
+        <div class="portal-sections">
+            <!-- Left Column -->
+            <div>
+                <!-- Class Locations Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i> Class Locations
+                    </h2>
+                    <p>Where we dance together:</p>
+                    
+                    <div class="locations-container">
+                        <!-- Stardust Ballroom -->
+                        <div class="location-card">
+                            <div class="location-name">
+                                <i class="fas fa-star"></i> Stardust Ballroom
+                            </div>
+                            <div class="location-details">
+                                <i class="fas fa-map-pin"></i> Bellmawr, New Jersey
+                            </div>
+                            <div class="location-schedule">
+                                <div class="schedule-item">
+                                    <div class="schedule-day">Monday:</div>
+                                    <div>Bachata 6:30pm + next level</div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-day">Thursday:</div>
+                                    <div>Salsa 6:30pm & Bachata</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Let's Bailar -->
+                        <div class="location-card">
+                            <div class="location-name">
+                                <i class="fas fa-city"></i> Let's Bailar
+                            </div>
+                            <div class="location-details">
+                                <i class="fas fa-map-pin"></i> Philly - Chinese Assoc.
+                            </div>
+                            <div class="location-schedule">
+                                <div class="schedule-item">
+                                    <div class="schedule-day">Friday:</div>
+                                    <div>7pm: Salsa & Bachata</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Estilo Dance Studio -->
+                        <div class="location-card">
+                            <div class="location-name">
+                                <i class="fas fa-building"></i> Estilo Dance Studio
+                            </div>
+                            <div class="location-details">
+                                <i class="fas fa-map-pin"></i> Fishtown, Philadelphia
+                            </div>
+                            <div class="location-schedule">
+                                <div class="schedule-item">
+                                    <div class="schedule-day">Saturday:</div>
+                                    <div>Salsa & Bachata at 4pm</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <i class="fas fa-video"></i> Practice Videos
+                    </h2>
+                    <p>Fundamental videos for your practice:</p>
+                    
+                    <div class="video-list">
+                        <a href="#" class="video-item">
+                            <div class="video-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">Bachata Fundamentals</div>
+                                <div class="video-description">Basic steps, timing, and footwork</div>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="video-item">
+                            <div class="video-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">Salsa Essentials</div>
+                                <div class="video-description">Core movements and timing</div>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="video-item">
+                            <div class="video-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">Bachata Turns</div>
+                                <div class="video-description">Intermediate techniques</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Check-in Section -->
             <div class="section">
                 <h2 class="section-title">
                     <i class="fas fa-check-circle"></i> Class Check-in
@@ -279,12 +450,28 @@
                 
                 <form class="checkin-form">
                     <div class="form-group">
-                        <label for="student-name" class="form-label">Your Name</label>
+                        <label for="student-name" class="form-label">
+                            <i class="fas fa-user"></i> Your Name
+                        </label>
                         <input type="text" id="student-name" class="form-input" placeholder="First and last name">
                     </div>
                     
                     <div class="form-group">
-                        <label for="payment-method" class="form-label">Payment Method</label>
+                        <label for="class-location" class="form-label">
+                            <i class="fas fa-map-marker-alt"></i> Class Location
+                        </label>
+                        <select id="class-location" class="form-input">
+                            <option value="">Select location</option>
+                            <option value="stardust">Stardust Ballroom</option>
+                            <option value="letsbailar">Let's Bailar</option>
+                            <option value="estilo">Estilo Dance Studio</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="payment-method" class="form-label">
+                            <i class="fas fa-money-bill-wave"></i> Payment Method
+                        </label>
                         <select id="payment-method" class="form-input">
                             <option value="">Select payment option</option>
                             <option value="cash">Cash</option>
@@ -299,57 +486,7 @@
                 </form>
                 
                 <div class="message">
-                    "Every step is progress. Enjoy your dance journey!"
-                </div>
-            </div>
-            
-            <!-- Video Section -->
-            <div class="section">
-                <h2 class="section-title">
-                    <i class="fas fa-video"></i> Practice Videos
-                </h2>
-                <p>Fundamental videos for your practice:</p>
-                
-                <div class="video-list">
-                    <a href="#" class="video-item">
-                        <div class="video-icon">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-title">Bachata Fundamentals</div>
-                            <div class="video-description">Basic steps, timing, and footwork</div>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="video-item">
-                        <div class="video-icon">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-title">Salsa Essentials</div>
-                            <div class="video-description">Core movements and timing</div>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="video-item">
-                        <div class="video-icon">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-title">Bachata Turns</div>
-                            <div class="video-description">Intermediate techniques and combinations</div>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="video-item">
-                        <div class="video-icon">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-title">Salsa Cross Body Lead</div>
-                            <div class="video-description">Leading and following techniques</div>
-                        </div>
-                    </a>
+                    "Every step is progress. Enjoy your dance journey today!"
                 </div>
             </div>
         </div>
@@ -370,22 +507,31 @@
             e.preventDefault();
             
             const name = document.getElementById('student-name').value;
+            const location = document.getElementById('class-location').value;
             const payment = document.getElementById('payment-method').value;
             
-            if (!name || !payment) {
-                alert('Please enter your name and select payment method');
+            if (!name || !location || !payment) {
+                alert('Please fill in all fields');
                 return;
             }
             
+            // Get location name
+            let locationName = "";
+            switch(location) {
+                case "stardust": locationName = "Stardust Ballroom"; break;
+                case "letsbailar": locationName = "Let's Bailar"; break;
+                case "estilo": locationName = "Estilo Dance Studio"; break;
+            }
+            
             // Show confirmation
-            alert(`Thank you ${name}! You're checked in with ${payment} payment. Enjoy your class!`);
+            alert(`Thank you ${name}! You're checked in at ${locationName} with ${payment} payment. Enjoy your class!`);
             
             // Reset form
             this.reset();
         });
         
-        // Simple hover effect for video items
-        document.querySelectorAll('.video-item').forEach(item => {
+        // Simple hover effect for cards
+        document.querySelectorAll('.location-card, .video-item').forEach(item => {
             item.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-3px)';
             });
