@@ -646,6 +646,15 @@
                                     <span>I'll pay after check-in</span>
                                 </label>
                             </div>
+                            
+                            <!-- Pay with Venmo After Option -->
+                            <div class="payment-option">
+                                <input type="radio" name="payment" id="pay-venmo" value="pay-venmo">
+                                <label for="pay-venmo">
+                                    <i class="fab fa-vimeo payment-icon"></i>
+                                    <span>Pay with Venmo after check-in</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     
@@ -679,6 +688,15 @@
                             Core movements, timing, and partner connection techniques
                         </div>
                     </a>
+                    
+                    <a href="#" class="video-card">
+                        <div class="video-title">
+                            <i class="fas fa-video"></i> Musicality Workshop
+                        </div>
+                        <div class="video-description">
+                            Learn to interpret music and express it through dance
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -689,6 +707,7 @@
                 <a href="#" class="footer-link">Class Schedule</a>
                 <a href="#" class="footer-link">Contact</a>
                 <a href="#" class="footer-link">About</a>
+                <a href="#" class="footer-link">Private Lessons</a>
             </div>
         </footer>
     </div>
@@ -700,7 +719,7 @@
         </div>
         <div class="welcome-message" id="welcome-message">Welcome to Class!</div>
         <div class="inspiration" id="inspiration">"Dance is the hidden language of the soul"</div>
-        <button class="continue-btn" id="continue-btn">CONTINUE</button>
+        <button class="continue-btn" id="continue-btn">CONTINUE TO PORTAL</button>
     </div>
 
     <script>
@@ -730,7 +749,8 @@
             
             const name = document.getElementById('student-name').value;
             const location = document.getElementById('class-location').value;
-            const paymentAfter = document.getElementById('pay-after').checked;
+            const payAfter = document.getElementById('pay-after').checked;
+            const payVenmo = document.getElementById('pay-venmo').checked;
             
             if (!name || !location) {
                 // Highlight empty fields
@@ -764,8 +784,8 @@
             // Show confirmation
             confirmation.classList.add('active');
             
-            // If "Pay after check-in" was selected, open payment link after inspiration card
-            if (paymentAfter) {
+            // If "Pay after check-in" or "Pay with Venmo" was selected, open payment link after inspiration card
+            if (payAfter || payVenmo) {
                 setTimeout(() => {
                     window.open('https://venmo.com/', '_blank');
                 }, 1000);
@@ -777,6 +797,14 @@
             confirmation.classList.remove('active');
             form.reset();
         });
+        
+        // Automatically show/hide payment methods based on selection
+        document.getElementById('already-paid').addEventListener('change', function() {
+            document.querySelector('.sub-options').style.display = this.checked ? 'flex' : 'none';
+        });
+        
+        // Initialize the payment options
+        document.querySelector('.sub-options').style.display = 'flex';
     </script>
 </body>
 </html>
