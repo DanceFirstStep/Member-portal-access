@@ -212,6 +212,7 @@
             box-shadow: 0 15px 35px rgba(106, 90, 205, 0.25);
         }
         
+        /* Simplified Inspiration Card */
         .inspiration-card {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 20px;
@@ -243,11 +244,31 @@
             50% { transform: translateY(-10px); }
         }
         
-        .card-content p {
-            margin-bottom: 15px;
-            line-height: 1.7;
-            font-size: 1.1rem;
+        .card-content {
+            background: rgba(245, 245, 255, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .inspiration-message {
+            font-size: 1.4rem;
+            color: #4B0082;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .inspiration-quote {
+            font-style: italic;
+            font-size: 1.2rem;
             color: #5a5a6d;
+            line-height: 1.7;
+            margin-top: 25px;
+            padding: 15px;
+            border-left: 3px solid #6A5ACD;
+            background: rgba(245, 245, 255, 0.3);
+            border-radius: 0 12px 12px 0;
         }
         
         .highlight {
@@ -280,13 +301,15 @@
             border: none;
             border-radius: 14px;
             padding: 15px 30px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             box-shadow: 0 5px 15px rgba(61, 149, 206, 0.15);
             gap: 10px;
+            width: 100%;
+            max-width: 300px;
         }
         
         .venmo-btn:hover {
@@ -295,35 +318,12 @@
             background: #3484b5;
         }
         
-        .finish-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #50C878;
-            color: white;
-            border: none;
-            border-radius: 14px;
-            padding: 15px 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(80, 200, 120, 0.15);
-            gap: 10px;
-        }
-        
-        .finish-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(80, 200, 120, 0.2);
-            background: #46b36a;
-        }
-        
         .venmo-note {
             font-size: 0.9rem;
             color: rgba(90, 90, 109, 0.6);
             max-width: 400px;
             text-align: center;
+            margin-top: 8px;
         }
         
         .payment-complete {
@@ -337,6 +337,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            font-size: 1.1rem;
         }
         
         .reset-container {
@@ -352,10 +353,13 @@
             cursor: pointer;
             text-decoration: underline;
             transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 8px;
         }
         
         .reset-btn:hover {
             color: #4B0082;
+            background: rgba(106, 90, 205, 0.05);
         }
         
         .data-saving {
@@ -416,6 +420,14 @@
             .inspiration-card {
                 padding: 25px;
             }
+            
+            .inspiration-message {
+                font-size: 1.2rem;
+            }
+            
+            .inspiration-quote {
+                font-size: 1.1rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -442,6 +454,10 @@
             
             .inspiration-card h2 {
                 font-size: 1.8rem;
+            }
+            
+            .inspiration-message {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -518,11 +534,15 @@
                     <i class="fas fa-star"></i>
                 </div>
                 <h2 id="welcome-title">Welcome to Class!</h2>
+                
                 <div class="card-content">
-                    <p id="welcome-message">We're excited to dance with you today!</p>
-                    <p id="personal-greeting">Your passion shines through every step!</p>
-                    <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
-                    <p id="journey-message">Your journey to becoming a <span class="highlight">better dancer</span> starts now.</p>
+                    <div class="inspiration-message" id="inspiration-message">
+                        We're excited to dance with you today!
+                    </div>
+                    
+                    <div class="inspiration-quote" id="inspiration-quote">
+                        "Dance is the hidden language of the soul."
+                    </div>
                 </div>
                 
                 <div class="payment-actions" id="payment-actions">
@@ -564,39 +584,24 @@
         const paymentComplete = document.getElementById('payment-complete');
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
-        const welcomeMessage = document.getElementById('welcome-message');
-        const personalGreeting = document.getElementById('personal-greeting');
+        const welcomeTitle = document.getElementById('welcome-title');
+        const inspirationMessage = document.getElementById('inspiration-message');
         const inspirationQuote = document.getElementById('inspiration-quote');
-        const journeyMessage = document.getElementById('journey-message');
         const resetBtn = document.getElementById('reset-btn');
         const dataSaving = document.getElementById('data-saving');
-        const welcomeTitle = document.getElementById('welcome-title');
         
         // Collections for personalized messages
         const welcomeMessages = [
-            "Happy to have you here today!",
-            "Excited to dance with you!",
-            "It's a pleasure to see you!",
-            "Ready to make some moves?",
-            "Let's create magic together!",
+            "Today's class will be unforgettable!",
+            "We're thrilled to dance with you today!",
+            "Get ready for an amazing session!",
             "Your energy makes our studio brighter!",
             "So glad you're joining us today!",
-            "Get ready for an amazing session!",
-            "Your presence inspires us!",
-            "Today's class will be unforgettable!"
-        ];
-        
-        const personalGreetings = [
-            "Your passion shines through every step!",
-            "Your dedication to dance is inspiring!",
-            "Your progress has been incredible to watch!",
-            "Your unique style brings joy to the studio!",
-            "Your commitment to growth is admirable!",
-            "Your positive energy lifts everyone around you!",
-            "Your technique keeps getting better!",
-            "Your creativity on the floor is beautiful!",
-            "Your love for dance is contagious!",
-            "Your rhythm and flow are exceptional!"
+            "Let's create some magic on the dance floor!",
+            "We've been looking forward to dancing with you!",
+            "Your presence makes today special!",
+            "Prepare for an incredible dance experience!",
+            "We're about to have an amazing time!"
         ];
         
         const danceQuotes = [
@@ -613,16 +618,16 @@
         ];
         
         const journeyMessages = [
-            "Your journey to becoming a better dancer continues today!",
-            "Every class brings you closer to your dance dreams!",
-            "Your growth as a dancer is inspiring to see!",
-            "The dance floor awaits your unique expression!",
-            "Your dedication is transforming you into an amazing dancer!",
-            "Today's class will take your skills to the next level!",
+            "The dance floor is your canvas - create something beautiful today!",
+            "Every step you take brings you closer to your dance dreams!",
             "Your journey in dance is creating beautiful stories!",
-            "With every step, you're becoming the dancer you aspire to be!",
-            "Your dance journey is a beautiful expression of your passion!",
-            "The dance floor is your canvas - create something beautiful today!"
+            "With every move, you're becoming the dancer you aspire to be!",
+            "Express yourself freely and let the music guide you!",
+            "Dance is your language - speak with your whole heart!",
+            "Let your body tell the story your heart wants to share!",
+            "This class is another step in your amazing dance journey!",
+            "Embrace the movement and let your spirit soar!",
+            "Your dance journey is a beautiful expression of your passion!"
         ];
         
         // Save data to Google Sheets
@@ -667,15 +672,12 @@
             
             // Generate random messages
             const welcomeMsg = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
-            const personalMsg = personalGreetings[Math.floor(Math.random() * personalGreetings.length)];
             const quote = danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
             const journeyMsg = journeyMessages[Math.floor(Math.random() * journeyMessages.length)];
             
             // Update messages
-            welcomeMessage.textContent = welcomeMsg;
-            personalGreeting.textContent = personalMsg;
-            inspirationQuote.textContent = `"${quote}"`;
-            journeyMessage.innerHTML = journeyMsg;
+            inspirationMessage.innerHTML = welcomeMsg;
+            inspirationQuote.innerHTML = `"${quote}"`;
             
             // Prepare data for saving
             const checkinData = {
@@ -688,10 +690,9 @@
             // Custom messages for unlimited members
             if (paymentMethod === 'unlimited') {
                 welcomeTitle.innerHTML = `Welcome <span class="member-highlight">Unlimited Member</span>!`;
-                journeyMessage.innerHTML = `Your <span class="member-highlight">unlimited access</span> to all locations continues!`;
-            } else {
-                welcomeTitle.innerHTML = "Welcome to Class!";
-            }
+                inspirationMessage.innerHTML = `Your unlimited access continues!`;
+                inspirationQuote.innerHTML = `"${journeyMsg}"`;
+            } 
             
             // Handle payment methods
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
@@ -741,10 +742,8 @@
             
             // Reset welcome messages
             welcomeTitle.innerHTML = "Welcome to Class!";
-            welcomeMessage.textContent = "We're excited to dance with you today!";
-            personalGreeting.textContent = "Your passion shines through every step!";
+            inspirationMessage.textContent = "We're excited to dance with you today!";
             inspirationQuote.textContent = '"Dance is the hidden language of the soul."';
-            journeyMessage.innerHTML = "Your journey to becoming a <span class='highlight'>better dancer</span> starts now.";
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
