@@ -165,13 +165,39 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            height: auto;
+            max-height: 70px;
+            transition: all 0.4s ease;
         }
         
-        .payment-option:hover {
-            background: rgba(255, 255, 255, 1);
-            border-color: rgba(106, 90, 205, 0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        .payment-option.collapsed {
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-width: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+        }
+        
+        .payment-option.selected {
+            border: 2px solid #6A5ACD;
+            background: rgba(106, 90, 205, 0.05);
+            box-shadow: 0 5px 15px rgba(106, 90, 205, 0.1);
+            transform: scale(1.02);
+            z-index: 10;
+        }
+        
+        .payment-option.selected .payment-icon {
+            color: #4B0082;
+            animation: pulse-icon 1.5s infinite;
+        }
+        
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         
         .payment-option input[type="radio"] {
@@ -194,6 +220,10 @@
         .payment-icon {
             font-size: 1.2rem;
             color: #6A5ACD;
+        }
+        
+        .payment-label {
+            font-weight: 600;
         }
         
         .submit-btn {
@@ -354,6 +384,25 @@
             background: rgba(106, 90, 205, 0.05);
         }
         
+        .change-payment-btn {
+            background: transparent;
+            border: none;
+            color: #6A5ACD;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 6px;
+            margin-left: 10px;
+            display: none;
+        }
+        
+        .change-payment-btn:hover {
+            color: #4B0082;
+            background: rgba(106, 90, 205, 0.05);
+        }
+        
         footer {
             text-align: center;
             padding: 40px 30px 30px;
@@ -425,36 +474,10 @@
             .inspiration-card h2 {
                 font-size: 1.8rem;
             }
-        }
-        
-        /* Payment selection effect */
-        .payment-option:not(.selected) {
-            opacity: 0.3;
-            transform: scale(0.95);
-            filter: blur(1px);
-            transition: all 0.4s ease;
-        }
-        
-        .payment-option.selected {
-            border: 2px solid #6A5ACD;
-            background: rgba(106, 90, 205, 0.05);
-            box-shadow: 0 5px 15px rgba(106, 90, 205, 0.1);
-            transform: scale(1.02);
-            z-index: 10;
-        }
-        
-        .payment-option.selected .payment-icon {
-            color: #4B0082;
-            animation: pulse-icon 1.5s infinite;
-        }
-        
-        @keyframes pulse-icon {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .payment-label {
-            font-weight: 600;
+            
+            .payment-option {
+                padding: 12px;
+            }
         }
     </style>
 </head>
@@ -488,12 +511,15 @@
             <div class="form-group">
                 <label class="form-label">Payment Method</label>
                 <div class="payment-options">
-                    <div class="payment-option selected" id="cash-option">
+                    <div class="payment-option" id="cash-option">
                         <input type="radio" name="payment" id="cash" value="cash" checked>
                         <label for="cash">
                             <i class="fas fa-money-bill-wave payment-icon"></i>
                             <span class="payment-label">Paid Cash</span>
                         </label>
+                        <button class="change-payment-btn" id="change-payment">
+                            <i class="fas fa-sync-alt"></i> Change
+                        </button>
                     </div>
                     
                     <div class="payment-option" id="venmo-option">
@@ -577,35 +603,59 @@
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
+        const changePaymentBtn = document.getElementById('change-payment');
         
         // Payment option elements
         const cashOption = document.getElementById('cash-option');
         const venmoOption = document.getElementById('venmo-option');
         const unlimitedOption = document.getElementById('unlimited-option');
         const laterOption = document.getElementById('later-option');
+        const paymentOptions = [cashOption, venmoOption, unlimitedOption, laterOption];
         
         // Venmo payment link
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
         
         // Add click handlers to payment options
-        cashOption.addEventListener('click', () => selectPaymentOption(cashOption));
-        venmoOption.addEventListener('click', () => selectPaymentOption(venmoOption));
-        unlimitedOption.addEventListener('click', () => selectPaymentOption(unlimitedOption));
-        laterOption.addEventListener('click', () => selectPaymentOption(laterOption));
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                selectPaymentOption(this);
+            });
+        });
+        
+        // Change payment button handler
+        changePaymentBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            expandPaymentOptions();
+        });
         
         function selectPaymentOption(selectedOption) {
-            // Remove selected class from all options
-            cashOption.classList.remove('selected');
-            venmoOption.classList.remove('selected');
-            unlimitedOption.classList.remove('selected');
-            laterOption.classList.remove('selected');
-            
-            // Add selected class to clicked option
-            selectedOption.classList.add('selected');
+            // Collapse all non-selected options
+            paymentOptions.forEach(option => {
+                if (option !== selectedOption) {
+                    option.classList.add('collapsed');
+                } else {
+                    option.classList.add('selected');
+                    option.classList.remove('collapsed');
+                }
+            });
             
             // Check the radio button inside
             const radio = selectedOption.querySelector('input[type="radio"]');
             radio.checked = true;
+            
+            // Show change payment button
+            changePaymentBtn.style.display = 'inline-block';
+        }
+        
+        function expandPaymentOptions() {
+            // Expand all payment options
+            paymentOptions.forEach(option => {
+                option.classList.remove('collapsed');
+                option.classList.remove('selected');
+            });
+            
+            // Hide change payment button
+            changePaymentBtn.style.display = 'none';
         }
         
         checkinBtn.addEventListener('click', function() {
@@ -683,15 +733,18 @@
             venmoPayBtn.style.display = 'none';
             
             // Reset payment selection
-            cashOption.classList.remove('selected');
-            venmoOption.classList.remove('selected');
-            unlimitedOption.classList.remove('selected');
-            laterOption.classList.remove('selected');
+            expandPaymentOptions();
             cashOption.classList.add('selected');
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+        
+        // Initialize payment options
+        cashOption.classList.add('selected');
+        venmoOption.classList.add('collapsed');
+        unlimitedOption.classList.add('collapsed');
+        laterOption.classList.add('collapsed');
     </script>
 </body>
 </html>
