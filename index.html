@@ -33,6 +33,12 @@
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             border: 1px solid rgba(100, 100, 150, 0.15);
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         header {
@@ -94,6 +100,7 @@
         
         .form-group {
             margin-bottom: 30px;
+            position: relative;
         }
         
         .form-label {
@@ -125,6 +132,13 @@
         .form-input::placeholder {
             color: rgba(200, 200, 220, 0.5);
             font-weight: 300;
+        }
+        
+        .name-note {
+            font-size: 0.9rem;
+            color: rgba(200, 200, 220, 0.7);
+            margin-top: 8px;
+            padding-left: 10px;
         }
         
         .payment-options {
@@ -205,11 +219,6 @@
             text-align: center;
             border: 1px solid rgba(241, 196, 15, 0.2);
             animation: fadeIn 0.8s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         .inspiration-card h2 {
@@ -347,36 +356,6 @@
             color: #e67e22;
         }
         
-        .income-report {
-            background: rgba(30, 34, 47, 0.6);
-            border-radius: 16px;
-            padding: 25px;
-            margin-top: 30px;
-            display: none;
-        }
-        
-        .income-report h3 {
-            color: #f1c40f;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(100, 100, 150, 0.2);
-        }
-        
-        th {
-            color: #f1c40f;
-            font-weight: 600;
-        }
-        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -429,6 +408,7 @@
             <div class="form-group">
                 <label for="student-name" class="form-label">Your Full Name</label>
                 <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
+                <div class="name-note">Please include both first and last name</div>
             </div>
             
             <div class="form-group">
@@ -437,6 +417,7 @@
                     <option value="">Select your studio</option>
                     <option value="stardust">Stardust Ballroom</option>
                     <option value="letsbailar">Let's Bailar</option>
+                    <option value="downtown">Downtown Studio</option>
                 </select>
             </div>
             
@@ -484,22 +465,6 @@
                     <p>Let the rhythm guide your movements and your passion shine through!</p>
                 </div>
             </div>
-            
-            <div class="income-report" id="income-report">
-                <h3><i class="fas fa-chart-line"></i> Today's Income Report</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Payment Method</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody id="income-data">
-                        <!-- Income data will appear here -->
-                    </tbody>
-                </table>
-            </div>
         </div>
         
         <footer>
@@ -545,32 +510,14 @@
         const modalVenmo = document.getElementById('modal-venmo');
         const closeModal = document.getElementById('close-modal');
         const displayName = document.getElementById('display-name');
-        const incomeReport = document.getElementById('income-report');
-        const incomeData = document.getElementById('income-data');
+        const nameInput = document.getElementById('student-name');
         
-        // Sample income data for demo
-        const sampleIncome = [
-            { name: "Alex Johnson", method: "Cash", amount: "$20" },
-            { name: "Maria Garcia", method: "Venmo", amount: "$20" },
-            { name: "James Wilson", method: "Cash", amount: "$20" }
-        ];
-        
-        // Initialize sample data
-        function initIncomeData() {
-            sampleIncome.forEach(entry => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${entry.name}</td>
-                    <td>${entry.method}</td>
-                    <td>${entry.amount}</td>
-                `;
-                incomeData.appendChild(row);
-            });
-        }
+        // Income tracking array
+        let incomeRecords = [];
         
         // Check-in button click handler
         checkinBtn.addEventListener('click', function() {
-            const name = document.getElementById('student-name').value;
+            const name = nameInput.value.trim();
             const location = document.getElementById('class-location').value;
             const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
             
@@ -580,8 +527,14 @@
                 return;
             }
             
+            // Extract first name and last initial
+            const nameParts = name.split(' ');
+            let firstName = nameParts[0] || '';
+            let lastNameInitial = nameParts.length > 1 ? nameParts[nameParts.length-1].charAt(0) + '.' : '';
+            let displayNameText = nameParts[0] || 'Guest';
+            
             // Display name in inspiration card
-            displayName.textContent = name;
+            displayName.textContent = displayNameText;
             
             // Show inspiration card
             inspirationCard.style.display = 'block';
@@ -600,49 +553,71 @@
         
         // Track income function
         function trackIncome(name, method) {
-            // Add to income report
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${name}</td>
-                <td>${method === 'later' ? 'Pending' : method}</td>
-                <td>${method === 'later' ? 'Pending' : '$20'}</td>
-            `;
-            incomeData.appendChild(row);
+            // Create record
+            const record = {
+                name: name,
+                method: method === 'later' ? 'Pending' : method,
+                amount: method === 'later' ? 'Pending' : '$20',
+                timestamp: new Date().toISOString()
+            };
             
-            // Show income report
-            incomeReport.style.display = 'block';
+            // Add to records
+            incomeRecords.push(record);
+            
+            // Log to console (for now)
+            console.log('New income record:', record);
+            console.log('All income records:', incomeRecords);
+            
+            // Here you would add future integration with Google Sheets
         }
         
         // Payment modal handlers
         modalCash.addEventListener('click', function() {
-            alert('Cash payment received. Thank you!');
-            paymentModal.classList.remove('active');
+            // Update payment status for the last record
+            if (incomeRecords.length > 0) {
+                const lastRecord = incomeRecords[incomeRecords.length - 1];
+                lastRecord.method = "Cash";
+                lastRecord.amount = "$20";
+                console.log('Updated record:', lastRecord);
+            }
             
-            // Update payment status
-            const lastRow = incomeData.lastChild;
-            const cells = lastRow.getElementsByTagName('td');
-            cells[1].textContent = "Cash";
-            cells[2].textContent = "$20";
+            alert('Cash payment recorded. Thank you!');
+            paymentModal.classList.remove('active');
         });
         
         modalVenmo.addEventListener('click', function() {
+            // Update payment status for the last record
+            if (incomeRecords.length > 0) {
+                const lastRecord = incomeRecords[incomeRecords.length - 1];
+                lastRecord.method = "Venmo";
+                lastRecord.amount = "$20";
+                console.log('Updated record:', lastRecord);
+            }
+            
             // Open Venmo in new tab
             window.open('https://venmo.com/', '_blank');
             paymentModal.classList.remove('active');
-            
-            // Update payment status
-            const lastRow = incomeData.lastChild;
-            const cells = lastRow.getElementsByTagName('td');
-            cells[1].textContent = "Venmo";
-            cells[2].textContent = "$20";
         });
         
         closeModal.addEventListener('click', function() {
             paymentModal.classList.remove('active');
         });
         
-        // Initialize on load
-        window.addEventListener('load', initIncomeData);
+        // Google Sheets integration placeholder
+        function exportToGoogleSheets() {
+            // This would be implemented with Google Apps Script
+            console.log('Exporting to Google Sheets:', incomeRecords);
+            alert('Data exported to Google Sheets!');
+        }
+        
+        // For demo purposes - would be removed in production
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+E to export to Google Sheets (demo only)
+            if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                exportToGoogleSheets();
+            }
+        });
     </script>
 </body>
 </html>
