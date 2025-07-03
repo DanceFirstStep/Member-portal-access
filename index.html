@@ -85,59 +85,8 @@
             line-height: 1.6;
         }
         
-        .main-content {
+        .form-section {
             padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-        
-        .section {
-            background: white;
-            border-radius: 18px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            border: 1px solid rgba(200, 200, 220, 0.3);
-            transition: all 0.4s ease;
-        }
-        
-        .section-header {
-            padding: 18px 20px;
-            background: rgba(106, 90, 205, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .section-header:hover {
-            background: rgba(106, 90, 205, 0.08);
-        }
-        
-        .section-header h2 {
-            font-size: 1.3rem;
-            color: #4B0082;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .section-header i {
-            color: #6A5ACD;
-            font-size: 1.2rem;
-        }
-        
-        .section-content {
-            padding: 20px;
-            max-height: 1000px;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-        }
-        
-        .section.collapsed .section-content {
-            max-height: 0;
-            padding: 0 20px;
         }
         
         .form-group {
@@ -169,11 +118,32 @@
             box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.15);
         }
         
+        .payment-group {
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .payment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .change-payment {
+            background: transparent;
+            border: none;
+            color: #6A5ACD;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: underline;
+            display: none;
+        }
+        
         .payment-options {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: 12px;
         }
         
         .payment-option {
@@ -185,11 +155,25 @@
             border: 1px solid rgba(200, 200, 220, 0.3);
             transition: all 0.3s ease;
             cursor: pointer;
+            opacity: 1;
+            transform: scale(1);
+            height: 60px;
+            overflow: hidden;
         }
         
         .payment-option.selected {
             background: rgba(106, 90, 205, 0.1);
             border-color: #6A5ACD;
+            box-shadow: 0 5px 15px rgba(106, 90, 205, 0.1);
+        }
+        
+        .payment-option.collapsed {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            margin: 0;
+            transform: scale(0.9);
+            border-width: 0;
         }
         
         .payment-option input[type="radio"] {
@@ -223,7 +207,7 @@
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 20px;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
@@ -239,10 +223,18 @@
             box-shadow: 0 12px 25px rgba(106, 90, 205, 0.25);
         }
         
+        .submit-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
         .inspiration-card {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 18px;
             padding: 25px;
+            margin-top: 25px;
             text-align: center;
             border: 1px solid rgba(106, 90, 205, 0.15);
             box-shadow: 0 5px 20px rgba(0,0,0,0.03);
@@ -313,74 +305,80 @@
             background: rgba(106, 90, 205, 0.05);
         }
         
+        .videos-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(245, 245, 255, 0.3);
+            border-radius: 18px;
+            border: 1px solid rgba(200, 200, 220, 0.3);
+        }
+        
+        .videos-section h2 {
+            text-align: center;
+            color: #4B0082;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
         .video-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 15px;
             margin-top: 15px;
         }
         
         .video-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(200, 200, 220, 0.3);
-        }
-        
-        .video-header {
-            padding: 15px;
-            background: linear-gradient(to right, #6A5ACD, #4B0082);
-            color: white;
-        }
-        
-        .video-header h3 {
-            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            padding: 12px;
+            background: white;
+            border-radius: 14px;
+            border: 1px solid rgba(200, 200, 220, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
         
-        .video-player {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
+        .video-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
-        .video-player iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+        .video-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6A5ACD, #7B68EE);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .video-icon i {
+            color: white;
+            font-size: 1.3rem;
         }
         
         .video-info {
-            padding: 15px;
+            flex-grow: 1;
         }
         
-        .video-info p {
-            color: #5a5a6d;
-            line-height: 1.6;
-            font-size: 0.95rem;
+        .video-info h3 {
+            color: #4a4a5d;
+            font-size: 1rem;
+            margin-bottom: 4px;
         }
         
         .video-meta {
             display: flex;
-            justify-content: space-between;
+            gap: 15px;
             color: #7B68EE;
             font-size: 0.85rem;
             font-weight: 500;
-            margin-top: 10px;
-        }
-        
-        .video-category {
-            background: rgba(123, 104, 238, 0.1);
-            padding: 4px 12px;
-            border-radius: 20px;
         }
         
         footer {
@@ -429,28 +427,14 @@
                 font-size: 0.95rem;
             }
             
-            .main-content {
-                padding: 20px 15px;
-            }
-            
-            .section-header h2 {
-                font-size: 1.2rem;
-            }
-            
-            .section-content {
-                padding: 15px;
+            .form-section {
+                padding: 20px;
             }
         }
         
         /* Animation for collapsing options */
-        @keyframes collapse {
-            from { max-height: 200px; opacity: 1; }
-            to { max-height: 0; opacity: 0; padding: 0; margin: 0; }
-        }
-        
         .collapsing {
-            animation: collapse 0.5s forwards;
-            overflow: hidden;
+            transition: all 0.4s ease;
         }
     </style>
 </head>
@@ -464,131 +448,117 @@
             <p class="tagline">Where movement becomes expression and passion transforms into art</p>
         </header>
         
-        <div class="main-content">
-            <!-- Check-in Section -->
-            <div class="section" id="checkin-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-check-circle"></i> Class Check-in</h2>
-                </div>
-                <div class="section-content">
-                    <div class="form-group">
-                        <label for="student-name" class="form-label">Your Full Name</label>
-                        <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="class-location" class="form-label">Studio Location</label>
-                        <select id="class-location" class="form-input">
-                            <option value="">Select your studio</option>
-                            <option value="stardust">Stardust Ballroom</option>
-                            <option value="letsbailar">Let's Bailar</option>
-                            <option value="downtown">Downtown Studio</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Payment Method</label>
-                        <div class="payment-options" id="payment-options">
-                            <div class="payment-option">
-                                <input type="radio" name="payment" id="cash" value="cash">
-                                <label for="cash">
-                                    <i class="fas fa-money-bill-wave payment-icon"></i>
-                                    <span>Paid Cash</span>
-                                </label>
-                            </div>
-                            
-                            <div class="payment-option">
-                                <input type="radio" name="payment" id="venmo" value="venmo">
-                                <label for="venmo">
-                                    <i class="fab fa-vimeo payment-icon"></i>
-                                    <span>Paid Venmo</span>
-                                </label>
-                            </div>
-                            
-                            <div class="payment-option">
-                                <input type="radio" name="payment" id="later" value="later">
-                                <label for="later">
-                                    <i class="fas fa-clock payment-icon"></i>
-                                    <span>Pay After Class</span>
-                                </label>
-                            </div>
-                            
-                            <div class="payment-option">
-                                <input type="radio" name="payment" id="unlimited" value="unlimited">
-                                <label for="unlimited">
-                                    <i class="fas fa-infinity payment-icon"></i>
-                                    <span>Unlimited Member</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="submit-btn" id="checkin-btn">
-                        <i class="fas fa-arrow-right"></i> COMPLETE CHECK-IN
+        <div class="form-section">
+            <div class="form-group">
+                <label for="student-name" class="form-label">Your Full Name</label>
+                <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label for="class-location" class="form-label">Studio Location</label>
+                <select id="class-location" class="form-input">
+                    <option value="">Select your studio</option>
+                    <option value="stardust">Stardust Ballroom</option>
+                    <option value="letsbailar">Let's Bailar</option>
+                    <option value="downtown">Downtown Studio</option>
+                </select>
+            </div>
+            
+            <div class="payment-group">
+                <div class="payment-header">
+                    <label class="form-label">Payment Method</label>
+                    <button class="change-payment" id="change-payment">
+                        <i class="fas fa-sync-alt"></i> Change
                     </button>
+                </div>
+                <div class="payment-options" id="payment-options">
+                    <div class="payment-option" data-value="cash">
+                        <input type="radio" name="payment" id="cash" value="cash">
+                        <label for="cash">
+                            <i class="fas fa-money-bill-wave payment-icon"></i>
+                            <span>Paid Cash</span>
+                        </label>
+                    </div>
                     
-                    <div class="inspiration-card" id="inspiration-card">
-                        <div class="card-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="inspiration-message" id="inspiration-message">
-                            We're excited to dance with you today!
-                        </div>
-                        
-                        <div class="inspiration-quote" id="inspiration-quote">
-                            "Dance is the hidden language of the soul."
-                        </div>
-                        
-                        <div class="payment-complete" id="payment-complete">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Check-in complete! Enjoy your class!</span>
-                        </div>
-                        
-                        <div class="reset-container">
-                            <button class="reset-btn" id="reset-btn">
-                                <i class="fas fa-redo"></i> Check-in Another Student
-                            </button>
-                        </div>
+                    <div class="payment-option" data-value="venmo">
+                        <input type="radio" name="payment" id="venmo" value="venmo">
+                        <label for="venmo">
+                            <i class="fab fa-vimeo payment-icon"></i>
+                            <span>Paid Venmo</span>
+                        </label>
+                    </div>
+                    
+                    <div class="payment-option" data-value="later">
+                        <input type="radio" name="payment" id="later" value="later">
+                        <label for="later">
+                            <i class="fas fa-clock payment-icon"></i>
+                            <span>Pay After Class</span>
+                        </label>
+                    </div>
+                    
+                    <div class="payment-option" data-value="unlimited">
+                        <input type="radio" name="payment" id="unlimited" value="unlimited">
+                        <label for="unlimited">
+                            <i class="fas fa-infinity payment-icon"></i>
+                            <span>Unlimited Member</span>
+                        </label>
                     </div>
                 </div>
             </div>
             
-            <!-- Practice Videos Section -->
-            <div class="section collapsed" id="videos-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-play-circle"></i> Practice Videos</h2>
+            <button class="submit-btn" id="checkin-btn" disabled>
+                <i class="fas fa-arrow-right"></i> COMPLETE CHECK-IN
+            </button>
+            
+            <div class="inspiration-card" id="inspiration-card">
+                <div class="card-icon">
+                    <i class="fas fa-star"></i>
                 </div>
-                <div class="section-content">
-                    <div class="video-grid">
-                        <div class="video-card">
-                            <div class="video-header">
-                                <h3><i class="fas fa-video"></i> Salsa Fundamentals</h3>
-                            </div>
-                            <div class="video-player">
-                                <iframe src="https://player.vimeo.com/video/824804225?h=6c5a8a2d1c" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <p>Master the essential steps, turns, and timing of salsa.</p>
-                                <div class="video-meta">
-                                    <span><i class="far fa-clock"></i> 15 min</span>
-                                    <span class="video-category">SALSA</span>
-                                </div>
+                <div class="inspiration-message" id="inspiration-message">
+                    We're excited to dance with you today!
+                </div>
+                
+                <div class="inspiration-quote" id="inspiration-quote">
+                    "Dance is the hidden language of the soul."
+                </div>
+                
+                <div class="payment-complete" id="payment-complete">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Check-in complete! Enjoy your class!</span>
+                </div>
+                
+                <div class="reset-container">
+                    <button class="reset-btn" id="reset-btn">
+                        <i class="fas fa-redo"></i> Check-in Another Student
+                    </button>
+                </div>
+            </div>
+            
+            <div class="videos-section">
+                <h2><i class="fas fa-video"></i> Practice Videos</h2>
+                <div class="video-grid">
+                    <div class="video-card" id="salsa-video">
+                        <div class="video-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-info">
+                            <h3>Salsa Fundamentals</h3>
+                            <div class="video-meta">
+                                <span><i class="far fa-clock"></i> 15 min</span>
+                                <span>SALSA</span>
                             </div>
                         </div>
-                        
-                        <div class="video-card">
-                            <div class="video-header">
-                                <h3><i class="fas fa-video"></i> Bachata Footwork</h3>
-                            </div>
-                            <div class="video-player">
-                                <iframe src="https://player.vimeo.com/video/824804224?h=6c5a8a2d1c" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <p>Sensual footwork and body movement techniques.</p>
-                                <div class="video-meta">
-                                    <span><i class="far fa-clock"></i> 18 min</span>
-                                    <span class="video-category">BACHATA</span>
-                                </div>
+                    </div>
+                    
+                    <div class="video-card" id="bachata-video">
+                        <div class="video-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-info">
+                            <h3>Bachata Footwork</h3>
+                            <div class="video-meta">
+                                <span><i class="far fa-clock"></i> 18 min</span>
+                                <span>BACHATA</span>
                             </div>
                         </div>
                     </div>
@@ -617,43 +587,13 @@
         const inspirationQuote = document.getElementById('inspiration-quote');
         const resetBtn = document.getElementById('reset-btn');
         const paymentOptions = document.querySelectorAll('.payment-option');
-        const sectionHeaders = document.querySelectorAll('.section-header');
-        const sections = document.querySelectorAll('.section');
+        const changePaymentBtn = document.getElementById('change-payment');
+        const salsaVideo = document.getElementById('salsa-video');
+        const bachataVideo = document.getElementById('bachata-video');
         
-        // Collapse other payment options when one is selected
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selected class to clicked option
-                this.classList.add('selected');
-                
-                // Get the radio input
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-                
-                // Collapse other options after a delay
-                setTimeout(() => {
-                    paymentOptions.forEach(opt => {
-                        if (opt !== this) {
-                            opt.classList.add('collapsing');
-                            setTimeout(() => {
-                                opt.style.display = 'none';
-                            }, 500);
-                        }
-                    });
-                }, 3000);
-            });
-        });
-        
-        // Section collapsing functionality
-        sectionHeaders.forEach(header => {
-            header.addEventListener('click', function() {
-                const section = this.parentElement;
-                section.classList.toggle('collapsed');
-            });
-        });
+        // State variables
+        let selectedPayment = null;
+        let collapseTimer = null;
         
         // Collections for personalized messages
         const welcomeMessages = [
@@ -672,20 +612,101 @@
             "Dancing is like dreaming with your feet!"
         ];
         
+        // Form validation
+        function validateForm() {
+            const name = nameInput.value.trim();
+            const location = locationSelect.value;
+            const paymentSelected = selectedPayment !== null;
+            
+            if (name && location && paymentSelected) {
+                checkinBtn.disabled = false;
+            } else {
+                checkinBtn.disabled = true;
+            }
+        }
+        
+        // Collapse non-selected payment options
+        function collapseOtherOptions() {
+            paymentOptions.forEach(option => {
+                if (option !== selectedPayment) {
+                    option.classList.add('collapsing');
+                    setTimeout(() => {
+                        option.classList.add('collapsed');
+                    }, 10);
+                }
+            });
+            
+            // Show change button
+            changePaymentBtn.style.display = 'block';
+        }
+        
+        // Expand all payment options
+        function expandAllOptions() {
+            paymentOptions.forEach(option => {
+                option.classList.remove('collapsed', 'collapsing');
+            });
+            
+            // Hide change button
+            changePaymentBtn.style.display = 'none';
+        }
+        
+        // Payment option selection
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Clear any existing timer
+                if (collapseTimer) {
+                    clearTimeout(collapseTimer);
+                }
+                
+                // Remove selected class from all options
+                paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Get the radio input
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                // Update selected payment
+                selectedPayment = this;
+                
+                // Validate form
+                validateForm();
+                
+                // Set timer to collapse other options
+                collapseTimer = setTimeout(() => {
+                    collapseOtherOptions();
+                }, 3000);
+            });
+        });
+        
+        // Change payment handler
+        changePaymentBtn.addEventListener('click', function() {
+            // Expand all options
+            expandAllOptions();
+            
+            // Clear selection
+            paymentOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.querySelector('input[type="radio"]').checked = false;
+            });
+            
+            // Reset selected payment
+            selectedPayment = null;
+            
+            // Validate form
+            validateForm();
+        });
+        
         // Check-in button click handler
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
             const location = locationSelect.value;
-            const paymentMethod = document.querySelector('input[name="payment"]:checked');
-            
-            // Simple validation
-            if (!name || !location || !paymentMethod) {
-                alert('Please complete all fields before checking in');
-                return;
-            }
             
             // Show inspiration card
             inspirationCard.style.display = 'block';
+            inspirationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
             // Generate random messages
             const welcomeMsg = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
@@ -712,18 +733,34 @@
             locationSelect.value = '';
             
             // Reset payment options
+            expandAllOptions();
             paymentOptions.forEach(opt => {
-                opt.style.display = 'flex';
-                opt.classList.remove('selected', 'collapsing');
+                opt.classList.remove('selected');
                 opt.querySelector('input[type="radio"]').checked = false;
             });
+            
+            // Reset selected payment
+            selectedPayment = null;
+            
+            // Validate form
+            validateForm();
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
         
-        // Initially collapse the videos section
-        document.getElementById('videos-section').classList.add('collapsed');
+        // Video click handlers
+        salsaVideo.addEventListener('click', function() {
+            alert("Salsa Fundamentals video would open here. Content coming soon!");
+        });
+        
+        bachataVideo.addEventListener('click', function() {
+            alert("Bachata Footwork video would open here. Content coming soon!");
+        });
+        
+        // Initial form validation
+        nameInput.addEventListener('input', validateForm);
+        locationSelect.addEventListener('change', validateForm);
     </script>
 </body>
 </html>
