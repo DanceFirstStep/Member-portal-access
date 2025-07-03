@@ -262,6 +262,13 @@
             font-weight: 600;
         }
         
+        .member-highlight {
+            background: linear-gradient(to right, #7B68EE, #4B0082);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
         .payment-actions {
             margin-top: 30px;
             padding-top: 20px;
@@ -499,6 +506,15 @@
                             <span>Pay After Check-in</span>
                         </label>
                     </div>
+                    
+                    <!-- NEW: Unlimited Member Option -->
+                    <div class="payment-option">
+                        <input type="radio" name="payment" id="unlimited" value="unlimited">
+                        <label for="unlimited">
+                            <i class="fas fa-infinity payment-icon"></i>
+                            <span>Unlimited Member</span>
+                        </label>
+                    </div>
                 </div>
             </div>
             
@@ -510,11 +526,11 @@
                 <div class="card-icon">
                     <i class="fas fa-star"></i>
                 </div>
-                <h2>Welcome to Class!</h2>
+                <h2 id="welcome-title">Welcome to Class!</h2>
                 <div class="card-content">
-                    <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
+                    <p id="welcome-message">We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
                     <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
-                    <p>Your journey to becoming a <span class="highlight">better dancer</span> starts now.</p>
+                    <p id="journey-message">Your journey to becoming a <span class="highlight">better dancer</span> starts now.</p>
                 </div>
                 
                 <div class="payment-actions" id="payment-actions">
@@ -560,6 +576,9 @@
         const inspirationQuote = document.getElementById('inspiration-quote');
         const resetBtn = document.getElementById('reset-btn');
         const dataSaving = document.getElementById('data-saving');
+        const welcomeTitle = document.getElementById('welcome-title');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const journeyMessage = document.getElementById('journey-message');
         
         // Quotes collection
         const danceQuotes = [
@@ -631,15 +650,23 @@
                 timestamp: new Date().toLocaleString()
             };
             
-            // Handle payment methods
-            if (paymentMethod === 'cash') {
-                // Cash payment - complete immediately
-                saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
-            } 
-            else if (paymentMethod === 'venmo') {
-                // Venmo already paid - complete immediately
-                saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
+            // Custom messages for unlimited members
+            if (paymentMethod === 'unlimited') {
+                welcomeTitle.innerHTML = `Welcome <span class="member-highlight">Unlimited Member</span>!`;
+                welcomeMessage.innerHTML = `We're thrilled to have you back, <span class="highlight">${displayNameText}</span>!`;
+                journeyMessage.innerHTML = `Your <span class="member-highlight">unlimited access</span> to all locations continues!`;
+            } else {
+                welcomeTitle.innerHTML = "Welcome to Class!";
+                welcomeMessage.innerHTML = `We're excited to dance with you today, <span class="highlight">${displayNameText}</span>!`;
+                journeyMessage.innerHTML = "Your journey to becoming a <span class='highlight'>better dancer</span> starts now.";
             }
+            
+            // Handle payment methods
+            if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
+                // Cash/Venmo/Unlimited - complete immediately
+                const status = paymentMethod === 'unlimited' ? 'unlimited' : 'paid';
+                saveToGoogleSheets({...checkinData, paymentStatus: status});
+            } 
             else if (paymentMethod === 'later') {
                 // Pay after check-in - show Venmo button
                 paymentActions.innerHTML = `
@@ -679,6 +706,11 @@
             paymentActions.innerHTML = '';
             paymentComplete.style.display = 'none';
             dataSaving.style.display = 'none';
+            
+            // Reset welcome messages
+            welcomeTitle.innerHTML = "Welcome to Class!";
+            welcomeMessage.innerHTML = "We're excited to dance with you today, <span class='highlight' id='display-name'>Guest</span>!";
+            journeyMessage.innerHTML = "Your journey to becoming a <span class='highlight'>better dancer</span> starts now.";
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
