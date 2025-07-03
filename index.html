@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dance Studio Check-in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #f7f9f9 0%, #e6f4f1 100%);
-            color: #1a1a1d;
+            background: linear-gradient(135deg, #f8f9fc 0%, #eef2f7 100%);
+            color: #3a3a4e;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -31,7 +31,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             border: 1px solid rgba(230, 230, 250, 0.5);
             animation: fadeIn 0.8s ease;
@@ -46,15 +46,15 @@
             text-align: center;
             padding: 60px 30px 40px;
             position: relative;
-            background: linear-gradient(to bottom, rgba(255, 158, 107, 0.2), transparent);
-            border-bottom: 1px solid rgba(255, 158, 107, 0.1);
+            background: linear-gradient(to bottom, rgba(119, 139, 235, 0.1), transparent);
+            border-bottom: 1px solid rgba(119, 139, 235, 0.1);
         }
         
         .logo {
             width: 100px;
             height: 100px;
             margin: 0 auto 25px;
-            background: linear-gradient(135deg, #FF9E6B, #FF6B6B);
+            background: linear-gradient(135deg, #778BEB, #546DE5);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -65,11 +65,11 @@
         @keyframes pulse {
             0%, 100% { 
                 transform: scale(1); 
-                box-shadow: 0 0 0 0 rgba(255, 158, 107, 0.3); 
+                box-shadow: 0 0 0 0 rgba(119, 139, 235, 0.2); 
             }
             50% { 
                 transform: scale(1.03); 
-                box-shadow: 0 0 0 25px rgba(255, 158, 107, 0); 
+                box-shadow: 0 0 0 25px rgba(119, 139, 235, 0); 
             }
         }
         
@@ -79,16 +79,16 @@
         }
         
         h1, h2, h3 {
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
         }
         
         h1 {
             font-size: 3.2rem;
-            font-weight: 800;
             margin-bottom: 15px;
             letter-spacing: -0.5px;
-            color: #FF6B6B;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            color: #3D3D6B;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
         
         .tagline {
@@ -98,6 +98,7 @@
             margin: 0 auto;
             font-weight: 300;
             line-height: 1.7;
+            font-family: 'Poppins', sans-serif;
         }
         
         .form-section {
@@ -112,39 +113,38 @@
         .form-label {
             display: block;
             margin-bottom: 12px;
-            font-weight: 600;
+            font-weight: 500;
             color: #4a4a5d;
             font-size: 1.05rem;
-            font-family: 'Nunito', sans-serif;
         }
         
         .form-input {
             width: 100%;
             padding: 18px 25px;
             border-radius: 14px;
-            border: 1px solid rgba(200, 200, 220, 0.5);
+            border: 1px solid rgba(200, 200, 220, 0.4);
             background: rgba(255, 255, 255, 0.8);
-            color: #1a1a1d;
+            color: #3a3a4e;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
         }
         
         .form-input:focus {
             outline: none;
-            border-color: #4ECDC4;
+            border-color: #778BEB;
             background: rgba(255, 255, 255, 1);
-            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.15);
+            box-shadow: 0 0 0 3px rgba(119, 139, 235, 0.15);
         }
         
         .form-input::placeholder {
-            color: rgba(90, 90, 109, 0.5);
+            color: rgba(90, 90, 109, 0.4);
             font-weight: 300;
         }
         
         .name-note {
             font-size: 0.9rem;
-            color: rgba(90, 90, 109, 0.7);
+            color: rgba(90, 90, 109, 0.6);
             margin-top: 8px;
             padding-left: 10px;
         }
@@ -169,16 +169,16 @@
         
         .payment-option:hover {
             background: rgba(255, 255, 255, 1);
-            border-color: rgba(255, 158, 107, 0.3);
+            border-color: rgba(119, 139, 235, 0.3);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
         
         .payment-option input[type="radio"] {
             margin-right: 12px;
             width: 20px;
             height: 20px;
-            accent-color: #FF9E6B;
+            accent-color: #778BEB;
         }
         
         .payment-option label {
@@ -193,17 +193,17 @@
         
         .payment-icon {
             font-size: 1.2rem;
-            color: #FF9E6B;
+            color: #778BEB;
         }
         
         .submit-btn {
-            background: linear-gradient(135deg, #FF9E6B, #FF6B6B);
+            background: linear-gradient(135deg, #778BEB, #546DE5);
             color: #fff;
             border: none;
             border-radius: 14px;
             padding: 20px;
             font-size: 1.25rem;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
             transition: all 0.3s ease;
@@ -211,15 +211,14 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            box-shadow: 0 10px 25px rgba(255, 158, 107, 0.3);
+            box-shadow: 0 10px 25px rgba(119, 139, 235, 0.2);
             letter-spacing: 0.5px;
             width: 100%;
-            font-family: 'Nunito', sans-serif;
         }
         
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(255, 158, 107, 0.4);
+            box-shadow: 0 15px 35px rgba(119, 139, 235, 0.25);
         }
         
         .inspiration-card {
@@ -229,26 +228,26 @@
             margin-top: 30px;
             display: none;
             text-align: center;
-            border: 1px solid rgba(255, 158, 107, 0.2);
+            border: 1px solid rgba(119, 139, 235, 0.15);
             animation: fadeIn 0.8s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
             position: relative;
         }
         
         .inspiration-card h2 {
-            color: #FF9E6B;
+            color: #3D3D6B;
             margin-bottom: 25px;
             font-size: 2.2rem;
         }
         
         .card-icon {
             font-size: 3.5rem;
-            color: #FF9E6B;
+            color: #778BEB;
             margin-bottom: 25px;
-            animation: bounce 2s infinite;
+            animation: float 3s ease-in-out infinite;
         }
         
-        @keyframes bounce {
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
@@ -261,14 +260,13 @@
         }
         
         .highlight {
-            color: #FF9E6B;
+            color: #778BEB;
             font-weight: 600;
         }
         
         .payment-actions {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid rgba(255, 158, 107, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -279,51 +277,55 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #3d95ce, #0077c5);
+            background: #3D95CE;
             color: white;
             border: none;
             border-radius: 14px;
             padding: 16px 35px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 5px 20px rgba(61, 149, 206, 0.3);
+            box-shadow: 0 5px 15px rgba(61, 149, 206, 0.15);
             gap: 10px;
         }
         
         .venmo-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(61, 149, 206, 0.4);
+            box-shadow: 0 8px 20px rgba(61, 149, 206, 0.2);
+            background: #3484b5;
         }
         
         .finish-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #38a169, #2ecc71);
+            background: #50C878;
             color: white;
             border: none;
             border-radius: 14px;
             padding: 16px 35px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 5px 20px rgba(56, 161, 105, 0.3);
+            box-shadow: 0 5px 15px rgba(80, 200, 120, 0.15);
             gap: 10px;
         }
         
         .finish-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(56, 161, 105, 0.4);
+            box-shadow: 0 8px 20px rgba(80, 200, 120, 0.2);
+            background: #46b36a;
         }
         
         .venmo-note {
             font-size: 0.9rem;
-            color: rgba(90, 90, 109, 0.7);
+            color: rgba(90, 90, 109, 0.6);
+            max-width: 400px;
+            text-align: center;
         }
         
         footer {
@@ -343,15 +345,15 @@
         }
         
         .footer-link {
-            color: #FF9E6B;
+            color: #778BEB;
             text-decoration: none;
             transition: all 0.3s ease;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 500;
         }
         
         .footer-link:hover {
-            color: #FF6B6B;
+            color: #546DE5;
         }
         
         @media (max-width: 768px) {
@@ -467,8 +469,8 @@
                 <h2>Welcome to Class!</h2>
                 <div class="card-content">
                     <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
+                    <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
                     <p>Your journey to becoming a <span class="highlight">better dancer</span> starts now.</p>
-                    <p>Let the rhythm guide your movements and your passion shine through!</p>
                 </div>
                 
                 <div class="payment-actions" id="payment-actions">
@@ -494,6 +496,7 @@
         const paymentActions = document.getElementById('payment-actions');
         const displayName = document.getElementById('display-name');
         const nameInput = document.getElementById('student-name');
+        const inspirationQuote = document.getElementById('inspiration-quote');
         
         // Quotes collection
         const danceQuotes = [
@@ -509,9 +512,6 @@
             "Dance is the only art of which we ourselves are the stuff of which it is made."
         ];
         
-        // Income tracking array
-        let incomeRecords = [];
-        
         // Check-in button click handler
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
@@ -524,10 +524,8 @@
                 return;
             }
             
-            // Extract first name and last initial
+            // Extract first name
             const nameParts = name.split(' ');
-            let firstName = nameParts[0] || '';
-            let lastNameInitial = nameParts.length > 1 ? nameParts[nameParts.length-1].charAt(0) + '.' : '';
             let displayNameText = nameParts[0] || 'Guest';
             
             // Display name in inspiration card
@@ -542,10 +540,7 @@
             
             // Add random quote
             const quote = danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
-            const quoteElement = document.createElement('p');
-            quoteElement.className = 'quote';
-            quoteElement.innerHTML = `<i class="fas fa-quote-left"></i> ${quote} <i class="fas fa-quote-right"></i>`;
-            document.querySelector('.card-content').appendChild(quoteElement);
+            inspirationQuote.textContent = `"${quote}"`;
             
             // Create appropriate payment buttons
             if (paymentMethod === 'cash') {
@@ -553,7 +548,7 @@
                     <button class="finish-btn" id="finish-btn">
                         <i class="fas fa-check-circle"></i> Finish Check-in
                     </button>
-                    <p class="venmo-note">Thank you for paying with cash!</p>
+                    <p class="venmo-note">Thank you for paying with cash! Enjoy your class.</p>
                 `;
                 
                 document.getElementById('finish-btn').addEventListener('click', function() {
@@ -562,51 +557,29 @@
             } 
             else if (paymentMethod === 'venmo' || paymentMethod === 'later') {
                 paymentActions.innerHTML = `
+                    <p class="venmo-note">To complete your check-in, please complete your payment:</p>
                     <button class="venmo-btn" id="open-venmo">
-                        <i class="fab fa-vimeo"></i> Open Venmo to Pay
+                        <i class="fab fa-vimeo"></i> Complete Payment with Venmo
                     </button>
                     <p class="venmo-note">This will open the Venmo app on your device</p>
                 `;
                 
                 document.getElementById('open-venmo').addEventListener('click', function() {
-                    // Track payment
-                    trackIncome(name, 'venmo');
-                    
                     // Open Venmo
                     window.location.href = 'venmo://paycharge?txn=pay&recipients=danielpalaciosdance&amount=20';
                     
                     // Show confirmation message
-                    const confirmation = document.createElement('div');
-                    confirmation.innerHTML = `
-                        <p style="margin-top: 15px; color: #38a169; font-weight: 600;">
-                            <i class="fas fa-check-circle"></i> Payment initiated! Enjoy your class!
-                        </p>
+                    paymentActions.innerHTML = `
+                        <div style="margin-top: 15px; padding: 15px; background: rgba(80, 200, 120, 0.1); border-radius: 12px;">
+                            <p style="color: #50C878; font-weight: 500;">
+                                <i class="fas fa-check-circle"></i> Payment initiated! Enjoy your class!
+                            </p>
+                        </div>
+                        <p class="venmo-note">Your spot is confirmed. We're excited to dance with you!</p>
                     `;
-                    paymentActions.appendChild(confirmation);
                 });
             }
-            
-            // Track income
-            trackIncome(name, paymentMethod);
         });
-        
-        // Track income function
-        function trackIncome(name, method) {
-            // Create record
-            const record = {
-                name: name,
-                method: method === 'later' ? 'Pending' : method,
-                amount: method === 'later' ? 'Pending' : '$20',
-                timestamp: new Date().toISOString()
-            };
-            
-            // Add to records
-            incomeRecords.push(record);
-            
-            // Log to console (for now)
-            console.log('New income record:', record);
-            console.log('All income records:', incomeRecords);
-        }
     </script>
 </body>
 </html>
