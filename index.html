@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Palacios Dance Portal</title>
+    <title>Dance Studio Check-in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,7 +16,7 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e6edfb 100%);
+            background: linear-gradient(135deg, #f8f9fc 0%, #eef2f7 100%);
             color: #3a3a4e;
             display: flex;
             justify-content: center;
@@ -27,12 +27,12 @@
         
         .container {
             width: 100%;
-            max-width: 500px;
-            background: white;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.98);
             border-radius: 24px;
-            box-shadow: 0 15px 40px rgba(106, 90, 205, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            position: relative;
+            border: 1px solid rgba(230, 230, 250, 0.5);
             animation: fadeIn 0.8s ease;
         }
         
@@ -43,183 +43,133 @@
         
         header {
             text-align: center;
-            padding: 35px 20px;
+            padding: 60px 30px 40px;
             position: relative;
-            background: linear-gradient(to right, #6A5ACD, #7B68EE);
-            color: white;
+            background: linear-gradient(to bottom, rgba(119, 139, 235, 0.1), transparent);
+            border-bottom: 1px solid rgba(119, 139, 235, 0.1);
         }
         
         .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
-            background: white;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #6A5ACD, #7B68EE);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: pulse 3s infinite;
+            animation: pulse 6s infinite;
         }
         
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 0 0 rgba(106, 90, 205, 0.2); 
+            }
+            50% { 
+                transform: scale(1.03); 
+                box-shadow: 0 0 0 25px rgba(106, 90, 205, 0); 
+            }
         }
         
         .logo i {
-            font-size: 32px;
-            color: #6A5ACD;
+            font-size: 42px;
+            color: #fff;
         }
         
         h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
             font-weight: 600;
         }
         
         h1 {
-            font-size: 2.1rem;
-            margin-bottom: 10px;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
             letter-spacing: -0.5px;
+            color: #4B0082;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
         
         .tagline {
-            font-size: 1rem;
-            max-width: 400px;
+            font-size: 1.3rem;
+            color: #5a5a6d;
+            max-width: 500px;
             margin: 0 auto;
             font-weight: 300;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-        
-        .train-track {
-            height: 8px;
-            background: #e0e0e0;
-            position: relative;
-            margin: 0 20px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .train-progress {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(to right, #6A5ACD, #7B68EE);
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-        
-        .train-stations {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 20px 5px;
-            color: #5a5a6d;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        
-        .station {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .station.active {
-            color: #4B0082;
-            font-weight: 600;
-        }
-        
-        .station-dot {
-            width: 16px;
-            height: 16px;
-            background: #e0e0e0;
-            border-radius: 50%;
-            margin-bottom: 5px;
-            position: relative;
-        }
-        
-        .station.active .station-dot {
-            background: #6A5ACD;
-            box-shadow: 0 0 0 4px rgba(106, 90, 205, 0.2);
+            line-height: 1.7;
         }
         
         .form-section {
-            padding: 25px;
-            position: relative;
-            transition: transform 0.5s ease;
+            padding: 40px;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            position: relative;
         }
         
         .form-label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 500;
             color: #4a4a5d;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
         
         .form-input {
             width: 100%;
-            padding: 16px 20px;
+            padding: 18px 25px;
             border-radius: 14px;
-            border: 1px solid #e0e0e0;
-            background: #f9f9ff;
+            border: 1px solid rgba(200, 200, 220, 0.4);
+            background: rgba(255, 255, 255, 0.8);
             color: #3a3a4e;
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
         }
         
         .form-input:focus {
             outline: none;
             border-color: #6A5ACD;
+            background: rgba(255, 255, 255, 1);
             box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.15);
         }
         
-        .payment-group {
-            margin-top: 10px;
+        .form-input::placeholder {
+            color: rgba(90, 90, 109, 0.4);
+            font-weight: 300;
+        }
+        
+        .name-note {
+            font-size: 0.9rem;
+            color: rgba(90, 90, 109, 0.6);
+            margin-top: 8px;
+            padding-left: 10px;
         }
         
         .payment-options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             margin-top: 15px;
         }
         
         .payment-option {
             display: flex;
             align-items: center;
-            padding: 16px;
-            background: #f9f9ff;
-            border-radius: 14px;
-            border: 1px solid #e0e0e0;
-            transition: all 0.4s ease;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            border: 1px solid rgba(200, 200, 220, 0.3);
+            transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
         
-        .payment-option:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 0;
-            background: rgba(106, 90, 205, 0.1);
-            transition: width 0.4s ease;
-            z-index: 0;
-        }
-        
-        .payment-option:hover:before {
-            width: 100%;
-        }
-        
-        .payment-option.selected {
-            border-color: #6A5ACD;
-            box-shadow: 0 5px 15px rgba(106, 90, 205, 0.1);
+        .payment-option:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(106, 90, 205, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
         
         .payment-option input[type="radio"] {
@@ -227,7 +177,6 @@
             width: 20px;
             height: 20px;
             accent-color: #6A5ACD;
-            z-index: 1;
         }
         
         .payment-option label {
@@ -238,7 +187,6 @@
             cursor: pointer;
             flex-grow: 1;
             color: #4a4a5d;
-            z-index: 1;
         }
         
         .payment-icon {
@@ -251,8 +199,8 @@
             color: #fff;
             border: none;
             border-radius: 14px;
-            padding: 18px;
-            font-size: 1.1rem;
+            padding: 20px;
+            font-size: 1.25rem;
             font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
@@ -260,53 +208,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            box-shadow: 0 8px 20px rgba(106, 90, 205, 0.25);
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(106, 90, 205, 0.2);
             letter-spacing: 0.5px;
             width: 100%;
-            position: relative;
-            overflow: hidden;
         }
         
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(106, 90, 205, 0.3);
-        }
-        
-        .submit-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            box-shadow: 0 15px 35px rgba(106, 90, 205, 0.25);
         }
         
         .inspiration-card {
-            background: white;
-            border-radius: 18px;
-            padding: 30px;
-            text-align: center;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
             display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
+            text-align: center;
+            border: 1px solid rgba(106, 90, 205, 0.15);
+            animation: fadeIn 0.8s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            position: relative;
         }
         
-        .inspiration-card.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+        .inspiration-card h2 {
+            color: #4B0082;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
         }
         
         .card-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #6A5ACD;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             animation: float 3s ease-in-out infinite;
         }
         
@@ -315,28 +250,84 @@
             50% { transform: translateY(-10px); }
         }
         
-        .inspiration-message {
-            font-size: 1.4rem;
-            color: #4B0082;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-        
-        .inspiration-quote {
-            font-style: italic;
+        .card-content p {
+            margin-bottom: 15px;
+            line-height: 1.7;
             font-size: 1.1rem;
             color: #5a5a6d;
-            line-height: 1.7;
-            margin: 25px 0;
-            padding: 15px;
-            border-left: 3px solid #6A5ACD;
-            background: #f9f9ff;
-            border-radius: 0 12px 12px 0;
+        }
+        
+        .highlight {
+            color: #6A5ACD;
+            font-weight: 600;
+        }
+        
+        .payment-actions {
+            margin-top: 30px;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .venmo-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #3D95CE;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            padding: 16px 35px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(61, 149, 206, 0.15);
+            gap: 10px;
+        }
+        
+        .venmo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(61, 149, 206, 0.2);
+            background: #3484b5;
+        }
+        
+        .finish-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #50C878;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            padding: 16px 35px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(80, 200, 120, 0.15);
+            gap: 10px;
+        }
+        
+        .finish-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(80, 200, 120, 0.2);
+            background: #46b36a;
+        }
+        
+        .venmo-note {
+            font-size: 0.9rem;
+            color: rgba(90, 90, 109, 0.6);
+            max-width: 400px;
+            text-align: center;
         }
         
         .payment-complete {
-            margin-top: 25px;
+            margin-top: 20px;
             padding: 15px;
             background: rgba(80, 200, 120, 0.1);
             border-radius: 12px;
@@ -346,13 +337,6 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            font-size: 1.1rem;
-            display: none;
-        }
-        
-        .payment-complete.show {
-            display: flex;
-            animation: fadeIn 0.5s ease;
         }
         
         .reset-container {
@@ -364,197 +348,43 @@
             background: transparent;
             border: none;
             color: #6A5ACD;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            padding: 12px 25px;
-            border-radius: 14px;
+            text-decoration: underline;
             transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            border: 1px solid #e0e0e0;
         }
         
         .reset-btn:hover {
+            color: #4B0082;
+        }
+        
+        .data-saving {
+            margin-top: 20px;
+            padding: 10px;
             background: rgba(106, 90, 205, 0.05);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .venmo-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-        
-        .venmo-popup.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .venmo-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 10px;
             text-align: center;
-            max-width: 400px;
-            width: 90%;
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
+            display: none;
         }
         
-        .venmo-popup.active .venmo-content {
-            transform: translateY(0);
-        }
-        
-        .venmo-content h3 {
-            color: #4B0082;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .venmo-content p {
-            color: #5a5a6d;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-        
-        .venmo-btn {
-            background: #3D95CE;
-            color: white;
-            border: none;
-            border-radius: 14px;
-            padding: 16px 35px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 10px 5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(61, 149, 206, 0.2);
-        }
-        
-        .venmo-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(61, 149, 206, 0.3);
-        }
-        
-        .cancel-btn {
-            background: transparent;
-            border: none;
+        .data-saving p {
             color: #6A5ACD;
-            font-size: 1rem;
-            cursor: pointer;
-            padding: 10px 20px;
-            margin-top: 15px;
-            font-weight: 500;
-        }
-        
-        .videos-section {
-            padding: 25px;
-            background: #f9f9ff;
-            border-top: 1px solid #e0e0e0;
-        }
-        
-        .videos-section h2 {
-            text-align: center;
-            color: #4B0082;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .video-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        
-        .video-card {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: white;
-            border-radius: 14px;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        }
-        
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-        
-        .video-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #6A5ACD, #7B68EE);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-        
-        .video-icon i {
-            color: white;
-            font-size: 1.3rem;
-        }
-        
-        .video-info {
-            flex-grow: 1;
-        }
-        
-        .video-info h3 {
-            color: #4a4a5d;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-        
-        .video-meta {
-            display: flex;
-            gap: 15px;
-            color: #7B68EE;
             font-size: 0.9rem;
-            font-weight: 500;
         }
         
         footer {
             text-align: center;
-            padding: 25px 20px;
+            padding: 40px 30px 30px;
             color: #5a5a6d;
-            font-size: 0.9rem;
-            background: #f9f9ff;
-            border-top: 1px solid #e0e0e0;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(200, 200, 220, 0.3);
         }
         
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
+            gap: 25px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
         
@@ -562,6 +392,7 @@
             color: #6A5ACD;
             text-decoration: none;
             transition: all 0.3s ease;
+            font-size: 1rem;
             font-weight: 500;
         }
         
@@ -569,42 +400,53 @@
             color: #4B0082;
         }
         
-        @media (max-width: 480px) {
-            .container {
-                max-width: 100%;
-                border-radius: 20px;
-            }
-            
-            header {
-                padding: 30px 15px;
-            }
-            
+        @media (max-width: 768px) {
             h1 {
-                font-size: 1.8rem;
+                font-size: 2.5rem;
             }
             
             .tagline {
-                font-size: 0.95rem;
+                font-size: 1.15rem;
             }
             
             .form-section {
-                padding: 20px;
+                padding: 30px;
+            }
+            
+            .inspiration-card {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 40px 20px 30px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1.05rem;
+            }
+            
+            .form-input {
+                padding: 15px 20px;
+            }
+            
+            .submit-btn {
+                padding: 18px;
+                font-size: 1.1rem;
+            }
+            
+            .inspiration-card h2 {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="venmo-popup" id="venmo-popup">
-        <div class="venmo-content">
-            <h3><i class="fab fa-vimeo"></i> Complete Your Payment</h3>
-            <p>Please complete your payment via Venmo to finalize your check-in.</p>
-            <button class="venmo-btn" id="venmo-confirm">
-                <i class="fab fa-vimeo"></i> Open Venmo
-            </button>
-            <button class="cancel-btn" id="venmo-cancel">Cancel Payment</button>
-        </div>
-    </div>
-    
     <div class="container">
         <header>
             <div class="logo">
@@ -614,29 +456,11 @@
             <p class="tagline">Where movement becomes expression and passion transforms into art</p>
         </header>
         
-        <div class="train-track">
-            <div class="train-progress" id="train-progress"></div>
-        </div>
-        
-        <div class="train-stations">
-            <div class="station active" id="station-info">
-                <div class="station-dot"></div>
-                <span>Your Info</span>
-            </div>
-            <div class="station" id="station-payment">
-                <div class="station-dot"></div>
-                <span>Payment</span>
-            </div>
-            <div class="station" id="station-complete">
-                <div class="station-dot"></div>
-                <span>Complete</span>
-            </div>
-        </div>
-        
-        <div class="form-section" id="form-section">
+        <div class="form-section">
             <div class="form-group">
-                <label for="student-name" class="form-label">Full Name</label>
+                <label for="student-name" class="form-label">Your Full Name</label>
                 <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
+                <div class="name-note">Please include both first and last name</div>
             </div>
             
             <div class="form-group">
@@ -649,18 +473,18 @@
                 </select>
             </div>
             
-            <div class="payment-group">
+            <div class="form-group">
                 <label class="form-label">Payment Method</label>
-                <div class="payment-options" id="payment-options">
-                    <div class="payment-option" data-value="cash">
-                        <input type="radio" name="payment" id="cash" value="cash">
+                <div class="payment-options">
+                    <div class="payment-option">
+                        <input type="radio" name="payment" id="cash" value="cash" checked>
                         <label for="cash">
                             <i class="fas fa-money-bill-wave payment-icon"></i>
                             <span>Paid Cash</span>
                         </label>
                     </div>
                     
-                    <div class="payment-option" data-value="venmo">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="venmo" value="venmo">
                         <label for="venmo">
                             <i class="fab fa-vimeo payment-icon"></i>
@@ -668,80 +492,48 @@
                         </label>
                     </div>
                     
-                    <div class="payment-option" data-value="later">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="later" value="later">
                         <label for="later">
                             <i class="fas fa-clock payment-icon"></i>
-                            <span>Pay after checking in</span>
-                        </label>
-                    </div>
-                    
-                    <div class="payment-option" data-value="unlimited">
-                        <input type="radio" name="payment" id="unlimited" value="unlimited">
-                        <label for="unlimited">
-                            <i class="fas fa-infinity payment-icon"></i>
-                            <span>Unlimited Member</span>
+                            <span>Pay After Check-in</span>
                         </label>
                     </div>
                 </div>
             </div>
             
-            <button class="submit-btn" id="checkin-btn" disabled>
-                <i class="fas fa-arrow-right"></i> CONTINUE TO CHECK-IN
+            <button class="submit-btn" id="checkin-btn">
+                <i class="fas fa-arrow-right"></i> COMPLETE CHECK-IN
             </button>
-        </div>
-        
-        <div class="inspiration-card" id="inspiration-card">
-            <div class="card-icon">
-                <i class="fas fa-star"></i>
-            </div>
-            <div class="inspiration-message" id="inspiration-message">
-                We're excited to dance with you today!
-            </div>
             
-            <div class="inspiration-quote" id="inspiration-quote">
-                "Dance is the hidden language of the soul."
-            </div>
-            
-            <div class="payment-complete" id="payment-complete">
-                <i class="fas fa-check-circle"></i>
-                <span>Check-in complete! Enjoy your class!</span>
-            </div>
-            
-            <div class="reset-container">
-                <button class="reset-btn" id="reset-btn">
-                    <i class="fas fa-redo"></i> Check-in Another Student
-                </button>
-            </div>
-        </div>
-        
-        <div class="videos-section">
-            <h2><i class="fas fa-video"></i> Practice Videos</h2>
-            <div class="video-grid">
-                <div class="video-card" id="salsa-video">
-                    <div class="video-icon">
-                        <i class="fas fa-play"></i>
-                    </div>
-                    <div class="video-info">
-                        <h3>Salsa Fundamentals</h3>
-                        <div class="video-meta">
-                            <span><i class="far fa-clock"></i> 15 min</span>
-                            <span>SALSA</span>
-                        </div>
-                    </div>
+            <div class="inspiration-card" id="inspiration-card">
+                <div class="card-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2>Welcome to Class!</h2>
+                <div class="card-content">
+                    <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
+                    <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
+                    <p>Your journey to becoming a <span class="highlight">better dancer</span> starts now.</p>
                 </div>
                 
-                <div class="video-card" id="bachata-video">
-                    <div class="video-icon">
-                        <i class="fas fa-play"></i>
-                    </div>
-                    <div class="video-info">
-                        <h3>Bachata Footwork</h3>
-                        <div class="video-meta">
-                            <span><i class="far fa-clock"></i> 18 min</span>
-                            <span>BACHATA</span>
-                        </div>
-                    </div>
+                <div class="payment-actions" id="payment-actions">
+                    <!-- Payment buttons will be inserted here based on selection -->
+                </div>
+                
+                <div class="payment-complete" id="payment-complete" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Check-in complete! Enjoy your class!</span>
+                </div>
+                
+                <div class="data-saving" id="data-saving">
+                    <p><i class="fas fa-sync fa-spin"></i> Saving your information to our records...</p>
+                </div>
+                
+                <div class="reset-container">
+                    <button class="reset-btn" id="reset-btn">
+                        <i class="fas fa-redo"></i> Check-in Another Student
+                    </button>
                 </div>
             </div>
         </div>
@@ -749,7 +541,7 @@
         <footer>
             <p>Daniel Palacios Dance © 2023 | Elevating dance through passion and technique</p>
             <div class="footer-links">
-                <a href="#" class="footer-link">Schedule</a>
+                <a href="#" class="footer-link">Class Schedule</a>
                 <a href="#" class="footer-link">Contact</a>
                 <a href="#" class="footer-link">About</a>
             </div>
@@ -760,174 +552,137 @@
         // DOM Elements
         const checkinBtn = document.getElementById('checkin-btn');
         const inspirationCard = document.getElementById('inspiration-card');
+        const paymentActions = document.getElementById('payment-actions');
         const paymentComplete = document.getElementById('payment-complete');
+        const displayName = document.getElementById('display-name');
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
-        const inspirationMessage = document.getElementById('inspiration-message');
         const inspirationQuote = document.getElementById('inspiration-quote');
         const resetBtn = document.getElementById('reset-btn');
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        const trainProgress = document.getElementById('train-progress');
-        const stationInfo = document.getElementById('station-info');
-        const stationPayment = document.getElementById('station-payment');
-        const stationComplete = document.getElementById('station-complete');
-        const formSection = document.getElementById('form-section');
-        const venmoPopup = document.getElementById('venmo-popup');
-        const venmoConfirm = document.getElementById('venmo-confirm');
-        const venmoCancel = document.getElementById('venmo-cancel');
-        const salsaVideo = document.getElementById('salsa-video');
-        const bachataVideo = document.getElementById('bachata-video');
+        const dataSaving = document.getElementById('data-saving');
         
-        // State variables
-        let selectedPayment = null;
-        let paymentMethod = '';
-        
-        // Collections for personalized messages
-        const welcomeMessages = [
-            "Today's class will be unforgettable!",
-            "We're thrilled to dance with you today!",
-            "Get ready for an amazing session!",
-            "Your energy makes our studio brighter!",
-            "So glad you're joining us today!"
-        ];
-        
+        // Quotes collection
         const danceQuotes = [
             "Dance is the hidden language of the soul.",
             "To dance is to be out of yourself. Larger, more beautiful, more powerful.",
             "Dance is the joy of movement and the heart of life.",
             "Great dancers are not great because of their technique, they are great because of their passion.",
-            "Dancing is like dreaming with your feet!"
+            "Dance first. Think later. It's the natural order.",
+            "Dancing is like dreaming with your feet!",
+            "Life is the dancer and you are the dance.",
+            "Dance is the timeless interpretation of life.",
+            "When you dance, your purpose is not to get to a certain place on the floor. It's to enjoy each step along the way.",
+            "Dance is the only art of which we ourselves are the stuff of which it is made."
         ];
         
-        // Form validation
-        function validateForm() {
-            const name = nameInput.value.trim();
-            const location = locationSelect.value;
-            const paymentSelected = selectedPayment !== null;
+        // Save data to Google Sheets
+        function saveToGoogleSheets(data) {
+            // Show saving indicator
+            dataSaving.style.display = 'block';
             
-            if (name && location && paymentSelected) {
-                checkinBtn.disabled = false;
-                trainProgress.style.width = '66%';
-                stationPayment.classList.add('active');
-            } else {
-                checkinBtn.disabled = true;
-                trainProgress.style.width = '33%';
-                stationPayment.classList.remove('active');
-            }
+            // In a real implementation, this would connect to Google Sheets
+            // For now, we'll simulate the saving process
+            setTimeout(() => {
+                console.log("Data saved to Google Sheets:", data);
+                dataSaving.style.display = 'none';
+                
+                // Show success message
+                paymentComplete.style.display = 'flex';
+            }, 1500);
         }
-        
-        // Payment option selection
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selected class to clicked option
-                this.classList.add('selected');
-                
-                // Get the radio input
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-                
-                // Update selected payment
-                selectedPayment = this;
-                paymentMethod = this.dataset.value;
-                
-                // Validate form
-                validateForm();
-            });
-        });
         
         // Check-in button click handler
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
             const location = locationSelect.value;
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            
+            // Simple validation
+            if (!name || !location) {
+                alert('Please enter your name and select a studio location');
+                return;
+            }
+            
+            // Extract first name
+            const nameParts = name.split(' ');
+            let displayNameText = nameParts[0] || 'Guest';
+            
+            // Display name in inspiration card
+            displayName.textContent = displayNameText;
             
             // Show inspiration card
-            inspirationCard.classList.add('active');
-            stationComplete.classList.add('active');
-            trainProgress.style.width = '100%';
+            inspirationCard.style.display = 'block';
+            inspirationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Generate random messages
-            const welcomeMsg = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+            // Clear previous payment actions
+            paymentActions.innerHTML = '';
+            paymentComplete.style.display = 'none';
+            dataSaving.style.display = 'none';
+            
+            // Add random quote
             const quote = danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
+            inspirationQuote.textContent = `"${quote}"`;
             
-            // Update messages
-            inspirationMessage.innerHTML = welcomeMsg;
-            inspirationQuote.innerHTML = `"${quote}"`;
+            // Prepare data for saving
+            const checkinData = {
+                name: name,
+                location: location,
+                paymentMethod: paymentMethod,
+                timestamp: new Date().toLocaleString()
+            };
             
-            // For "Pay after checking in" method, show Venmo popup
-            if (paymentMethod === 'later') {
-                setTimeout(() => {
-                    venmoPopup.classList.add('active');
-                }, 2000);
-            } else {
-                // Show success message for other payment methods
-                setTimeout(() => {
-                    paymentComplete.classList.add('show');
-                }, 1500);
+            // Handle payment methods
+            if (paymentMethod === 'cash') {
+                // Cash payment - complete immediately
+                saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
+            } 
+            else if (paymentMethod === 'venmo') {
+                // Venmo already paid - complete immediately
+                saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
+            }
+            else if (paymentMethod === 'later') {
+                // Pay after check-in - show Venmo button
+                paymentActions.innerHTML = `
+                    <p class="venmo-note">To complete your check-in, please complete your payment:</p>
+                    <button class="venmo-btn" id="open-venmo">
+                        <i class="fab fa-vimeo"></i> Complete Payment with Venmo
+                    </button>
+                    <p class="venmo-note">This will open the Venmo app on your device</p>
+                `;
+                
+                // Save initial check-in with pending status
+                saveToGoogleSheets({...checkinData, paymentStatus: 'pending'});
+                
+                document.getElementById('open-venmo').addEventListener('click', function() {
+                    // Open Venmo using your specific link
+                    window.location.href = 'https://venmo.com/code?user_id=2575920015605760344&created=1750346816';
+                    
+                    // Update payment status in records
+                    saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
+                    
+                    // Show completion message
+                    paymentActions.innerHTML = '';
+                    paymentComplete.style.display = 'flex';
+                });
             }
         });
         
         // Reset button handler
         resetBtn.addEventListener('click', function() {
             // Hide inspiration card
-            inspirationCard.classList.remove('active');
-            paymentComplete.classList.remove('show');
-            venmoPopup.classList.remove('active');
+            inspirationCard.style.display = 'none';
             
             // Reset form
             nameInput.value = '';
             locationSelect.value = '';
+            document.getElementById('cash').checked = true;
+            paymentActions.innerHTML = '';
+            paymentComplete.style.display = 'none';
+            dataSaving.style.display = 'none';
             
-            // Reset payment options
-            paymentOptions.forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('input[type="radio"]').checked = false;
-            });
-            
-            // Reset train progress
-            trainProgress.style.width = '33%';
-            stationPayment.classList.remove('active');
-            stationComplete.classList.remove('active');
-            
-            // Reset selected payment
-            selectedPayment = null;
-            
-            // Validate form
-            validateForm();
+            // Scroll back to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-        
-        // Venmo button handlers
-        venmoConfirm.addEventListener('click', function() {
-            // Open Venmo in new tab
-            window.open('https://venmo.com/code?user_id=2575920015605760344&created=1750346816', '_blank');
-            
-            // Close popup and show success
-            venmoPopup.classList.remove('active');
-            paymentComplete.classList.add('show');
-        });
-        
-        venmoCancel.addEventListener('click', function() {
-            venmoPopup.classList.remove('active');
-        });
-        
-        // Video click handlers
-        salsaVideo.addEventListener('click', function() {
-            alert("Salsa Fundamentals video would open here. Content coming soon!");
-        });
-        
-        bachataVideo.addEventListener('click', function() {
-            alert("Bachata Footwork video would open here. Content coming soon!");
-        });
-        
-        // Initial form validation
-        nameInput.addEventListener('input', validateForm);
-        locationSelect.addEventListener('change', validateForm);
-        
-        // Initialize train progress
-        trainProgress.style.width = '33%';
-        stationInfo.classList.add('active');
     </script>
 </body>
 </html>
