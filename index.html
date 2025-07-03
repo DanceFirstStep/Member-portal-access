@@ -376,6 +376,39 @@
             font-size: 0.9rem;
         }
         
+        .auto-reset-notice {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(106, 90, 205, 0.08);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #5a5a6d;
+            animation: pulseNotice 3s infinite;
+        }
+        
+        @keyframes pulseNotice {
+            0%, 100% { background-color: rgba(106, 90, 205, 0.08); }
+            50% { background-color: rgba(106, 90, 205, 0.15); }
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(106, 90, 205, 0.2);
+            border-radius: 3px;
+            margin-top: 15px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #6A5ACD, #7B68EE);
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+        
         footer {
             text-align: center;
             padding: 30px 30px 25px;
@@ -558,9 +591,17 @@
                     <p><i class="fas fa-sync fa-spin"></i> Saving your information to our records...</p>
                 </div>
                 
+                <div class="auto-reset-notice">
+                    <i class="fas fa-info-circle"></i> The form will reset automatically in <span id="countdown">15</span> seconds
+                </div>
+                
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                
                 <div class="reset-container">
                     <button class="reset-btn" id="reset-btn">
-                        <i class="fas fa-redo"></i> Check-in Another Student
+                        <i class="fas fa-redo"></i> Reset Now
                     </button>
                 </div>
             </div>
@@ -589,6 +630,14 @@
         const inspirationQuote = document.getElementById('inspiration-quote');
         const resetBtn = document.getElementById('reset-btn');
         const dataSaving = document.getElementById('data-saving');
+        const countdownElement = document.getElementById('countdown');
+        const progressBar = document.getElementById('progress-bar');
+        const progressFill = document.getElementById('progress-fill');
+        
+        // Auto-reset variables
+        let resetTimer;
+        let resetSeconds = 15;
+        let resetProgressInterval;
         
         // Collections for personalized messages
         const welcomeMessages = [
@@ -642,7 +691,76 @@
                 
                 // Show success message
                 paymentComplete.style.display = 'flex';
+                
+                // Start auto-reset countdown
+                startAutoReset();
             }, 1500);
+        }
+        
+        // Start auto-reset countdown
+        function startAutoReset() {
+            // Clear any existing timer
+            clearInterval(resetTimer);
+            clearInterval(resetProgressInterval);
+            
+            // Reset countdown
+            resetSeconds = 15;
+            countdownElement.textContent = resetSeconds;
+            
+            // Show progress bar
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            
+            // Start countdown
+            resetTimer = setInterval(() => {
+                resetSeconds--;
+                countdownElement.textContent = resetSeconds;
+                
+                if (resetSeconds <= 0) {
+                    clearInterval(resetTimer);
+                    resetForm();
+                }
+            }, 1000);
+            
+            // Update progress bar
+            let progress = 0;
+            const progressIncrement = 100 / (resetSeconds * 10); // Increment every 100ms
+            
+            resetProgressInterval = setInterval(() => {
+                progress += progressIncrement;
+                progressFill.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(resetProgressInterval);
+                }
+            }, 100);
+        }
+        
+        // Reset form
+        function resetForm() {
+            // Hide inspiration card
+            inspirationCard.style.display = 'none';
+            
+            // Reset form
+            nameInput.value = '';
+            locationSelect.value = '';
+            document.getElementById('cash').checked = true;
+            paymentActions.innerHTML = '';
+            paymentComplete.style.display = 'none';
+            dataSaving.style.display = 'none';
+            progressBar.style.display = 'none';
+            
+            // Reset welcome messages
+            welcomeTitle.innerHTML = "Welcome to Class!";
+            inspirationMessage.textContent = "We're excited to dance with you today!";
+            inspirationQuote.textContent = '"Dance is the hidden language of the soul."';
+            
+            // Clear timers
+            clearInterval(resetTimer);
+            clearInterval(resetProgressInterval);
+            
+            // Scroll back to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         // Check-in button click handler
@@ -723,30 +841,16 @@
                     // Show completion message
                     paymentActions.innerHTML = '';
                     paymentComplete.style.display = 'flex';
+                    
+                    // Start auto-reset countdown
+                    startAutoReset();
                 });
             }
         });
         
         // Reset button handler
         resetBtn.addEventListener('click', function() {
-            // Hide inspiration card
-            inspirationCard.style.display = 'none';
-            
-            // Reset form
-            nameInput.value = '';
-            locationSelect.value = '';
-            document.getElementById('cash').checked = true;
-            paymentActions.innerHTML = '';
-            paymentComplete.style.display = 'none';
-            dataSaving.style.display = 'none';
-            
-            // Reset welcome messages
-            welcomeTitle.innerHTML = "Welcome to Class!";
-            inspirationMessage.textContent = "We're excited to dance with you today!";
-            inspirationQuote.textContent = '"Dance is the hidden language of the soul."';
-            
-            // Scroll back to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            resetForm();
         });
     </script>
 </body>
