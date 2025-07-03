@@ -147,104 +147,51 @@
             padding-left: 10px;
         }
         
-        /* Enhanced Payment Options */
-        .payment-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        
         .payment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 15px;
             margin-top: 15px;
         }
         
         .payment-option {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
             border: 1px solid rgba(200, 200, 220, 0.3);
             transition: all 0.3s ease;
             cursor: pointer;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .payment-option.selected {
-            border-color: #6A5ACD;
-            background: rgba(106, 90, 205, 0.05);
-            box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.15);
         }
         
         .payment-option:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(106, 90, 205, 0.3);
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-        
-        .payment-icon-container {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            background: rgba(106, 90, 205, 0.1);
-        }
-        
-        .payment-icon {
-            font-size: 1.8rem;
-            color: #6A5ACD;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
         
         .payment-option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            accent-color: #6A5ACD;
         }
         
-        .payment-label {
-            font-weight: 500;
-            color: #4a4a5d;
-            font-size: 1.1rem;
-        }
-        
-        .payment-description {
-            font-size: 0.9rem;
-            color: rgba(90, 90, 109, 0.7);
-            margin-top: 8px;
-        }
-        
-        .selected-indicator {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #6A5ACD;
+        .payment-option label {
             display: flex;
             align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            gap: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            flex-grow: 1;
+            color: #4a4a5d;
         }
         
-        .payment-option.selected .selected-indicator {
-            opacity: 1;
-        }
-        
-        .selected-indicator i {
-            color: white;
-            font-size: 0.8rem;
+        .payment-icon {
+            font-size: 1.2rem;
+            color: #6A5ACD;
         }
         
         .submit-btn {
@@ -449,10 +396,6 @@
             .inspiration-card {
                 padding: 30px;
             }
-            
-            .payment-options {
-                grid-template-columns: 1fr;
-            }
         }
         
         @media (max-width: 480px) {
@@ -480,6 +423,79 @@
             .inspiration-card h2 {
                 font-size: 1.8rem;
             }
+        }
+        
+        /* Enhanced Thank You Section */
+        .thank-you-section {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin-top: 20px;
+            border: 2px solid rgba(106, 90, 205, 0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: #50C878;
+            margin-bottom: 20px;
+            animation: successPulse 1.5s infinite;
+        }
+        
+        @keyframes successPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .next-steps {
+            background: rgba(245, 245, 255, 0.7);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .next-steps h3 {
+            color: #4B0082;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            min-width: 30px;
+            height: 30px;
+            background: #6A5ACD;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            color: #4a4a5d;
+            margin-bottom: 5px;
+        }
+        
+        .step-description {
+            font-size: 0.95rem;
+            color: rgba(90, 90, 109, 0.8);
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -511,57 +527,38 @@
             </div>
             
             <div class="form-group">
-                <div class="payment-header">
-                    <label class="form-label">Payment Method</label>
-                    <span class="payment-description">Select your preferred payment option</span>
-                </div>
+                <label class="form-label">Payment Method</label>
                 <div class="payment-options">
-                    <div class="payment-option selected" id="cash-option">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="cash" value="cash" checked>
-                        <div class="payment-icon-container">
+                        <label for="cash">
                             <i class="fas fa-money-bill-wave payment-icon"></i>
-                        </div>
-                        <span class="payment-label">Paid Cash</span>
-                        <span class="payment-description">Pay with cash at the studio</span>
-                        <div class="selected-indicator">
-                            <i class="fas fa-check"></i>
-                        </div>
+                            <span>Paid Cash</span>
+                        </label>
                     </div>
                     
-                    <div class="payment-option" id="venmo-option">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="venmo" value="venmo">
-                        <div class="payment-icon-container">
+                        <label for="venmo">
                             <i class="fab fa-vimeo payment-icon"></i>
-                        </div>
-                        <span class="payment-label">Paid Venmo</span>
-                        <span class="payment-description">Paid via Venmo app</span>
-                        <div class="selected-indicator">
-                            <i class="fas fa-check"></i>
-                        </div>
+                            <span>Paid Venmo</span>
+                        </label>
                     </div>
                     
-                    <div class="payment-option" id="unlimited-option">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="unlimited" value="unlimited">
-                        <div class="payment-icon-container">
+                        <label for="unlimited">
                             <i class="fas fa-infinity payment-icon"></i>
-                        </div>
-                        <span class="payment-label">Unlimited Pass</span>
-                        <span class="payment-description">Monthly subscription</span>
-                        <div class="selected-indicator">
-                            <i class="fas fa-check"></i>
-                        </div>
+                            <span>Unlimited Pass</span>
+                        </label>
                     </div>
                     
-                    <div class="payment-option" id="later-option">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="later" value="later">
-                        <div class="payment-icon-container">
+                        <label for="later">
                             <i class="fas fa-clock payment-icon"></i>
-                        </div>
-                        <span class="payment-label">Pay After Check-in</span>
-                        <span class="payment-description">Pay after class</span>
-                        <div class="selected-indicator">
-                            <i class="fas fa-check"></i>
-                        </div>
+                            <span>Pay After Check-in</span>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -592,6 +589,42 @@
                 <a href="#" class="venmo-btn" id="venmo-pay-btn">
                     <i class="fab fa-vimeo"></i> Complete Payment with Venmo
                 </a>
+            </div>
+            
+            <!-- Enhanced Thank You Section -->
+            <div class="thank-you-section" id="thank-you-section">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Check-in Complete!</h2>
+                <p>Thank you for checking in, <span id="thank-you-name" class="highlight">Guest</span>!</p>
+                
+                <div class="next-steps">
+                    <h3>Next Steps</h3>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Join the Session</div>
+                            <div class="step-description">Please proceed to the dance floor and join the current session.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Enjoy Your Class</div>
+                            <div class="step-description">Focus on your movements and enjoy the learning experience.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Stay Hydrated</div>
+                            <div class="step-description">Remember to drink water during breaks to stay energized.</div>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="reset-container">
                     <button class="reset-btn" id="reset-btn">
@@ -614,34 +647,18 @@
     <script>
         const checkinBtn = document.getElementById('checkin-btn');
         const inspirationCard = document.getElementById('inspiration-card');
+        const thankYouSection = document.getElementById('thank-you-section');
         const finishPaymentBtn = document.getElementById('finish-payment');
         const thankYou = document.getElementById('thank-you');
         const venmoPayBtn = document.getElementById('venmo-pay-btn');
         const displayName = document.getElementById('display-name');
+        const thankYouName = document.getElementById('thank-you-name');
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
         
-        // Payment option elements
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        
         // Venmo payment link
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
-        
-        // Add click handlers to payment options
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selected class to clicked option
-                this.classList.add('selected');
-                
-                // Check the radio button inside
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-            });
-        });
         
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
@@ -658,8 +675,9 @@
             const nameParts = name.split(' ');
             let displayNameText = nameParts[0] || 'Guest';
             
-            // Display name in inspiration card
+            // Display name in cards
             displayName.textContent = displayNameText;
+            thankYouName.textContent = displayNameText;
             
             // Show inspiration card
             inspirationCard.style.display = 'block';
@@ -673,7 +691,32 @@
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
                 // Immediate payment methods - complete immediately
                 finishPaymentBtn.style.display = 'none';
-                thankYou.style.display = 'flex';
+                
+                // For Venmo payment, show thank you and then open Venmo
+                if (paymentMethod === 'venmo') {
+                    thankYou.style.display = 'flex';
+                    
+                    // After 2 seconds, open Venmo automatically
+                    setTimeout(() => {
+                        window.open(venmoPaymentLink, '_blank');
+                        
+                        // Also show the Venmo button as an alternative
+                        venmoPayBtn.style.display = 'flex';
+                        
+                        // Transition to thank you section after 3 seconds
+                        setTimeout(() => {
+                            inspirationCard.style.display = 'none';
+                            thankYouSection.style.display = 'block';
+                        }, 3000);
+                    }, 2000);
+                } else {
+                    // For cash and unlimited, go directly to thank you section
+                    setTimeout(() => {
+                        inspirationCard.style.display = 'none';
+                        thankYouSection.style.display = 'block';
+                        thankYouSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 1500);
+                }
             } 
             else if (paymentMethod === 'later') {
                 // Show finish button for "Pay After Check-in"
@@ -695,6 +738,13 @@
                 
                 // Also show the Venmo button as an alternative
                 venmoPayBtn.style.display = 'flex';
+                
+                // Transition to thank you section after 3 seconds
+                setTimeout(() => {
+                    inspirationCard.style.display = 'none';
+                    thankYouSection.style.display = 'block';
+                    thankYouSection.scrollIntoView({ behavior: 'smooth' });
+                }, 3000);
             }, 2000);
         });
         
@@ -706,8 +756,9 @@
         
         // Reset button handler
         resetBtn.addEventListener('click', function() {
-            // Hide inspiration card
+            // Hide cards
             inspirationCard.style.display = 'none';
+            thankYouSection.style.display = 'none';
             
             // Reset form
             nameInput.value = '';
@@ -716,10 +767,6 @@
             thankYou.style.display = 'none';
             finishPaymentBtn.style.display = 'none';
             venmoPayBtn.style.display = 'none';
-            
-            // Reset payment selection
-            paymentOptions.forEach(opt => opt.classList.remove('selected'));
-            document.getElementById('cash-option').classList.add('selected');
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
