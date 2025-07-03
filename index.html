@@ -545,6 +545,7 @@
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
+        let venmoTimeout;
         
         // Venmo payment link
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
@@ -580,6 +581,13 @@
                 // Immediate payment methods - complete immediately
                 finishPaymentBtn.style.display = 'none';
                 thankYou.style.display = 'flex';
+                
+                // If Venmo selected, open Venmo after 2 seconds
+                if (paymentMethod === 'venmo') {
+                    venmoTimeout = setTimeout(() => {
+                        window.open(venmoPaymentLink, '_blank');
+                    }, 2000);
+                }
             } 
             else if (paymentMethod === 'later') {
                 // Show finish button for "Pay After Check-in"
@@ -595,23 +603,28 @@
             // Show thank you message
             thankYou.style.display = 'flex';
             
+            // Show Venmo button immediately
+            venmoPayBtn.style.display = 'flex';
+            
             // After 2 seconds, open Venmo automatically
-            setTimeout(() => {
+            venmoTimeout = setTimeout(() => {
                 window.open(venmoPaymentLink, '_blank');
-                
-                // Also show the Venmo button as an alternative
-                venmoPayBtn.style.display = 'flex';
             }, 2000);
         });
         
         // Venmo button handler
         venmoPayBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            // Cancel the automatic opening if it hasn't happened yet
+            clearTimeout(venmoTimeout);
             window.open(venmoPaymentLink, '_blank');
         });
         
         // Reset button handler
         resetBtn.addEventListener('click', function() {
+            // Clear any pending Venmo timeout
+            clearTimeout(venmoTimeout);
+            
             // Hide inspiration card
             inspirationCard.style.display = 'none';
             
