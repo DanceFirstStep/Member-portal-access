@@ -591,7 +591,6 @@
         const paymentOptions = [cashOption, venmoOption, unlimitedOption, laterOption];
         
         let selectedOption = null;
-        let autoResetTimeout = null;
         
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
         
@@ -633,30 +632,11 @@
             selectedOption = null;
         }
         
-        function resetForm() {
-            // Clear any pending auto reset timeout
-            if (autoResetTimeout) {
-                clearTimeout(autoResetTimeout);
-                autoResetTimeout = null;
-            }
-            
-            // Hide the inspiration card
-            inspirationCard.style.display = 'none';
-            
-            // Clear inputs
+        // Clear the form while keeping the thank-you message visible
+        function clearForm() {
             nameInput.value = '';
             locationSelect.value = '';
-            
-            // Hide all the additional elements
-            thankYou.style.display = 'none';
-            finishPaymentBtn.style.display = 'none';
-            venmoPayBtn.style.display = 'none';
-            
-            // Expand payment options
             expandPaymentOptions();
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         checkinBtn.addEventListener('click', function() {
@@ -690,8 +670,8 @@
                 finishPaymentBtn.style.display = 'none';
                 thankYou.style.display = 'flex';
                 
-                // Automatically reset the form after 3 seconds
-                autoResetTimeout = setTimeout(resetForm, 3000);
+                // Clear the form in the background while keeping the thank-you visible
+                setTimeout(clearForm, 500);
             } 
             else if (paymentMethod === 'later') {
                 finishPaymentBtn.style.display = 'flex';
@@ -707,8 +687,8 @@
                 venmoPayBtn.style.display = 'flex';
             }, 2000);
             
-            // Automatically reset the form after 5 seconds
-            autoResetTimeout = setTimeout(resetForm, 5000);
+            // Clear the form in the background while keeping the thank-you visible
+            setTimeout(clearForm, 500);
         });
         
         venmoPayBtn.addEventListener('click', function(e) {
@@ -716,7 +696,11 @@
             window.open(venmoPaymentLink, '_blank');
         });
         
-        resetBtn.addEventListener('click', resetForm);
+        resetBtn.addEventListener('click', function() {
+            // Only hide the inspiration card, form is already cleared
+            inspirationCard.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
