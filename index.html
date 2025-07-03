@@ -358,6 +358,20 @@
             color: #4B0082;
         }
         
+        .data-saving {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(106, 90, 205, 0.05);
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .data-saving p {
+            color: #6A5ACD;
+            font-size: 0.9rem;
+        }
+        
         footer {
             text-align: center;
             padding: 40px 30px 30px;
@@ -512,6 +526,10 @@
                     <span>Check-in complete! Enjoy your class!</span>
                 </div>
                 
+                <div class="data-saving" id="data-saving">
+                    <p><i class="fas fa-sync fa-spin"></i> Saving your information to our records...</p>
+                </div>
+                
                 <div class="reset-container">
                     <button class="reset-btn" id="reset-btn">
                         <i class="fas fa-redo"></i> Check-in Another Student
@@ -541,6 +559,7 @@
         const locationSelect = document.getElementById('class-location');
         const inspirationQuote = document.getElementById('inspiration-quote');
         const resetBtn = document.getElementById('reset-btn');
+        const dataSaving = document.getElementById('data-saving');
         
         // Quotes collection
         const danceQuotes = [
@@ -555,6 +574,22 @@
             "When you dance, your purpose is not to get to a certain place on the floor. It's to enjoy each step along the way.",
             "Dance is the only art of which we ourselves are the stuff of which it is made."
         ];
+        
+        // Save data to Google Sheets
+        function saveToGoogleSheets(data) {
+            // Show saving indicator
+            dataSaving.style.display = 'block';
+            
+            // In a real implementation, this would connect to Google Sheets
+            // For now, we'll simulate the saving process
+            setTimeout(() => {
+                console.log("Data saved to Google Sheets:", data);
+                dataSaving.style.display = 'none';
+                
+                // Show success message
+                paymentComplete.style.display = 'flex';
+            }, 1500);
+        }
         
         // Check-in button click handler
         checkinBtn.addEventListener('click', function() {
@@ -582,19 +617,28 @@
             // Clear previous payment actions
             paymentActions.innerHTML = '';
             paymentComplete.style.display = 'none';
+            dataSaving.style.display = 'none';
             
             // Add random quote
             const quote = danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
             inspirationQuote.textContent = `"${quote}"`;
             
+            // Prepare data for saving
+            const checkinData = {
+                name: name,
+                location: location,
+                paymentMethod: paymentMethod,
+                timestamp: new Date().toLocaleString()
+            };
+            
             // Handle payment methods
             if (paymentMethod === 'cash') {
                 // Cash payment - complete immediately
-                paymentComplete.style.display = 'flex';
+                saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
             } 
             else if (paymentMethod === 'venmo') {
                 // Venmo already paid - complete immediately
-                paymentComplete.style.display = 'flex';
+                saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
             }
             else if (paymentMethod === 'later') {
                 // Pay after check-in - show Venmo button
@@ -606,9 +650,15 @@
                     <p class="venmo-note">This will open the Venmo app on your device</p>
                 `;
                 
+                // Save initial check-in with pending status
+                saveToGoogleSheets({...checkinData, paymentStatus: 'pending'});
+                
                 document.getElementById('open-venmo').addEventListener('click', function() {
                     // Open Venmo using your specific link
                     window.location.href = 'https://venmo.com/code?user_id=2575920015605760344&created=1750346816';
+                    
+                    // Update payment status in records
+                    saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
                     
                     // Show completion message
                     paymentActions.innerHTML = '';
@@ -628,6 +678,7 @@
             document.getElementById('cash').checked = true;
             paymentActions.innerHTML = '';
             paymentComplete.style.display = 'none';
+            dataSaving.style.display = 'none';
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
