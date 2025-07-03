@@ -591,6 +591,7 @@
         const paymentOptions = [cashOption, venmoOption, unlimitedOption, laterOption];
         
         let selectedOption = null;
+        let autoResetTimeout = null;
         
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
         
@@ -632,6 +633,32 @@
             selectedOption = null;
         }
         
+        function resetForm() {
+            // Clear any pending auto reset timeout
+            if (autoResetTimeout) {
+                clearTimeout(autoResetTimeout);
+                autoResetTimeout = null;
+            }
+            
+            // Hide the inspiration card
+            inspirationCard.style.display = 'none';
+            
+            // Clear inputs
+            nameInput.value = '';
+            locationSelect.value = '';
+            
+            // Hide all the additional elements
+            thankYou.style.display = 'none';
+            finishPaymentBtn.style.display = 'none';
+            venmoPayBtn.style.display = 'none';
+            
+            // Expand payment options
+            expandPaymentOptions();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
             const location = locationSelect.value;
@@ -662,6 +689,9 @@
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
                 finishPaymentBtn.style.display = 'none';
                 thankYou.style.display = 'flex';
+                
+                // Automatically reset the form after 3 seconds
+                autoResetTimeout = setTimeout(resetForm, 3000);
             } 
             else if (paymentMethod === 'later') {
                 finishPaymentBtn.style.display = 'flex';
@@ -676,6 +706,9 @@
                 window.open(venmoPaymentLink, '_blank');
                 venmoPayBtn.style.display = 'flex';
             }, 2000);
+            
+            // Automatically reset the form after 5 seconds
+            autoResetTimeout = setTimeout(resetForm, 5000);
         });
         
         venmoPayBtn.addEventListener('click', function(e) {
@@ -683,16 +716,7 @@
             window.open(venmoPaymentLink, '_blank');
         });
         
-        resetBtn.addEventListener('click', function() {
-            inspirationCard.style.display = 'none';
-            nameInput.value = '';
-            locationSelect.value = '';
-            thankYou.style.display = 'none';
-            finishPaymentBtn.style.display = 'none';
-            venmoPayBtn.style.display = 'none';
-            expandPaymentOptions();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        resetBtn.addEventListener('click', resetForm);
     </script>
 </body>
 </html>
