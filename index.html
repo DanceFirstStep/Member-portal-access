@@ -427,26 +427,34 @@
             }
         }
         
-        /* Payment Selection Enhancement */
+        /* Payment selection effect */
         .payment-option:not(.selected) {
-            opacity: 0.5;
+            opacity: 0.3;
             transform: scale(0.95);
+            filter: blur(1px);
+            transition: all 0.4s ease;
         }
         
         .payment-option.selected {
             border: 2px solid #6A5ACD;
             background: rgba(106, 90, 205, 0.05);
             box-shadow: 0 5px 15px rgba(106, 90, 205, 0.1);
+            transform: scale(1.02);
+            z-index: 10;
         }
         
         .payment-option.selected .payment-icon {
             color: #4B0082;
-            animation: pulse-icon 1s infinite;
+            animation: pulse-icon 1.5s infinite;
         }
         
         @keyframes pulse-icon {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
+        }
+        
+        .payment-label {
+            font-weight: 600;
         }
     </style>
 </head>
@@ -484,7 +492,7 @@
                         <input type="radio" name="payment" id="cash" value="cash" checked>
                         <label for="cash">
                             <i class="fas fa-money-bill-wave payment-icon"></i>
-                            <span>Paid Cash</span>
+                            <span class="payment-label">Paid Cash</span>
                         </label>
                     </div>
                     
@@ -492,7 +500,7 @@
                         <input type="radio" name="payment" id="venmo" value="venmo">
                         <label for="venmo">
                             <i class="fab fa-vimeo payment-icon"></i>
-                            <span>Paid Venmo</span>
+                            <span class="payment-label">Paid Venmo</span>
                         </label>
                     </div>
                     
@@ -500,7 +508,7 @@
                         <input type="radio" name="payment" id="unlimited" value="unlimited">
                         <label for="unlimited">
                             <i class="fas fa-infinity payment-icon"></i>
-                            <span>Unlimited Pass</span>
+                            <span class="payment-label">Unlimited Pass</span>
                         </label>
                     </div>
                     
@@ -508,7 +516,7 @@
                         <input type="radio" name="payment" id="later" value="later">
                         <label for="later">
                             <i class="fas fa-clock payment-icon"></i>
-                            <span>Pay After Check-in</span>
+                            <span class="payment-label">Pay After Check-in</span>
                         </label>
                     </div>
                 </div>
