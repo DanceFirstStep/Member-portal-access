@@ -262,16 +262,6 @@
             font-weight: 600;
         }
         
-        .payment-actions {
-            margin: 25px auto 15px;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            max-width: 450px;
-        }
-        
         .finish-btn {
             display: inline-flex;
             align-items: center;
@@ -290,6 +280,7 @@
             gap: 12px;
             width: 100%;
             max-width: 300px;
+            margin: 0 auto 15px;
         }
         
         .finish-btn:hover {
@@ -298,18 +289,19 @@
             background: #46b36a;
         }
         
-        .payment-complete {
+        .thank-you {
             margin: 20px 0 15px;
             padding: 15px;
-            background: rgba(80, 200, 120, 0.1);
+            background: rgba(106, 90, 205, 0.1);
             border-radius: 12px;
-            color: #50C878;
+            color: #6A5ACD;
             font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             display: none;
+            animation: fadeIn 0.5s ease;
         }
         
         .reset-container {
@@ -332,20 +324,6 @@
         .reset-btn:hover {
             color: #4B0082;
             background: rgba(106, 90, 205, 0.05);
-        }
-        
-        .data-saving {
-            margin-top: 15px;
-            padding: 10px;
-            background: rgba(106, 90, 205, 0.05);
-            border-radius: 10px;
-            text-align: center;
-            display: none;
-        }
-        
-        .data-saving p {
-            color: #6A5ACD;
-            font-size: 0.9rem;
         }
         
         footer {
@@ -498,22 +476,15 @@
                 <div class="card-content">
                     <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
                     <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
-                    <p>Your journey to becoming a <span class="highlight">better dancer</span> starts now.</p>
                 </div>
                 
-                <div class="payment-actions" id="payment-actions">
-                    <button class="finish-btn" id="finish-payment">
-                        <i class="fas fa-check-circle"></i> Complete Payment & Finish Check-in
-                    </button>
-                </div>
+                <button class="finish-btn" id="finish-payment">
+                    <i class="fas fa-check-circle"></i> Finish Check-in
+                </button>
                 
-                <div class="payment-complete" id="payment-complete">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Check-in complete! Enjoy your class!</span>
-                </div>
-                
-                <div class="data-saving" id="data-saving">
-                    <p><i class="fas fa-sync fa-spin"></i> Finalizing your check-in...</p>
+                <div class="thank-you" id="thank-you">
+                    <i class="fas fa-heart"></i>
+                    <span>Thank you!</span>
                 </div>
                 
                 <div class="reset-container">
@@ -537,42 +508,15 @@
     <script>
         const checkinBtn = document.getElementById('checkin-btn');
         const inspirationCard = document.getElementById('inspiration-card');
-        const paymentActions = document.getElementById('payment-actions');
-        const paymentComplete = document.getElementById('payment-complete');
+        const finishPaymentBtn = document.getElementById('finish-payment');
+        const thankYou = document.getElementById('thank-you');
         const displayName = document.getElementById('display-name');
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
-        const inspirationQuote = document.getElementById('inspiration-quote');
         const resetBtn = document.getElementById('reset-btn');
-        const dataSaving = document.getElementById('data-saving');
-        const finishPaymentBtn = document.getElementById('finish-payment');
         
-        const danceQuotes = [
-            "Dance is the hidden language of the soul.",
-            "To dance is to be out of yourself. Larger, more beautiful, more powerful.",
-            "Dance is the joy of movement and the heart of life.",
-            "Great dancers are not great because of their technique, they are great because of their passion.",
-            "Dance first. Think later. It's the natural order."
-        ];
-        
-        // Venmo payment link (kept private in actual implementation)
+        // Venmo payment link
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
-        
-        function saveToGoogleSheets(data) {
-            dataSaving.style.display = 'block';
-            
-            setTimeout(() => {
-                dataSaving.style.display = 'none';
-                
-                // Show success message
-                paymentComplete.style.display = 'flex';
-                
-                // Hide payment actions if we're completing payment
-                if(data.paymentStatus === 'paid') {
-                    paymentActions.style.display = 'none';
-                }
-            }, 1500);
-        }
         
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
@@ -596,62 +540,33 @@
             inspirationCard.style.display = 'block';
             inspirationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Initially hide payment section
-            paymentComplete.style.display = 'none';
-            dataSaving.style.display = 'none';
-            
-            // Add random quote
-            const quote = danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
-            inspirationQuote.textContent = `"${quote}"`;
-            
-            // Prepare data for saving
-            const checkinData = {
-                name: name,
-                location: location,
-                paymentMethod: paymentMethod,
-                timestamp: new Date().toLocaleString()
-            };
+            // Hide thank you message
+            thankYou.style.display = 'none';
             
             // Handle payment methods
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
                 // Immediate payment methods - complete immediately
-                paymentActions.style.display = 'none';
-                saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
+                finishPaymentBtn.style.display = 'none';
+                thankYou.style.display = 'flex';
             } 
             else if (paymentMethod === 'later') {
-                // Show payment section for "Pay After Check-in"
-                paymentActions.style.display = 'flex';
-                
-                // Save initial check-in with pending status
-                saveToGoogleSheets({...checkinData, paymentStatus: 'pending'});
+                // Show finish button for "Pay After Check-in"
+                finishPaymentBtn.style.display = 'flex';
             }
         });
         
         // Finish payment button handler
         finishPaymentBtn.addEventListener('click', function() {
-            // Open Venmo payment in a new tab
-            window.open(venmoPaymentLink, '_blank');
+            // Hide the finish button
+            finishPaymentBtn.style.display = 'none';
             
-            // Mark payment as complete
-            const name = nameInput.value.trim();
-            const location = locationSelect.value;
+            // Show thank you message
+            thankYou.style.display = 'flex';
             
-            const checkinData = {
-                name: name,
-                location: location,
-                paymentMethod: 'later',
-                timestamp: new Date().toLocaleString()
-            };
-            
-            // Show saving indicator
-            dataSaving.style.display = 'block';
-            
-            // Simulate saving to database
+            // After 3 seconds, open Venmo automatically
             setTimeout(() => {
-                dataSaving.style.display = 'none';
-                paymentComplete.style.display = 'flex';
-                paymentActions.style.display = 'none';
-            }, 1500);
+                window.open(venmoPaymentLink, '_blank');
+            }, 3000);
         });
         
         // Reset button handler
@@ -663,9 +578,8 @@
             nameInput.value = '';
             locationSelect.value = '';
             document.getElementById('cash').checked = true;
-            paymentComplete.style.display = 'none';
-            dataSaving.style.display = 'none';
-            paymentActions.style.display = 'none';
+            thankYou.style.display = 'none';
+            finishPaymentBtn.style.display = 'none';
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
