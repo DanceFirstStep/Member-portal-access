@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dance Portal | Professional Check-in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,8 +16,8 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #f8f9fc 0%, #eef2f7 100%);
-            color: #3a3a4e;
+            background: linear-gradient(135deg, #1a0f3c 0%, #2c1b6a 100%);
+            color: #f8f9fc;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,9 +28,9 @@
         .container {
             width: 100%;
             max-width: 900px;
-            background: rgba(255, 255, 255, 0.98);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(245, 240, 255, 0.95));
             border-radius: 24px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 50px rgba(106, 90, 205, 0.3);
             overflow: hidden;
             border: 1px solid rgba(230, 230, 250, 0.5);
             animation: fadeIn 0.8s ease;
@@ -50,8 +50,8 @@
         }
         
         .logo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto 25px;
             background: linear-gradient(135deg, #6A5ACD, #7B68EE);
             border-radius: 50%;
@@ -59,6 +59,7 @@
             align-items: center;
             justify-content: center;
             animation: pulse 6s infinite;
+            box-shadow: 0 5px 20px rgba(106, 90, 205, 0.4);
         }
         
         @keyframes pulse {
@@ -73,8 +74,14 @@
         }
         
         .logo i {
-            font-size: 42px;
+            font-size: 48px;
             color: #fff;
+            animation: spin 8s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         h1, h2, h3 {
@@ -83,20 +90,24 @@
         }
         
         h1 {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             margin-bottom: 15px;
             letter-spacing: -0.5px;
             color: #4B0082;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #6A5ACD, #4B0082);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .tagline {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #5a5a6d;
             max-width: 500px;
             margin: 0 auto;
             font-weight: 300;
             line-height: 1.7;
+            font-family: 'Dancing Script', cursive;
         }
         
         .form-section {
@@ -152,7 +163,6 @@
             flex-direction: column;
             gap: 15px;
             margin-top: 15px;
-            transition: all 0.4s ease;
         }
         
         .payment-option {
@@ -164,41 +174,13 @@
             border: 1px solid rgba(200, 200, 220, 0.3);
             transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            height: auto;
-            max-height: 70px;
-            transition: all 0.4s ease;
         }
         
-        .payment-option.collapsed {
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            border-width: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-            opacity: 0;
-            transform: translateY(-10px);
-            pointer-events: none;
-        }
-        
-        .payment-option.selected {
-            border: 2px solid #6A5ACD;
-            background: rgba(106, 90, 205, 0.05);
-            box-shadow: 0 5px 15px rgba(106, 90, 205, 0.1);
-            transform: scale(1.02);
-            z-index: 10;
-        }
-        
-        .payment-option.selected .payment-icon {
-            color: #4B0082;
-            animation: pulse-icon 1.5s infinite;
-        }
-        
-        @keyframes pulse-icon {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .payment-option:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(106, 90, 205, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
         
         .payment-option input[type="radio"] {
@@ -221,10 +203,6 @@
         .payment-icon {
             font-size: 1.2rem;
             color: #6A5ACD;
-        }
-        
-        .payment-label {
-            font-weight: 600;
         }
         
         .submit-btn {
@@ -253,7 +231,7 @@
         }
         
         .inspiration-card {
-            background: rgba(255, 255, 255, 0.98);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(245, 240, 255, 0.95));
             border-radius: 20px;
             padding: 40px;
             margin-top: 30px;
@@ -261,55 +239,117 @@
             text-align: center;
             border: 1px solid rgba(106, 90, 205, 0.15);
             animation: fadeIn 0.8s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            box-shadow: 0 15px 40px rgba(106, 90, 205, 0.15);
             position: relative;
+            overflow: hidden;
+        }
+        
+        .inspiration-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 Q50,20 100,0 L100,100 Q50,80 0,100 Z" fill="rgba(106, 90, 205, 0.03)"/></svg>');
+            background-size: cover;
+            z-index: -1;
         }
         
         .inspiration-card h2 {
             color: #4B0082;
             margin-bottom: 25px;
-            font-size: 2.2rem;
+            font-size: 2.8rem;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            animation: floatText 3s ease-in-out infinite;
+        }
+        
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         
         .card-icon {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             color: #6A5ACD;
             margin-bottom: 25px;
             animation: float 3s ease-in-out infinite;
+            text-shadow: 0 5px 15px rgba(106, 90, 205, 0.3);
         }
         
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(0deg); }
+            75% { transform: translateY(-10px) rotate(-5deg); }
+        }
+        
+        .card-content {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(200, 200, 220, 0.2);
         }
         
         .card-content p {
             margin-bottom: 15px;
-            line-height: 1.7;
-            font-size: 1.1rem;
+            line-height: 1.8;
+            font-size: 1.2rem;
             color: #5a5a6d;
         }
         
         .highlight {
             color: #6A5ACD;
             font-weight: 600;
+            font-size: 1.3rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .inspiration-quote {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #4B0082;
+            margin: 25px 0;
+            font-weight: 600;
+            position: relative;
+            padding: 0 30px;
+        }
+        
+        .inspiration-quote::before, .inspiration-quote::after {
+            content: """;
+            font-size: 3rem;
+            color: rgba(106, 90, 205, 0.3);
+            position: absolute;
+            top: -15px;
+        }
+        
+        .inspiration-quote::before {
+            left: 0;
+        }
+        
+        .inspiration-quote::after {
+            right: 0;
+            transform: scaleX(-1);
         }
         
         .finish-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: #50C878;
+            background: linear-gradient(135deg, #50C878, #3a9d5d);
             color: white;
             border: none;
             border-radius: 14px;
             padding: 18px 35px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(80, 200, 120, 0.15);
+            box-shadow: 0 8px 20px rgba(80, 200, 120, 0.2);
             gap: 12px;
             width: 100%;
             max-width: 300px;
@@ -318,8 +358,8 @@
         
         .finish-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(80, 200, 120, 0.2);
-            background: #46b36a;
+            box-shadow: 0 10px 25px rgba(80, 200, 120, 0.3);
+            background: linear-gradient(135deg, #46b36a, #31874e);
         }
         
         .thank-you {
@@ -335,23 +375,25 @@
             gap: 10px;
             display: none;
             animation: fadeIn 0.5s ease;
+            font-size: 1.3rem;
+            border: 2px dashed rgba(106, 90, 205, 0.3);
         }
         
         .venmo-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: #3D95CE;
+            background: linear-gradient(135deg, #3D95CE, #2a6b96);
             color: white;
             border: none;
             border-radius: 14px;
             padding: 16px 25px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(61, 149, 206, 0.15);
+            box-shadow: 0 8px 20px rgba(61, 149, 206, 0.2);
             gap: 10px;
             margin: 15px auto;
             display: none;
@@ -359,8 +401,8 @@
         
         .venmo-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(61, 149, 206, 0.2);
-            background: #3484b5;
+            box-shadow: 0 10px 25px rgba(61, 149, 206, 0.3);
+            background: linear-gradient(135deg, #3484b5, #1e5a7d);
         }
         
         .reset-container {
@@ -370,19 +412,24 @@
         
         .reset-btn {
             background: transparent;
-            border: none;
+            border: 2px solid #6A5ACD;
             color: #6A5ACD;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
-            text-decoration: underline;
             transition: all 0.3s ease;
-            padding: 8px 15px;
-            border-radius: 8px;
+            padding: 12px 25px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
         }
         
         .reset-btn:hover {
-            color: #4B0082;
-            background: rgba(106, 90, 205, 0.05);
+            color: #fff;
+            background: #6A5ACD;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(106, 90, 205, 0.2);
         }
         
         footer {
@@ -411,11 +458,12 @@
         
         .footer-link:hover {
             color: #4B0082;
+            text-decoration: underline;
         }
         
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .tagline {
@@ -429,6 +477,14 @@
             .inspiration-card {
                 padding: 30px;
             }
+            
+            .inspiration-card h2 {
+                font-size: 2.3rem;
+            }
+            
+            .inspiration-quote {
+                font-size: 1.5rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -437,11 +493,11 @@
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.3rem;
             }
             
             .tagline {
-                font-size: 1.05rem;
+                font-size: 1.1rem;
             }
             
             .form-input {
@@ -454,11 +510,15 @@
             }
             
             .inspiration-card h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
-            .payment-option {
-                padding: 12px;
+            .inspiration-quote {
+                font-size: 1.3rem;
+            }
+            
+            .card-content p {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -493,35 +553,35 @@
             <div class="form-group">
                 <label class="form-label">Payment Method</label>
                 <div class="payment-options">
-                    <div class="payment-option" id="cash-option">
-                        <input type="radio" name="payment" id="cash" value="cash">
+                    <div class="payment-option">
+                        <input type="radio" name="payment" id="cash" value="cash" checked>
                         <label for="cash">
                             <i class="fas fa-money-bill-wave payment-icon"></i>
-                            <span class="payment-label">Paid Cash</span>
+                            <span>Paid Cash</span>
                         </label>
                     </div>
                     
-                    <div class="payment-option" id="venmo-option">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="venmo" value="venmo">
                         <label for="venmo">
                             <i class="fab fa-vimeo payment-icon"></i>
-                            <span class="payment-label">Paid Venmo</span>
+                            <span>Paid Venmo</span>
                         </label>
                     </div>
                     
-                    <div class="payment-option" id="unlimited-option">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="unlimited" value="unlimited">
                         <label for="unlimited">
                             <i class="fas fa-infinity payment-icon"></i>
-                            <span class="payment-label">Unlimited Pass</span>
+                            <span>Unlimited Pass</span>
                         </label>
                     </div>
                     
-                    <div class="payment-option" id="later-option">
+                    <div class="payment-option">
                         <input type="radio" name="payment" id="later" value="later">
                         <label for="later">
                             <i class="fas fa-clock payment-icon"></i>
-                            <span class="payment-label">Pay After Check-in</span>
+                            <span>Pay After Check-in</span>
                         </label>
                     </div>
                 </div>
@@ -536,9 +596,11 @@
                     <i class="fas fa-star"></i>
                 </div>
                 <h2>Welcome to Class!</h2>
+                
                 <div class="card-content">
                     <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
-                    <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
+                    
+                    <p class="inspiration-quote">"Dance is the hidden language of the soul."</p>
                 </div>
                 
                 <button class="finish-btn" id="finish-payment">
@@ -583,75 +645,29 @@
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
         
-        // Payment option elements
-        const cashOption = document.getElementById('cash-option');
-        const venmoOption = document.getElementById('venmo-option');
-        const unlimitedOption = document.getElementById('unlimited-option');
-        const laterOption = document.getElementById('later-option');
-        const paymentOptions = [cashOption, venmoOption, unlimitedOption, laterOption];
-        
-        // Track selected state
-        let selectedOption = null;
-        
         // Venmo payment link
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
         
-        // Add click handlers to payment options
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                if (selectedOption === this) {
-                    // If clicking the already selected option, expand all
-                    expandPaymentOptions();
-                    selectedOption = null;
-                } else {
-                    // Otherwise, select this option and collapse others
-                    selectPaymentOption(this);
-                }
-            });
-        });
+        // Quotes array
+        const danceQuotes = [
+            "Dance is the hidden language of the soul.",
+            "To dance is to be out of yourself. Larger, more beautiful, more powerful.",
+            "Dance is the joy of movement and the heart of life.",
+            "Dancing is like dreaming with your feet!",
+            "Great dancers are not great because of their technique, they are great because of their passion.",
+            "Dance is the timeless interpretation of life.",
+            "We dance for laughter, we dance for tears, we dance for madness, we dance for fears."
+        ];
         
-        function selectPaymentOption(selectedOptionElement) {
-            // Clear previous selection
-            paymentOptions.forEach(option => {
-                option.classList.remove('selected');
-                option.querySelector('input[type="radio"]').checked = false;
-            });
-            
-            // Set new selection
-            selectedOption = selectedOptionElement;
-            selectedOption.classList.add('selected');
-            selectedOption.querySelector('input[type="radio"]').checked = true;
-            
-            // Collapse all non-selected options
-            paymentOptions.forEach(option => {
-                if (option !== selectedOption) {
-                    option.classList.add('collapsed');
-                }
-            });
-        }
-        
-        function expandPaymentOptions() {
-            // Expand all payment options
-            paymentOptions.forEach(option => {
-                option.classList.remove('collapsed');
-                option.classList.remove('selected');
-                option.querySelector('input[type="radio"]').checked = false;
-            });
-            
-            selectedOption = null;
+        // Get random quote
+        function getRandomQuote() {
+            return danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
         }
         
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
             const location = locationSelect.value;
-            
-            // Check if payment is selected
-            if (!selectedOption) {
-                alert('Please select a payment method');
-                return;
-            }
-            
-            const paymentMethod = selectedOption.querySelector('input[type="radio"]').value;
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
             
             // Simple validation
             if (!name || !location) {
@@ -665,6 +681,9 @@
             
             // Display name in inspiration card
             displayName.textContent = displayNameText;
+            
+            // Set random quote
+            document.querySelector('.inspiration-quote').textContent = getRandomQuote();
             
             // Show inspiration card
             inspirationCard.style.display = 'block';
@@ -717,12 +736,10 @@
             // Reset form
             nameInput.value = '';
             locationSelect.value = '';
+            document.getElementById('cash').checked = true;
             thankYou.style.display = 'none';
             finishPaymentBtn.style.display = 'none';
             venmoPayBtn.style.display = 'none';
-            
-            // Reset payment selection
-            expandPaymentOptions();
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
