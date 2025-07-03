@@ -43,7 +43,7 @@
         
         header {
             text-align: center;
-            padding: 30px 20px 20px;
+            padding: 35px 20px 25px;
             position: relative;
             background: linear-gradient(to bottom, rgba(119, 139, 235, 0.1), transparent);
             border-bottom: 1px solid rgba(119, 139, 235, 0.1);
@@ -58,6 +58,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         .logo i {
@@ -70,7 +77,7 @@
         }
         
         h1 {
-            font-size: 2.2rem;
+            font-size: 2.1rem;
             margin-bottom: 10px;
             letter-spacing: -0.5px;
             color: #4B0082;
@@ -119,25 +126,8 @@
         }
         
         .payment-group {
-            margin-top: 20px;
+            margin-top: 25px;
             position: relative;
-        }
-        
-        .payment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .change-payment {
-            background: transparent;
-            border: none;
-            color: #6A5ACD;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-decoration: underline;
-            display: none;
         }
         
         .payment-options {
@@ -149,15 +139,14 @@
         .payment-option {
             display: flex;
             align-items: center;
-            padding: 12px;
+            padding: 14px 16px;
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
+            border-radius: 14px;
             border: 1px solid rgba(200, 200, 220, 0.3);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             cursor: pointer;
             opacity: 1;
-            transform: scale(1);
-            height: 60px;
+            height: auto;
             overflow: hidden;
         }
         
@@ -165,6 +154,13 @@
             background: rgba(106, 90, 205, 0.1);
             border-color: #6A5ACD;
             box-shadow: 0 5px 15px rgba(106, 90, 205, 0.1);
+            animation: pulseBorder 2s infinite;
+        }
+        
+        @keyframes pulseBorder {
+            0% { box-shadow: 0 0 0 0 rgba(106, 90, 205, 0.2); }
+            70% { box-shadow: 0 0 0 8px rgba(106, 90, 205, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(106, 90, 205, 0); }
         }
         
         .payment-option.collapsed {
@@ -172,7 +168,6 @@
             height: 0;
             padding: 0;
             margin: 0;
-            transform: scale(0.9);
             border-width: 0;
         }
         
@@ -436,6 +431,15 @@
         .collapsing {
             transition: all 0.4s ease;
         }
+        
+        .payment-hint {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #7B68EE;
+            margin-top: 8px;
+            font-style: italic;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -465,12 +469,8 @@
             </div>
             
             <div class="payment-group">
-                <div class="payment-header">
-                    <label class="form-label">Payment Method</label>
-                    <button class="change-payment" id="change-payment">
-                        <i class="fas fa-sync-alt"></i> Change
-                    </button>
-                </div>
+                <label class="form-label">Payment Method</label>
+                <p class="payment-hint">(Click on your selection to change it)</p>
                 <div class="payment-options" id="payment-options">
                     <div class="payment-option" data-value="cash">
                         <input type="radio" name="payment" id="cash" value="cash">
@@ -571,7 +571,6 @@
             <div class="footer-links">
                 <a href="#" class="footer-link">Schedule</a>
                 <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">About</a>
             </div>
         </footer>
     </div>
@@ -587,13 +586,13 @@
         const inspirationQuote = document.getElementById('inspiration-quote');
         const resetBtn = document.getElementById('reset-btn');
         const paymentOptions = document.querySelectorAll('.payment-option');
-        const changePaymentBtn = document.getElementById('change-payment');
         const salsaVideo = document.getElementById('salsa-video');
         const bachataVideo = document.getElementById('bachata-video');
         
         // State variables
         let selectedPayment = null;
         let collapseTimer = null;
+        let paymentSelected = false;
         
         // Collections for personalized messages
         const welcomeMessages = [
@@ -616,7 +615,6 @@
         function validateForm() {
             const name = nameInput.value.trim();
             const location = locationSelect.value;
-            const paymentSelected = selectedPayment !== null;
             
             if (name && location && paymentSelected) {
                 checkinBtn.disabled = false;
@@ -629,30 +627,30 @@
         function collapseOtherOptions() {
             paymentOptions.forEach(option => {
                 if (option !== selectedPayment) {
-                    option.classList.add('collapsing');
-                    setTimeout(() => {
-                        option.classList.add('collapsed');
-                    }, 10);
+                    option.classList.add('collapsed');
                 }
             });
-            
-            // Show change button
-            changePaymentBtn.style.display = 'block';
         }
         
         // Expand all payment options
         function expandAllOptions() {
             paymentOptions.forEach(option => {
-                option.classList.remove('collapsed', 'collapsing');
+                option.classList.remove('collapsed', 'selected');
             });
-            
-            // Hide change button
-            changePaymentBtn.style.display = 'none';
+            selectedPayment = null;
+            paymentSelected = false;
+            validateForm();
         }
         
         // Payment option selection
         paymentOptions.forEach(option => {
             option.addEventListener('click', function() {
+                // If this option is already selected, expand all options
+                if (option === selectedPayment) {
+                    expandAllOptions();
+                    return;
+                }
+                
                 // Clear any existing timer
                 if (collapseTimer) {
                     clearTimeout(collapseTimer);
@@ -670,6 +668,7 @@
                 
                 // Update selected payment
                 selectedPayment = this;
+                paymentSelected = true;
                 
                 // Validate form
                 validateForm();
@@ -679,24 +678,6 @@
                     collapseOtherOptions();
                 }, 3000);
             });
-        });
-        
-        // Change payment handler
-        changePaymentBtn.addEventListener('click', function() {
-            // Expand all options
-            expandAllOptions();
-            
-            // Clear selection
-            paymentOptions.forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('input[type="radio"]').checked = false;
-            });
-            
-            // Reset selected payment
-            selectedPayment = null;
-            
-            // Validate form
-            validateForm();
         });
         
         // Check-in button click handler
@@ -735,12 +716,8 @@
             // Reset payment options
             expandAllOptions();
             paymentOptions.forEach(opt => {
-                opt.classList.remove('selected');
                 opt.querySelector('input[type="radio"]').checked = false;
             });
-            
-            // Reset selected payment
-            selectedPayment = null;
             
             // Validate form
             validateForm();
