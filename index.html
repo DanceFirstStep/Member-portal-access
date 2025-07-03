@@ -105,12 +105,16 @@
         .form-group {
             margin-bottom: 25px;
             position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(200, 200, 220, 0.4);
         }
         
         .form-label {
             display: block;
             margin-bottom: 10px;
-            font-weight: 500;
+            font-weight: 600;
             color: #2d3748;
             font-size: 1rem;
         }
@@ -124,6 +128,19 @@
             color: #2d3748;
             font-size: 1rem;
             transition: all 0.2s ease;
+        }
+        
+        #class-location {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366F1'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 16px;
+            padding-right: 40px;
+            cursor: pointer;
+            background-color: rgba(99, 102, 241, 0.05);
+            border: 2px solid rgba(99, 102, 241, 0.2);
         }
         
         .form-input:focus {
@@ -464,9 +481,9 @@
             </div>
             
             <div class="form-group">
-                <label for="class-location" class="form-label">Studio Location</label>
+                <label for="class-location" class="form-label">Select Your Studio</label>
                 <select id="class-location" class="form-input">
-                    <option value="">Select your studio</option>
+                    <option value="">Choose your location...</option>
                     <option value="stardust">Stardust Ballroom</option>
                     <option value="letsbailar">Let's Bailar</option>
                     <option value="downtown">Downtown Studio</option>
@@ -566,46 +583,37 @@
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
         
-        // Payment option elements
         const cashOption = document.getElementById('cash-option');
         const venmoOption = document.getElementById('venmo-option');
         const unlimitedOption = document.getElementById('unlimited-option');
         const laterOption = document.getElementById('later-option');
         const paymentOptions = [cashOption, venmoOption, unlimitedOption, laterOption];
         
-        // Track selected state
         let selectedOption = null;
         
-        // Venmo payment link
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
         
-        // Add click handlers to payment options
         paymentOptions.forEach(option => {
             option.addEventListener('click', function() {
                 if (selectedOption === this) {
-                    // If clicking the already selected option, expand all
                     expandPaymentOptions();
                     selectedOption = null;
                 } else {
-                    // Otherwise, select this option and collapse others
                     selectPaymentOption(this);
                 }
             });
         });
         
         function selectPaymentOption(selectedOptionElement) {
-            // Clear previous selection
             paymentOptions.forEach(option => {
                 option.classList.remove('selected');
                 option.querySelector('input[type="radio"]').checked = false;
             });
             
-            // Set new selection
             selectedOption = selectedOptionElement;
             selectedOption.classList.add('selected');
             selectedOption.querySelector('input[type="radio"]').checked = true;
             
-            // Collapse all non-selected options
             paymentOptions.forEach(option => {
                 if (option !== selectedOption) {
                     option.classList.add('collapsed');
@@ -614,7 +622,6 @@
         }
         
         function expandPaymentOptions() {
-            // Expand all payment options
             paymentOptions.forEach(option => {
                 option.classList.remove('collapsed');
                 option.classList.remove('selected');
@@ -628,7 +635,6 @@
             const name = nameInput.value.trim();
             const location = locationSelect.value;
             
-            // Check if payment is selected
             if (!selectedOption) {
                 alert('Please select a payment method');
                 return;
@@ -636,78 +642,54 @@
             
             const paymentMethod = selectedOption.querySelector('input[type="radio"]').value;
             
-            // Simple validation
             if (!name || !location) {
                 alert('Please enter your name and select a studio location');
                 return;
             }
             
-            // Extract first name
             const nameParts = name.split(' ');
             let displayNameText = nameParts[0] || 'Guest';
             
-            // Display name in inspiration card
             displayName.textContent = displayNameText;
             
-            // Show inspiration card
             inspirationCard.style.display = 'block';
             inspirationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Hide thank you message and Venmo button
             thankYou.style.display = 'none';
             venmoPayBtn.style.display = 'none';
             
-            // Handle payment methods
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
-                // Immediate payment methods - complete immediately
                 finishPaymentBtn.style.display = 'none';
                 thankYou.style.display = 'flex';
             } 
             else if (paymentMethod === 'later') {
-                // Show finish button for "Pay After Check-in"
                 finishPaymentBtn.style.display = 'flex';
             }
         });
         
-        // Finish payment button handler
         finishPaymentBtn.addEventListener('click', function() {
-            // Hide the finish button
             finishPaymentBtn.style.display = 'none';
-            
-            // Show thank you message
             thankYou.style.display = 'flex';
             
-            // After 2 seconds, open Venmo automatically
             setTimeout(() => {
                 window.open(venmoPaymentLink, '_blank');
-                
-                // Also show the Venmo button as an alternative
                 venmoPayBtn.style.display = 'flex';
             }, 2000);
         });
         
-        // Venmo button handler
         venmoPayBtn.addEventListener('click', function(e) {
             e.preventDefault();
             window.open(venmoPaymentLink, '_blank');
         });
         
-        // Reset button handler
         resetBtn.addEventListener('click', function() {
-            // Hide inspiration card
             inspirationCard.style.display = 'none';
-            
-            // Reset form
             nameInput.value = '';
             locationSelect.value = '';
             thankYou.style.display = 'none';
             finishPaymentBtn.style.display = 'none';
             venmoPayBtn.style.display = 'none';
-            
-            // Reset payment selection
             expandPaymentOptions();
-            
-            // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
