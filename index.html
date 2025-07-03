@@ -163,6 +163,8 @@
             border: 1px solid rgba(200, 200, 220, 0.3);
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
         
         .payment-option:hover {
@@ -425,77 +427,26 @@
             }
         }
         
-        /* Enhanced Thank You Section */
-        .thank-you-section {
-            display: none;
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            margin-top: 20px;
-            border: 2px solid rgba(106, 90, 205, 0.2);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        /* Payment Selection Enhancement */
+        .payment-option:not(.selected) {
+            opacity: 0.5;
+            transform: scale(0.95);
         }
         
-        .success-icon {
-            font-size: 4rem;
-            color: #50C878;
-            margin-bottom: 20px;
-            animation: successPulse 1.5s infinite;
+        .payment-option.selected {
+            border: 2px solid #6A5ACD;
+            background: rgba(106, 90, 205, 0.05);
+            box-shadow: 0 5px 15px rgba(106, 90, 205, 0.1);
         }
         
-        @keyframes successPulse {
+        .payment-option.selected .payment-icon {
+            color: #4B0082;
+            animation: pulse-icon 1s infinite;
+        }
+        
+        @keyframes pulse-icon {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
-        }
-        
-        .next-steps {
-            background: rgba(245, 245, 255, 0.7);
-            border-radius: 14px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: left;
-        }
-        
-        .next-steps h3 {
-            color: #4B0082;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .step {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-        
-        .step-number {
-            min-width: 30px;
-            height: 30px;
-            background: #6A5ACD;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-weight: bold;
-        }
-        
-        .step-content {
-            flex: 1;
-        }
-        
-        .step-title {
-            font-weight: 600;
-            color: #4a4a5d;
-            margin-bottom: 5px;
-        }
-        
-        .step-description {
-            font-size: 0.95rem;
-            color: rgba(90, 90, 109, 0.8);
-            line-height: 1.5;
         }
     </style>
 </head>
@@ -529,7 +480,7 @@
             <div class="form-group">
                 <label class="form-label">Payment Method</label>
                 <div class="payment-options">
-                    <div class="payment-option">
+                    <div class="payment-option selected" id="cash-option">
                         <input type="radio" name="payment" id="cash" value="cash" checked>
                         <label for="cash">
                             <i class="fas fa-money-bill-wave payment-icon"></i>
@@ -537,7 +488,7 @@
                         </label>
                     </div>
                     
-                    <div class="payment-option">
+                    <div class="payment-option" id="venmo-option">
                         <input type="radio" name="payment" id="venmo" value="venmo">
                         <label for="venmo">
                             <i class="fab fa-vimeo payment-icon"></i>
@@ -545,7 +496,7 @@
                         </label>
                     </div>
                     
-                    <div class="payment-option">
+                    <div class="payment-option" id="unlimited-option">
                         <input type="radio" name="payment" id="unlimited" value="unlimited">
                         <label for="unlimited">
                             <i class="fas fa-infinity payment-icon"></i>
@@ -553,7 +504,7 @@
                         </label>
                     </div>
                     
-                    <div class="payment-option">
+                    <div class="payment-option" id="later-option">
                         <input type="radio" name="payment" id="later" value="later">
                         <label for="later">
                             <i class="fas fa-clock payment-icon"></i>
@@ -589,42 +540,6 @@
                 <a href="#" class="venmo-btn" id="venmo-pay-btn">
                     <i class="fab fa-vimeo"></i> Complete Payment with Venmo
                 </a>
-            </div>
-            
-            <!-- Enhanced Thank You Section -->
-            <div class="thank-you-section" id="thank-you-section">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h2>Check-in Complete!</h2>
-                <p>Thank you for checking in, <span id="thank-you-name" class="highlight">Guest</span>!</p>
-                
-                <div class="next-steps">
-                    <h3>Next Steps</h3>
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <div class="step-title">Join the Session</div>
-                            <div class="step-description">Please proceed to the dance floor and join the current session.</div>
-                        </div>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <div class="step-title">Enjoy Your Class</div>
-                            <div class="step-description">Focus on your movements and enjoy the learning experience.</div>
-                        </div>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <div class="step-title">Stay Hydrated</div>
-                            <div class="step-description">Remember to drink water during breaks to stay energized.</div>
-                        </div>
-                    </div>
-                </div>
                 
                 <div class="reset-container">
                     <button class="reset-btn" id="reset-btn">
@@ -647,18 +562,43 @@
     <script>
         const checkinBtn = document.getElementById('checkin-btn');
         const inspirationCard = document.getElementById('inspiration-card');
-        const thankYouSection = document.getElementById('thank-you-section');
         const finishPaymentBtn = document.getElementById('finish-payment');
         const thankYou = document.getElementById('thank-you');
         const venmoPayBtn = document.getElementById('venmo-pay-btn');
         const displayName = document.getElementById('display-name');
-        const thankYouName = document.getElementById('thank-you-name');
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
         
+        // Payment option elements
+        const cashOption = document.getElementById('cash-option');
+        const venmoOption = document.getElementById('venmo-option');
+        const unlimitedOption = document.getElementById('unlimited-option');
+        const laterOption = document.getElementById('later-option');
+        
         // Venmo payment link
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
+        
+        // Add click handlers to payment options
+        cashOption.addEventListener('click', () => selectPaymentOption(cashOption));
+        venmoOption.addEventListener('click', () => selectPaymentOption(venmoOption));
+        unlimitedOption.addEventListener('click', () => selectPaymentOption(unlimitedOption));
+        laterOption.addEventListener('click', () => selectPaymentOption(laterOption));
+        
+        function selectPaymentOption(selectedOption) {
+            // Remove selected class from all options
+            cashOption.classList.remove('selected');
+            venmoOption.classList.remove('selected');
+            unlimitedOption.classList.remove('selected');
+            laterOption.classList.remove('selected');
+            
+            // Add selected class to clicked option
+            selectedOption.classList.add('selected');
+            
+            // Check the radio button inside
+            const radio = selectedOption.querySelector('input[type="radio"]');
+            radio.checked = true;
+        }
         
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
@@ -675,9 +615,8 @@
             const nameParts = name.split(' ');
             let displayNameText = nameParts[0] || 'Guest';
             
-            // Display name in cards
+            // Display name in inspiration card
             displayName.textContent = displayNameText;
-            thankYouName.textContent = displayNameText;
             
             // Show inspiration card
             inspirationCard.style.display = 'block';
@@ -691,32 +630,7 @@
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
                 // Immediate payment methods - complete immediately
                 finishPaymentBtn.style.display = 'none';
-                
-                // For Venmo payment, show thank you and then open Venmo
-                if (paymentMethod === 'venmo') {
-                    thankYou.style.display = 'flex';
-                    
-                    // After 2 seconds, open Venmo automatically
-                    setTimeout(() => {
-                        window.open(venmoPaymentLink, '_blank');
-                        
-                        // Also show the Venmo button as an alternative
-                        venmoPayBtn.style.display = 'flex';
-                        
-                        // Transition to thank you section after 3 seconds
-                        setTimeout(() => {
-                            inspirationCard.style.display = 'none';
-                            thankYouSection.style.display = 'block';
-                        }, 3000);
-                    }, 2000);
-                } else {
-                    // For cash and unlimited, go directly to thank you section
-                    setTimeout(() => {
-                        inspirationCard.style.display = 'none';
-                        thankYouSection.style.display = 'block';
-                        thankYouSection.scrollIntoView({ behavior: 'smooth' });
-                    }, 1500);
-                }
+                thankYou.style.display = 'flex';
             } 
             else if (paymentMethod === 'later') {
                 // Show finish button for "Pay After Check-in"
@@ -738,13 +652,6 @@
                 
                 // Also show the Venmo button as an alternative
                 venmoPayBtn.style.display = 'flex';
-                
-                // Transition to thank you section after 3 seconds
-                setTimeout(() => {
-                    inspirationCard.style.display = 'none';
-                    thankYouSection.style.display = 'block';
-                    thankYouSection.scrollIntoView({ behavior: 'smooth' });
-                }, 3000);
             }, 2000);
         });
         
@@ -756,9 +663,8 @@
         
         // Reset button handler
         resetBtn.addEventListener('click', function() {
-            // Hide cards
+            // Hide inspiration card
             inspirationCard.style.display = 'none';
-            thankYouSection.style.display = 'none';
             
             // Reset form
             nameInput.value = '';
@@ -767,6 +673,13 @@
             thankYou.style.display = 'none';
             finishPaymentBtn.style.display = 'none';
             venmoPayBtn.style.display = 'none';
+            
+            // Reset payment selection
+            cashOption.classList.remove('selected');
+            venmoOption.classList.remove('selected');
+            unlimitedOption.classList.remove('selected');
+            laterOption.classList.remove('selected');
+            cashOption.classList.add('selected');
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
