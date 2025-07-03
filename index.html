@@ -163,6 +163,7 @@
             border: 1px solid rgba(200, 200, 220, 0.3);
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
         
         .payment-option:hover {
@@ -192,6 +193,14 @@
         .payment-icon {
             font-size: 1.2rem;
             color: #6A5ACD;
+        }
+        
+        .payment-description {
+            font-size: 0.85rem;
+            color: rgba(90, 90, 109, 0.7);
+            margin-top: 5px;
+            padding-left: 32px;
+            font-weight: 300;
         }
         
         .submit-btn {
@@ -326,6 +335,49 @@
             text-align: center;
         }
         
+        .payment-confirmation {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(80, 200, 120, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+        }
+        
+        .payment-confirmation p {
+            color: #50C878;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        .payment-status {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .status-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            border: 1px solid rgba(200, 200, 220, 0.3);
+            min-width: 140px;
+        }
+        
+        .status-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .status-label {
+            font-size: 0.85rem;
+            color: rgba(90, 90, 109, 0.7);
+        }
+        
         footer {
             text-align: center;
             padding: 40px 30px 30px;
@@ -370,6 +422,11 @@
             .inspiration-card {
                 padding: 30px;
             }
+            
+            .payment-status {
+                flex-direction: column;
+                align-items: center;
+            }
         }
         
         @media (max-width: 480px) {
@@ -413,7 +470,7 @@
         <div class="form-section">
             <div class="form-group">
                 <label for="student-name" class="form-label">Your Full Name</label>
-                <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
+                <input type="text" id="student-name" class="form-input" placeholder="Enter your full name" value="Sarah Johnson">
                 <div class="name-note">Please include both first and last name</div>
             </div>
             
@@ -421,7 +478,7 @@
                 <label for="class-location" class="form-label">Studio Location</label>
                 <select id="class-location" class="form-input">
                     <option value="">Select your studio</option>
-                    <option value="stardust">Stardust Ballroom</option>
+                    <option value="stardust" selected>Stardust Ballroom</option>
                     <option value="letsbailar">Let's Bailar</option>
                     <option value="downtown">Downtown Studio</option>
                 </select>
@@ -431,19 +488,21 @@
                 <label class="form-label">Payment Method</label>
                 <div class="payment-options">
                     <div class="payment-option">
-                        <input type="radio" name="payment" id="cash" value="cash" checked>
+                        <input type="radio" name="payment" id="cash" value="cash">
                         <label for="cash">
                             <i class="fas fa-money-bill-wave payment-icon"></i>
                             <span>Paid Cash</span>
                         </label>
+                        <div class="payment-description">You've already paid with cash</div>
                     </div>
                     
                     <div class="payment-option">
-                        <input type="radio" name="payment" id="venmo" value="venmo">
+                        <input type="radio" name="payment" id="venmo" value="venmo" checked>
                         <label for="venmo">
                             <i class="fab fa-vimeo payment-icon"></i>
                             <span>Paid Venmo</span>
                         </label>
+                        <div class="payment-description">You've already paid through Venmo</div>
                     </div>
                     
                     <div class="payment-option">
@@ -452,6 +511,7 @@
                             <i class="fas fa-clock payment-icon"></i>
                             <span>Pay After Check-in</span>
                         </label>
+                        <div class="payment-description">You'll pay after completing check-in</div>
                     </div>
                 </div>
             </div>
@@ -466,13 +526,32 @@
                 </div>
                 <h2>Welcome to Class!</h2>
                 <div class="card-content">
-                    <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
+                    <p>We're excited to dance with you today, <span id="display-name" class="highlight">Sarah</span>!</p>
                     <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
                     <p>Your journey to becoming a <span class="highlight">better dancer</span> starts now.</p>
                 </div>
                 
                 <div class="payment-actions" id="payment-actions">
                     <!-- Payment buttons will be inserted here based on selection -->
+                </div>
+                
+                <div class="payment-confirmation" id="payment-confirmation">
+                    <p><i class="fas fa-check-circle"></i> Check-in complete! Enjoy your class!</p>
+                </div>
+                
+                <div class="payment-status">
+                    <div class="status-item">
+                        <div class="status-icon" style="color: #6A5ACD;">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <span class="status-label">Checked In</span>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-icon" id="payment-status-icon" style="color: #6A5ACD;">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="status-label" id="payment-status-label">Payment Confirmed</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -492,9 +571,12 @@
         const checkinBtn = document.getElementById('checkin-btn');
         const inspirationCard = document.getElementById('inspiration-card');
         const paymentActions = document.getElementById('payment-actions');
+        const paymentConfirmation = document.getElementById('payment-confirmation');
         const displayName = document.getElementById('display-name');
         const nameInput = document.getElementById('student-name');
         const inspirationQuote = document.getElementById('inspiration-quote');
+        const paymentStatusIcon = document.getElementById('payment-status-icon');
+        const paymentStatusLabel = document.getElementById('payment-status-label');
         
         // Quotes collection
         const danceQuotes = [
@@ -535,25 +617,33 @@
             
             // Clear previous payment actions
             paymentActions.innerHTML = '';
+            paymentConfirmation.style.display = 'none';
             
             // Add random quote
             const quote = danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
             inspirationQuote.textContent = `"${quote}"`;
             
-            // Create appropriate payment buttons
+            // Handle payment methods
             if (paymentMethod === 'cash') {
-                paymentActions.innerHTML = `
-                    <button class="finish-btn" id="finish-btn">
-                        <i class="fas fa-check-circle"></i> Finish Check-in
-                    </button>
-                    <p class="venmo-note">Thank you for paying with cash! Enjoy your class.</p>
-                `;
-                
-                document.getElementById('finish-btn').addEventListener('click', function() {
-                    alert('Check-in complete! Enjoy your class!');
-                });
+                // Cash payment - complete immediately
+                paymentStatusIcon.innerHTML = '<i class="fas fa-money-bill-wave"></i>';
+                paymentStatusIcon.style.color = '#50C878';
+                paymentStatusLabel.textContent = 'Cash Payment';
+                paymentConfirmation.style.display = 'block';
             } 
-            else if (paymentMethod === 'venmo' || paymentMethod === 'later') {
+            else if (paymentMethod === 'venmo') {
+                // Venmo already paid - complete immediately
+                paymentStatusIcon.innerHTML = '<i class="fab fa-vimeo"></i>';
+                paymentStatusIcon.style.color = '#3D95CE';
+                paymentStatusLabel.textContent = 'Venmo Payment';
+                paymentConfirmation.style.display = 'block';
+            }
+            else if (paymentMethod === 'later') {
+                // Pay after check-in - show Venmo button
+                paymentStatusIcon.innerHTML = '<i class="fas fa-clock"></i>';
+                paymentStatusIcon.style.color = '#FFA500';
+                paymentStatusLabel.textContent = 'Payment Pending';
+                
                 paymentActions.innerHTML = `
                     <p class="venmo-note">To complete your check-in, please complete your payment:</p>
                     <button class="venmo-btn" id="open-venmo">
@@ -566,18 +656,23 @@
                     // Open Venmo using your specific link
                     window.location.href = 'https://venmo.com/code?user_id=2575920015605760344&created=1750346816';
                     
+                    // Update payment status
+                    paymentStatusIcon.innerHTML = '<i class="fab fa-vimeo"></i>';
+                    paymentStatusIcon.style.color = '#3D95CE';
+                    paymentStatusLabel.textContent = 'Venmo Payment';
+                    
                     // Show confirmation message
-                    paymentActions.innerHTML = `
-                        <div style="margin-top: 15px; padding: 15px; background: rgba(80, 200, 120, 0.1); border-radius: 12px;">
-                            <p style="color: #50C878; font-weight: 500;">
-                                <i class="fas fa-check-circle"></i> Venmo opened! Enjoy your class!
-                            </p>
-                        </div>
-                        <p class="venmo-note">Your spot is confirmed. We're excited to dance with you!</p>
-                    `;
+                    paymentConfirmation.style.display = 'block';
+                    
+                    // Remove the Venmo button
+                    paymentActions.innerHTML = '';
                 });
             }
         });
+        
+        // Initialize with default values
+        nameInput.value = "Sarah Johnson";
+        document.getElementById('class-location').value = "stardust";
     </script>
 </body>
 </html>
