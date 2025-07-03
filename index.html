@@ -263,30 +263,20 @@
         }
         
         .payment-actions {
-            margin-top: 30px;
-            padding-top: 20px;
+            margin: 25px auto 15px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-            border-top: 1px dashed rgba(106, 90, 205, 0.2);
-        }
-        
-        .payment-instruction {
-            text-align: center;
-            margin-bottom: 5px;
-            font-size: 1.05rem;
-            color: #5a5a6d;
-            max-width: 500px;
+            gap: 12px;
+            max-width: 450px;
         }
         
         .payment-buttons {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            align-items: center;
+            gap: 12px;
             width: 100%;
-            max-width: 400px;
         }
         
         .venmo-btn {
@@ -297,7 +287,7 @@
             color: white;
             border: none;
             border-radius: 14px;
-            padding: 16px 25px;
+            padding: 16px;
             font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
@@ -322,7 +312,7 @@
             color: white;
             border: none;
             border-radius: 14px;
-            padding: 16px 25px;
+            padding: 16px;
             font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
@@ -340,14 +330,14 @@
         }
         
         .venmo-note {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: rgba(90, 90, 109, 0.6);
             text-align: center;
-            margin-top: 5px;
+            margin-top: 3px;
         }
         
         .payment-complete {
-            margin: 20px 0 10px;
+            margin: 20px 0 15px;
             padding: 15px;
             background: rgba(80, 200, 120, 0.1);
             border-radius: 12px;
@@ -361,7 +351,7 @@
         }
         
         .reset-container {
-            margin-top: 25px;
+            margin-top: 20px;
             text-align: center;
         }
         
@@ -373,7 +363,7 @@
             cursor: pointer;
             text-decoration: underline;
             transition: all 0.3s ease;
-            padding: 8px 16px;
+            padding: 8px 15px;
             border-radius: 8px;
         }
         
@@ -383,7 +373,7 @@
         }
         
         .data-saving {
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 10px;
             background: rgba(106, 90, 205, 0.05);
             border-radius: 10px;
@@ -440,10 +430,6 @@
             .inspiration-card {
                 padding: 30px;
             }
-            
-            .payment-buttons {
-                max-width: 100%;
-            }
         }
         
         @media (max-width: 480px) {
@@ -470,11 +456,6 @@
             
             .inspiration-card h2 {
                 font-size: 1.8rem;
-            }
-            
-            .venmo-btn, .finish-btn {
-                padding: 14px 20px;
-                font-size: 1rem;
             }
         }
     </style>
@@ -559,7 +540,6 @@
                 </div>
                 
                 <div class="payment-actions" id="payment-actions">
-                    <p class="payment-instruction">Complete your payment to finish check-in</p>
                     <div class="payment-buttons">
                         <a href="https://venmo.com/code?user_id=2575920015605760344&created=1750346816" 
                            class="venmo-btn" 
@@ -567,7 +547,7 @@
                            target="_blank">
                             <i class="fab fa-vimeo"></i> Pay with Venmo
                         </a>
-                        <p class="venmo-note">(Opens Venmo app on your device)</p>
+                        <p class="venmo-note">(Opens Venmo app)</p>
                         
                         <button class="finish-btn" id="finish-payment">
                             <i class="fas fa-check-circle"></i> Confirm Payment
@@ -581,7 +561,7 @@
                 </div>
                 
                 <div class="data-saving" id="data-saving">
-                    <p><i class="fas fa-sync fa-spin"></i> Saving your information to our records...</p>
+                    <p><i class="fas fa-sync fa-spin"></i> Saving your information...</p>
                 </div>
                 
                 <div class="reset-container">
@@ -619,12 +599,7 @@
             "To dance is to be out of yourself. Larger, more beautiful, more powerful.",
             "Dance is the joy of movement and the heart of life.",
             "Great dancers are not great because of their technique, they are great because of their passion.",
-            "Dance first. Think later. It's the natural order.",
-            "Dancing is like dreaming with your feet!",
-            "Life is the dancer and you are the dance.",
-            "Dance is the timeless interpretation of life.",
-            "When you dance, your purpose is not to get to a certain place on the floor. It's to enjoy each step along the way.",
-            "Dance is the only art of which we ourselves are the stuff of which it is made."
+            "Dance first. Think later. It's the natural order."
         ];
         
         function saveToGoogleSheets(data) {
