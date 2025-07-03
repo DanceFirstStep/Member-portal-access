@@ -492,6 +492,15 @@
                         </label>
                     </div>
                     
+                    <!-- Added Unlimited Pass option -->
+                    <div class="payment-option">
+                        <input type="radio" name="payment" id="unlimited" value="unlimited">
+                        <label for="unlimited">
+                            <i class="fas fa-infinity payment-icon"></i>
+                            <span>Unlimited Pass</span>
+                        </label>
+                    </div>
+                    
                     <div class="payment-option">
                         <input type="radio" name="payment" id="later" value="later">
                         <label for="later">
@@ -632,14 +641,10 @@
             };
             
             // Handle payment methods
-            if (paymentMethod === 'cash') {
-                // Cash payment - complete immediately
+            if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
+                // Cash, Venmo, or Unlimited Pass - complete immediately
                 saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
             } 
-            else if (paymentMethod === 'venmo') {
-                // Venmo already paid - complete immediately
-                saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
-            }
             else if (paymentMethod === 'later') {
                 // Pay after check-in - show Venmo button
                 paymentActions.innerHTML = `
