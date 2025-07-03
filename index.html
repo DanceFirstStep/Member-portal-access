@@ -272,6 +272,23 @@
             border-top: 1px dashed rgba(106, 90, 205, 0.2);
         }
         
+        .payment-instruction {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 1.05rem;
+            color: #5a5a6d;
+            max-width: 500px;
+        }
+        
+        .payment-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        
         .venmo-btn {
             display: inline-flex;
             align-items: center;
@@ -280,7 +297,7 @@
             color: white;
             border: none;
             border-radius: 14px;
-            padding: 16px 35px;
+            padding: 16px 25px;
             font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
@@ -288,6 +305,7 @@
             text-decoration: none;
             box-shadow: 0 5px 15px rgba(61, 149, 206, 0.15);
             gap: 10px;
+            width: 100%;
         }
         
         .venmo-btn:hover {
@@ -304,7 +322,7 @@
             color: white;
             border: none;
             border-radius: 14px;
-            padding: 16px 35px;
+            padding: 16px 25px;
             font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
@@ -312,6 +330,7 @@
             text-decoration: none;
             box-shadow: 0 5px 15px rgba(80, 200, 120, 0.15);
             gap: 10px;
+            width: 100%;
         }
         
         .finish-btn:hover {
@@ -321,14 +340,14 @@
         }
         
         .venmo-note {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: rgba(90, 90, 109, 0.6);
-            max-width: 400px;
             text-align: center;
+            margin-top: 5px;
         }
         
         .payment-complete {
-            margin-top: 20px;
+            margin: 20px 0 10px;
             padding: 15px;
             background: rgba(80, 200, 120, 0.1);
             border-radius: 12px;
@@ -354,10 +373,13 @@
             cursor: pointer;
             text-decoration: underline;
             transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
         }
         
         .reset-btn:hover {
             color: #4B0082;
+            background: rgba(106, 90, 205, 0.05);
         }
         
         .data-saving {
@@ -418,6 +440,10 @@
             .inspiration-card {
                 padding: 30px;
             }
+            
+            .payment-buttons {
+                max-width: 100%;
+            }
         }
         
         @media (max-width: 480px) {
@@ -444,6 +470,11 @@
             
             .inspiration-card h2 {
                 font-size: 1.8rem;
+            }
+            
+            .venmo-btn, .finish-btn {
+                padding: 14px 20px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -528,7 +559,20 @@
                 </div>
                 
                 <div class="payment-actions" id="payment-actions">
-                    <!-- Payment section will be inserted here -->
+                    <p class="payment-instruction">Complete your payment to finish check-in</p>
+                    <div class="payment-buttons">
+                        <a href="https://venmo.com/code?user_id=2575920015605760344&created=1750346816" 
+                           class="venmo-btn" 
+                           id="open-venmo"
+                           target="_blank">
+                            <i class="fab fa-vimeo"></i> Pay with Venmo
+                        </a>
+                        <p class="venmo-note">(Opens Venmo app on your device)</p>
+                        
+                        <button class="finish-btn" id="finish-payment">
+                            <i class="fas fa-check-circle"></i> Confirm Payment
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="payment-complete" id="payment-complete">
@@ -622,8 +666,7 @@
             inspirationCard.style.display = 'block';
             inspirationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Clear previous payment actions
-            paymentActions.innerHTML = '';
+            // Initially hide payment section
             paymentActions.style.display = 'none';
             paymentComplete.style.display = 'none';
             dataSaving.style.display = 'none';
@@ -646,22 +689,8 @@
                 saveToGoogleSheets({...checkinData, paymentStatus: 'paid'});
             } 
             else if (paymentMethod === 'later') {
-                // Pay after check-in - show Venmo button
+                // Show payment section for "Pay After Check-in"
                 paymentActions.style.display = 'flex';
-                paymentActions.innerHTML = `
-                    <h3 style="margin-bottom: 15px; color: #4B0082;">Complete Payment</h3>
-                    <p class="venmo-note">To finish your check-in, please complete your payment:</p>
-                    <a href="https://venmo.com/code?user_id=2575920015605760344&created=1750346816" 
-                       class="venmo-btn" 
-                       id="open-venmo"
-                       target="_blank">
-                        <i class="fab fa-vimeo"></i> Complete Payment with Venmo
-                    </a>
-                    <p class="venmo-note">This will open the Venmo app on your device</p>
-                    <button class="finish-btn" id="finish-payment">
-                        <i class="fas fa-check"></i> I've Completed Payment
-                    </button>
-                `;
                 
                 // Save initial check-in with pending status
                 saveToGoogleSheets({...checkinData, paymentStatus: 'pending'});
@@ -682,10 +711,9 @@
             nameInput.value = '';
             locationSelect.value = '';
             document.getElementById('cash').checked = true;
-            paymentActions.innerHTML = '';
-            paymentActions.style.display = 'none';
             paymentComplete.style.display = 'none';
             dataSaving.style.display = 'none';
+            paymentActions.style.display = 'none';
             
             // Scroll back to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
