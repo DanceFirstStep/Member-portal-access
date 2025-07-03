@@ -100,6 +100,7 @@
         
         .form-section {
             padding: 30px;
+            position: relative;
         }
         
         .form-group {
@@ -109,6 +110,7 @@
             border-radius: 12px;
             padding: 15px;
             border: 1px solid rgba(200, 200, 220, 0.4);
+            transition: opacity 0.3s ease;
         }
         
         .form-label {
@@ -265,6 +267,8 @@
             text-align: center;
             border: 1px solid rgba(99, 102, 241, 0.1);
             animation: fadeIn 0.6s ease;
+            position: relative;
+            z-index: 10;
         }
         
         .inspiration-card h2 {
@@ -583,6 +587,7 @@
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
+        const formGroups = document.querySelectorAll('.form-group');
         
         const cashOption = document.getElementById('cash-option');
         const venmoOption = document.getElementById('venmo-option');
@@ -632,11 +637,30 @@
             selectedOption = null;
         }
         
-        // Clear the form while keeping the thank-you message visible
+        // Clear the form while keeping the UI stable
         function clearForm() {
+            // Fade out form elements instead of hiding them
+            formGroups.forEach(group => {
+                group.style.opacity = '0';
+                group.style.pointerEvents = 'none';
+                group.style.position = 'absolute';
+                group.style.top = '-9999px';
+            });
+            
+            // Reset form values
             nameInput.value = '';
             locationSelect.value = '';
             expandPaymentOptions();
+        }
+        
+        // Reset form to visible state
+        function showForm() {
+            formGroups.forEach(group => {
+                group.style.opacity = '1';
+                group.style.pointerEvents = 'auto';
+                group.style.position = 'static';
+                group.style.top = 'auto';
+            });
         }
         
         checkinBtn.addEventListener('click', function() {
@@ -670,7 +694,7 @@
                 finishPaymentBtn.style.display = 'none';
                 thankYou.style.display = 'flex';
                 
-                // Clear the form in the background while keeping the thank-you visible
+                // Clear form in background without UI jump
                 setTimeout(clearForm, 500);
             } 
             else if (paymentMethod === 'later') {
@@ -687,7 +711,7 @@
                 venmoPayBtn.style.display = 'flex';
             }, 2000);
             
-            // Clear the form in the background while keeping the thank-you visible
+            // Clear form in background without UI jump
             setTimeout(clearForm, 500);
         });
         
@@ -697,8 +721,13 @@
         });
         
         resetBtn.addEventListener('click', function() {
-            // Only hide the inspiration card, form is already cleared
+            // Hide the inspiration card
             inspirationCard.style.display = 'none';
+            
+            // Show the form again
+            showForm();
+            
+            // Scroll to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
