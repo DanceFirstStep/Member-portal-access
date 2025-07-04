@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dance Portal | Student Check-in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
@@ -108,22 +108,48 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
+        .tagline-container {
+            min-height: 40px;
+            margin: 5px auto 0;
+            position: relative;
+            max-width: 500px;
+        }
+        
         .tagline {
             font-size: 1.05rem;
             color: var(--text-light);
-            max-width: 500px;
-            margin: 5px auto 0;
+            margin: 0;
             font-weight: 400;
             line-height: 1.5;
+            position: absolute;
+            left: 0;
+            right: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .tagline.initial {
             opacity: 0.85;
-            transition: all 0.3s ease;
-            position: relative;
             animation: fadeTagline 6s forwards;
         }
         
         @keyframes fadeTagline {
             0%, 100% { opacity: 0; }
             20%, 80% { opacity: 0.85; }
+        }
+        
+        .welcome-message {
+            opacity: 0;
+            transform: translateY(10px);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-shadow: 0 1px 2px rgba(99, 102, 241, 0.2);
+        }
+        
+        .welcome-message.visible {
+            opacity: 0.85;
+            transform: translateY(0);
+            transition: all 0.8s ease 0.5s;
         }
         
         .form-section {
@@ -639,8 +665,16 @@
                 font-size: 2rem;
             }
             
+            .tagline-container {
+                min-height: 35px;
+            }
+            
             .tagline {
                 font-size: 0.95rem;
+            }
+            
+            .welcome-message {
+                font-size: 1.1rem;
             }
             
             .form-section {
@@ -723,8 +757,16 @@
                 font-size: 1.8rem;
             }
             
+            .tagline-container {
+                min-height: 30px;
+            }
+            
             .tagline {
                 font-size: 0.9rem;
+            }
+            
+            .welcome-message {
+                font-size: 1rem;
             }
             
             .form-input {
@@ -815,7 +857,10 @@
                 <i class="fas fa-music"></i>
             </div>
             <h1>Dance Portal</h1>
-            <p class="tagline">Where movement becomes expression and passion transforms into art</p>
+            <div class="tagline-container">
+                <p class="tagline initial">Where movement becomes expression and passion transforms into art</p>
+                <p class="tagline welcome-message">Welcome</p>
+            </div>
         </header>
         
         <div class="form-section">
@@ -968,6 +1013,8 @@
         const formSection = document.querySelector('.form-section');
         const inspirationQuote = document.getElementById('inspiration-quote');
         const currentMonthSpan = document.getElementById('current-month');
+        const initialTagline = document.querySelector('.tagline.initial');
+        const welcomeMessage = document.querySelector('.welcome-message');
         
         // Error message elements
         const nameError = document.getElementById('name-error');
@@ -984,8 +1031,8 @@
         let selectedOption = null;
         let currentCheckinData = {};
         
-        // External links - Fixed Vimeo URLs
-        const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
+        // External links
+        const venmoPaymentLink = "https://venmo.com/u/DanielPalaciosDance";
         const salsaVideo = "https://player.vimeo.com/video/76979871?autoplay=1&title=0&byline=0&portrait=0";
         const bachataVideo = "https://player.vimeo.com/video/148751763?autoplay=1&title=0&byline=0&portrait=0";
         
@@ -1027,6 +1074,11 @@
                     window.scrollTo(0, 0);
                     document.body.scrollTop = 0;
                 });
+            });
+            
+            // Show welcome message after initial tagline animation
+            initialTagline.addEventListener('animationend', () => {
+                welcomeMessage.classList.add('visible');
             });
         });
         
@@ -1236,7 +1288,7 @@
             }, 500);
         });
         
-        // Video functionality - Fixed Vimeo player
+        // Video functionality
         salsaBtn.addEventListener('click', function() {
             videoContainer.innerHTML = `<iframe src="${salsaVideo}&background=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
             videoModal.classList.add('active');
