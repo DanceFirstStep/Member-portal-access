@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dance Portal | Student Check-in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
@@ -12,6 +12,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -21,7 +22,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             overflow-x: hidden;
         }
         
@@ -34,7 +35,7 @@
             overflow: hidden;
             border: 1px solid rgba(220, 220, 250, 0.3);
             animation: fadeIn 0.6s ease;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             z-index: 10;
             position: relative;
         }
@@ -46,7 +47,7 @@
         
         header {
             text-align: center;
-            padding: 25px 20px 10px;
+            padding: 20px 15px 10px;
             position: relative;
             background: linear-gradient(to bottom, rgba(99, 102, 241, 0.05), transparent);
             border-bottom: 1px solid rgba(99, 102, 241, 0.1);
@@ -93,56 +94,57 @@
         }
         
         .tagline {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #a0aec0;
             max-width: 500px;
             margin: 0 auto;
             font-weight: 400;
             line-height: 1.4;
-            opacity: 0.5;
+            opacity: 0.7;
             transition: all 0.3s ease;
             position: relative;
-            top: -8px;
+            top: -5px;
             animation: fadeTagline 5s forwards;
         }
         
         @keyframes fadeTagline {
             0%, 100% { opacity: 0; }
-            20%, 80% { opacity: 0.5; }
+            20%, 80% { opacity: 0.7; }
         }
         
         .form-section {
-            padding: 20px 30px 30px;
+            padding: 20px 25px 25px;
             position: relative;
             min-height: 500px;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             position: relative;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
-            padding: 15px;
+            padding: 18px;
             border: 1px solid rgba(200, 200, 220, 0.4);
             transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
         }
         
         .form-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
             color: #2d3748;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
         }
         
         .form-input {
             width: 100%;
-            padding: 14px 18px;
-            border-radius: 10px;
+            padding: 16px 20px;
+            border-radius: 12px;
             border: 1px solid rgba(200, 200, 220, 0.5);
             background: rgba(255, 255, 255, 0.9);
             color: #2d3748;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             transition: all 0.2s ease;
         }
         
@@ -152,8 +154,8 @@
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366F1'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 15px center;
-            background-size: 14px;
-            padding-right: 40px;
+            background-size: 16px;
+            padding-right: 45px;
             cursor: pointer;
             background-color: rgba(99, 102, 241, 0.05);
             border: 2px solid rgba(99, 102, 241, 0.2);
@@ -162,7 +164,7 @@
         .form-input:focus {
             outline: none;
             border-color: #6366F1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
         }
         
         .form-input::placeholder {
@@ -171,16 +173,16 @@
         }
         
         .name-note {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: rgba(74, 85, 104, 0.6);
-            margin-top: 5px;
+            margin-top: 8px;
             padding-left: 8px;
         }
         
         .payment-options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             margin-top: 10px;
             transition: all 0.3s ease;
         }
@@ -188,16 +190,16 @@
         .payment-option {
             display: flex;
             align-items: center;
-            padding: 12px;
+            padding: 16px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 10px;
-            border: 1px solid rgba(200, 200, 220, 0.4);
+            border-radius: 12px;
+            border: 2px solid rgba(200, 200, 220, 0.4);
             transition: all 0.2s ease;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             height: auto;
-            max-height: 55px;
+            max-height: 65px;
         }
         
         .payment-option.collapsed {
@@ -214,47 +216,49 @@
         
         .payment-option.selected {
             border: 2px solid #6366F1;
-            background: rgba(99, 102, 241, 0.05);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+            background: rgba(99, 102, 241, 0.08);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.12);
         }
         
         .payment-option.selected .payment-icon {
             color: #6366F1;
+            transform: scale(1.1);
         }
         
         .payment-option input[type="radio"] {
-            margin-right: 8px;
-            width: 16px;
-            height: 16px;
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
             accent-color: #6366F1;
         }
         
         .payment-option label {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-weight: 500;
             cursor: pointer;
             flex-grow: 1;
             color: #2d3748;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
         }
         
         .payment-icon {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #6366F1;
+            transition: all 0.2s ease;
         }
         
         .submit-btn {
             background: linear-gradient(135deg, #6366F1, #818CF8);
             color: #fff;
             border: none;
-            border-radius: 10px;
-            padding: 16px;
-            font-size: 1rem;
+            border-radius: 12px;
+            padding: 18px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 8px;
+            margin-top: 10px;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
@@ -272,7 +276,7 @@
         .inspiration-card {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 16px;
-            padding: 25px;
+            padding: 30px 25px;
             text-align: center;
             border: 1px solid rgba(99, 102, 241, 0.1);
             position: relative;
@@ -283,6 +287,7 @@
             max-width: 600px;
             transform: translateY(0);
             opacity: 1;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
         }
         
         .inspiration-card.visible {
@@ -297,7 +302,7 @@
         }
         
         .card-icon {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: #6366F1;
             margin-bottom: 15px;
             animation: float 3s ease-in-out infinite;
@@ -305,13 +310,13 @@
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            50% { transform: translateY(-8px); }
         }
         
         .card-content p {
             margin-bottom: 10px;
             line-height: 1.6;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             color: #4a5568;
         }
         
@@ -327,39 +332,40 @@
             background: #10B981;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 14px 25px;
-            font-size: 0.95rem;
-            font-weight: 500;
+            border-radius: 12px;
+            padding: 16px 25px;
+            font-size: 1.05rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
-            gap: 8px;
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.15);
+            gap: 10px;
             width: 100%;
-            max-width: 260px;
-            margin: 0 auto 10px;
+            max-width: 280px;
+            margin: 20px auto 15px;
         }
         
         .finish-btn:hover {
             transform: translateY(-2px);
             background: #0EA371;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
         }
         
         .thank-you {
-            margin: 15px 0 10px;
-            padding: 10px;
+            margin: 20px 0 10px;
+            padding: 15px;
             background: rgba(99, 102, 241, 0.08);
-            border-radius: 8px;
+            border-radius: 12px;
             color: #6366F1;
-            font-weight: 500;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 10px;
             display: none;
             animation: fadeIn 0.4s ease;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
         }
         
         .venmo-btn {
@@ -369,26 +375,29 @@
             background: #3D95CE;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 12px 18px;
-            font-size: 0.95rem;
-            font-weight: 500;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 1.05rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
-            box-shadow: 0 4px 12px rgba(61, 149, 206, 0.1);
-            gap: 6px;
-            margin: 10px auto;
+            box-shadow: 0 6px 15px rgba(61, 149, 206, 0.15);
+            gap: 8px;
+            margin: 15px auto;
             display: none;
+            width: 100%;
+            max-width: 300px;
         }
         
         .venmo-btn:hover {
             transform: translateY(-2px);
             background: #3484b5;
+            box-shadow: 0 10px 20px rgba(61, 149, 206, 0.2);
         }
         
         .reset-container {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
         }
         
@@ -396,12 +405,13 @@
             background: transparent;
             border: none;
             color: #6366F1;
-            font-size: 0.85rem;
+            font-size: 1rem;
             cursor: pointer;
             text-decoration: underline;
             transition: all 0.2s ease;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 500;
         }
         
         .reset-btn:hover {
@@ -413,7 +423,7 @@
             text-align: center;
             padding: 20px;
             color: #4a5568;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             border-top: 1px solid rgba(200, 200, 220, 0.3);
             position: relative;
             z-index: 20;
@@ -452,7 +462,7 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
             margin-top: 15px;
         }
         
@@ -460,18 +470,20 @@
             background: linear-gradient(135deg, #6366F1, #818CF8);
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 16px 25px;
-            font-size: 1rem;
+            border-radius: 12px;
+            padding: 18px 25px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             box-shadow: 0 6px 15px rgba(99, 102, 241, 0.15);
-            min-width: 180px;
+            min-width: 220px;
+            flex: 1;
+            max-width: 280px;
         }
         
         .video-btn:hover {
@@ -480,7 +492,7 @@
         }
         
         .video-btn i {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
         }
         
         .video-modal {
@@ -512,14 +524,14 @@
         
         .close-modal {
             position: absolute;
-            top: -40px;
+            top: -45px;
             right: 0;
             color: white;
-            font-size: 1.8rem;
+            font-size: 2rem;
             cursor: pointer;
             background: rgba(255, 255, 255, 0.1);
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -537,7 +549,7 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 12px;
         }
         
         .video-container iframe {
@@ -549,22 +561,75 @@
             border: none;
         }
         
+        /* Error message styling */
+        .error-message {
+            color: #EF4444;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: none;
+            padding-left: 5px;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        .input-error {
+            border-color: #EF4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+        }
+        
+        /* Mobile-specific adjustments */
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8rem;
             }
             
             .tagline {
-                font-size: 0.75rem;
+                font-size: 0.85rem;
             }
             
             .form-section {
-                padding: 20px;
+                padding: 15px;
                 min-height: 450px;
             }
             
+            .form-group {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .form-input {
+                padding: 15px 18px;
+                font-size: 1rem;
+            }
+            
+            .payment-option {
+                padding: 14px;
+            }
+            
+            .payment-option label {
+                font-size: 1rem;
+            }
+            
+            .submit-btn {
+                padding: 16px;
+                font-size: 1.05rem;
+            }
+            
             .inspiration-card {
-                padding: 20px;
+                padding: 25px 20px;
+            }
+            
+            .inspiration-card h2 {
+                font-size: 1.7rem;
+            }
+            
+            .card-icon {
+                font-size: 2.5rem;
             }
             
             .video-title {
@@ -572,25 +637,21 @@
             }
             
             .video-buttons {
+                gap: 15px;
                 flex-direction: column;
                 align-items: center;
-                gap: 12px;
             }
             
             .video-btn {
-                width: 100%;
-                max-width: 280px;
-                padding: 14px 20px;
-            }
-            
-            .form-input {
-                font-size: 15px;
+                min-width: 100%;
+                max-width: 300px;
+                padding: 16px 20px;
             }
         }
         
         @media (max-width: 480px) {
             header {
-                padding: 20px 15px 8px;
+                padding: 15px 10px 5px;
             }
             
             h1 {
@@ -598,25 +659,35 @@
             }
             
             .tagline {
-                font-size: 0.7rem;
+                font-size: 0.8rem;
             }
             
             .form-input {
-                padding: 12px 16px;
-                font-size: 15px;
+                padding: 14px 16px;
+                font-size: 0.95rem;
             }
             
             .submit-btn {
-                padding: 14px;
-                font-size: 0.95rem;
+                padding: 16px;
+                font-size: 1rem;
             }
             
             .inspiration-card h2 {
                 font-size: 1.5rem;
             }
             
-            .payment-option {
-                padding: 10px;
+            .card-content p {
+                font-size: 1rem;
+            }
+            
+            .thank-you {
+                font-size: 1rem;
+                padding: 12px;
+            }
+            
+            .venmo-btn, .finish-btn {
+                font-size: 1rem;
+                padding: 15px 18px;
             }
             
             .video-title {
@@ -625,16 +696,11 @@
             
             footer {
                 padding: 15px;
+                font-size: 0.8rem;
             }
         }
         
         @media (max-width: 320px) {
-            .video-btn {
-                min-width: auto;
-                padding: 12px 15px;
-                font-size: 0.9rem;
-            }
-            
             .logo {
                 width: 55px;
                 height: 55px;
@@ -642,6 +708,10 @@
             
             .logo i {
                 font-size: 22px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -661,6 +731,7 @@
                 <label for="student-name" class="form-label">Your Full Name</label>
                 <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
                 <div class="name-note">Please include both first and last name</div>
+                <div class="error-message" id="name-error">Please enter your full name</div>
             </div>
             
             <div class="form-group">
@@ -672,6 +743,7 @@
                     <option value="sensual-city">Sensual City</option>
                     <option value="private">Private Lessons</option>
                 </select>
+                <div class="error-message" id="location-error">Please select a studio location</div>
             </div>
             
             <div class="form-group">
@@ -709,6 +781,7 @@
                         </label>
                     </div>
                 </div>
+                <div class="error-message" id="payment-error">Please select a payment method</div>
             </div>
             
             <button class="submit-btn" id="checkin-btn">
@@ -791,6 +864,11 @@
         const formSection = document.querySelector('.form-section');
         const inspirationQuote = document.getElementById('inspiration-quote');
         
+        // Error message elements
+        const nameError = document.getElementById('name-error');
+        const locationError = document.getElementById('location-error');
+        const paymentError = document.getElementById('payment-error');
+        
         const cashOption = document.getElementById('cash-option');
         const venmoOption = document.getElementById('venmo-option');
         const unlimitedOption = document.getElementById('unlimited-option');
@@ -818,13 +896,35 @@
             '"Dance is the poetry of the foot." - John Dryden'
         ];
         
+        // Initialize the form
+        document.addEventListener('DOMContentLoaded', function() {
+            // Clear any errors on input
+            nameInput.addEventListener('input', function() {
+                clearError(nameInput, nameError);
+            });
+            
+            locationSelect.addEventListener('change', function() {
+                clearError(locationSelect, locationError);
+            });
+            
+            // Prevent zooming on input focus for mobile
+            document.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('focus', () => {
+                    window.scrollTo(0, 0);
+                    document.body.scrollTop = 0;
+                });
+            });
+        });
+        
         paymentOptions.forEach(option => {
             option.addEventListener('click', function() {
                 if (selectedOption === this) {
                     expandPaymentOptions();
                     selectedOption = null;
+                    paymentError.style.display = 'none';
                 } else {
                     selectPaymentOption(this);
+                    paymentError.style.display = 'none';
                 }
             });
         });
@@ -881,23 +981,55 @@
             checkinBtn.style.pointerEvents = 'auto';
             checkinBtn.style.position = 'static';
             checkinBtn.style.top = 'auto';
+            
+            // Clear errors
+            clearError(nameInput, nameError);
+            clearError(locationSelect, locationError);
+            paymentError.style.display = 'none';
+        }
+        
+        function clearError(inputElement, errorElement) {
+            inputElement.classList.remove('input-error');
+            errorElement.style.display = 'none';
+        }
+        
+        function showError(inputElement, errorElement) {
+            inputElement.classList.add('input-error');
+            errorElement.style.display = 'block';
+            inputElement.focus();
         }
         
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
             const location = locationSelect.value;
             
+            // Reset errors
+            clearError(nameInput, nameError);
+            clearError(locationSelect, locationError);
+            paymentError.style.display = 'none';
+            
+            let hasError = false;
+            
+            if (!name) {
+                showError(nameInput, nameError);
+                hasError = true;
+            }
+            
+            if (!location) {
+                showError(locationSelect, locationError);
+                hasError = true;
+            }
+            
             if (!selectedOption) {
-                alert('Please select a payment method');
+                paymentError.style.display = 'block';
+                hasError = true;
+            }
+            
+            if (hasError) {
                 return;
             }
             
             const paymentMethod = selectedOption.querySelector('input[type="radio"]').value;
-            
-            if (!name || !location) {
-                alert('Please enter your name and select a studio location');
-                return;
-            }
             
             const nameParts = name.split(' ');
             let displayNameText = nameParts[0] || 'Guest';
@@ -946,7 +1078,7 @@
             
             setTimeout(() => {
                 venmoPayBtn.style.display = 'flex';
-            }, 1000);
+            }, 800);
         });
         
         venmoPayBtn.addEventListener('click', function(e) {
@@ -990,15 +1122,6 @@
                 videoContainer.innerHTML = '';
                 document.body.style.overflow = 'auto';
             }
-        });
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('input, select').forEach(el => {
-                el.addEventListener('focus', () => {
-                    window.scrollTo(0, 0);
-                    document.body.scrollTop = 0;
-                });
-            });
         });
     </script>
 </body>
