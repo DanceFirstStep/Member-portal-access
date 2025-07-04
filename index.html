@@ -312,6 +312,12 @@
         
         .month-reminder.expiring {
             color: var(--warning); /* Yellow for expiring status */
+            animation: pulseWarning 2s infinite;
+        }
+        
+        @keyframes pulseWarning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         .submit-btn {
@@ -399,6 +405,41 @@
             text-decoration: underline;
             text-underline-offset: 3px;
             text-decoration-thickness: 2px;
+        }
+        
+        .quote-display {
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            padding: 15px;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 12px;
+            margin: 20px 0;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-display::before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 3rem;
+            color: rgba(99, 102, 241, 0.2);
+            font-family: Georgia, serif;
+        }
+        
+        .quote-display::after {
+            content: """;
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 3rem;
+            color: rgba(99, 102, 241, 0.2);
+            font-family: Georgia, serif;
         }
         
         .finish-btn {
@@ -745,6 +786,10 @@
             .month-reminder {
                 font-size: 1rem;
             }
+            
+            .quote-display {
+                min-height: 100px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -829,6 +874,11 @@
             
             .month-reminder {
                 font-size: 0.95rem;
+            }
+            
+            .quote-display {
+                min-height: 120px;
+                font-size: 1rem;
             }
         }
         
@@ -947,7 +997,9 @@
                 <h2>Welcome to Class!</h2>
                 <div class="card-content">
                     <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
-                    <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
+                    <div class="quote-display" id="inspiration-quote">
+                        "Dance is the hidden language of the soul."
+                    </div>
                     <p><strong>Location:</strong> <span id="display-location" class="highlight">None</span></p>
                     <p><strong>Payment:</strong> <span id="display-payment" class="highlight">None</span></p>
                 </div>
@@ -1044,7 +1096,7 @@
         const salsaVideo = "https://player.vimeo.com/video/76979871?autoplay=1&title=0&byline=0&portrait=0";
         const bachataVideo = "https://player.vimeo.com/video/148751763?autoplay=1&title=0&byline=0&portrait=0";
         
-        // Dance quotes for inspiration
+        // Dance quotes for inspiration - expanded list
         const danceQuotes = [
             '"Dance is the hidden language of the soul." - Martha Graham',
             '"To dance is to be out of yourself. Larger, more beautiful, more powerful." - Agnes De Mille',
@@ -1055,8 +1107,21 @@
             '"Dance is the timeless interpretation of life." - Shah Asad Rizvi',
             '"Life is the dancer and you are the dance." - Eckhart Tolle',
             '"We should consider every day lost on which we have not danced at least once." - Friedrich Nietzsche',
-            '"Dance is the poetry of the foot." - John Dryden'
+            '"Dance is the poetry of the foot." - John Dryden',
+            '"Dancing: The highest intelligence in the freest body." - Isadora Duncan',
+            '"Dance first. Think later. It\'s the natural order." - Samuel Beckett',
+            '"The dance is a poem of which each movement is a word." - Mata Hari',
+            '"Dance is your pulse, your heartbeat, your breathing. It\'s the rhythm of your life." - Jacques d\'Amboise',
+            '"When you dance, your purpose is not to get to a certain place on the floor. It\'s to enjoy each step along the way." - Wayne Dyer',
+            '"Dance is the only art of which we ourselves are the stuff of which it is made." - Ted Shawn',
+            '"Dance is a song of the body. Either of joy or pain." - Martha Graham',
+            '"To dance is to be in tune with the steps of life." - Sasha Azevedo',
+            '"Dancing is creating a sculpture that is visible only for a moment." - Erol Ozan',
+            '"Dance is the movement of the universe concentrated in an individual." - Isadora Duncan'
         ];
+        
+        // Quote rotation system
+        let quoteIndex = 0;
         
         // Initialize the form
         document.addEventListener('DOMContentLoaded', function() {
@@ -1251,9 +1316,9 @@
             // Show inspiration card
             inspirationCard.classList.add('visible');
             
-            // Show random dance quote
-            const randomQuote = danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
-            inspirationQuote.textContent = randomQuote;
+            // Show rotating dance quote
+            inspirationQuote.textContent = danceQuotes[quoteIndex];
+            quoteIndex = (quoteIndex + 1) % danceQuotes.length;
             
             thankYou.style.display = 'none';
             venmoPayBtn.style.display = 'none';
