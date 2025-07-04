@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dance Portal | Student Check-in</title>
+    <title>Dance Portal | Stable Check-in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
     <style>
@@ -95,32 +95,32 @@
             line-height: 1.6;
         }
         
-        /* Step container with fixed height */
+        /* Fixed height container to prevent jumping */
         .steps-container {
             position: relative;
-            height: 500px;
+            min-height: 500px;
             overflow: hidden;
+            transition: height 0.4s ease;
         }
         
-        /* Step styling */
         .step {
+            padding: 30px;
+            transition: all 0.4s ease;
+        }
+        
+        .step:not(.active) {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 30px;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
             pointer-events: none;
-            height: 500px;
-            display: flex;
-            flex-direction: column;
+            transform: translateX(50px);
         }
         
         .step.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
             pointer-events: all;
         }
         
@@ -242,7 +242,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            height: 400px;
             text-align: center;
         }
         
@@ -264,9 +264,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
             text-align: center;
             padding: 30px;
+            height: 100%;
         }
         
         .thank-you i {
@@ -290,7 +290,7 @@
             margin-bottom: 30px;
         }
         
-        /* Video container */
+        /* Video container with fixed aspect ratio */
         .video-container {
             width: 100%;
             max-width: 600px;
@@ -311,8 +311,9 @@
         .step-controls {
             display: flex;
             justify-content: center;
-            margin-top: auto;
+            margin-top: 20px;
             padding-top: 20px;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
         }
         
         /* Responsive adjustments */
@@ -329,12 +330,7 @@
                 font-size: 2rem;
             }
             
-            .steps-container {
-                height: 550px;
-            }
-            
             .step {
-                height: 550px;
                 padding: 20px;
             }
             
@@ -431,41 +427,49 @@
         function selectPayment(method) {
             selectedPayment = method;
             
+            // Smooth transition to processing step
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            
             // Show processing for 2 seconds before showing thank you
-            showStep(2);
-            
             setTimeout(() => {
-                showStep(3);
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step3').classList.add('active');
+                
+                // Update back button state
+                document.querySelector('.btn-back').disabled = false;
             }, 2000);
-        }
-        
-        // Function to navigate between steps
-        function showStep(stepNumber) {
-            // Hide current step
-            document.querySelector(`#step${currentStep}`).classList.remove('active');
-            
-            // Show new step
-            document.querySelector(`#step${stepNumber}`).classList.add('active');
-            
-            // Update current step
-            currentStep = stepNumber;
-            
-            // Update back button state
-            const backButton = document.querySelector('.btn-back');
-            backButton.disabled = currentStep === 1;
         }
         
         // Function to go back to previous step
         function goBack() {
-            if (currentStep > 1) {
-                showStep(currentStep - 1);
+            if (currentStep === 2) {
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step1').classList.add('active');
+                document.querySelector('.btn-back').disabled = true;
+                currentStep = 1;
+            } else if (currentStep === 3) {
+                document.getElementById('step3').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+                currentStep = 2;
+                
+                // After showing processing, go back to step1
+                setTimeout(() => {
+                    document.getElementById('step2').classList.remove('active');
+                    document.getElementById('step1').classList.add('active');
+                    document.querySelector('.btn-back').disabled = true;
+                    currentStep = 1;
+                }, 500);
             }
         }
         
         // Function to restart the process
         function restartProcess() {
-            showStep(1);
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
             selectedPayment = null;
+            document.querySelector('.btn-back').disabled = true;
+            currentStep = 1;
         }
     </script>
 </body>
