@@ -249,6 +249,13 @@
             transition: all 0.2s ease;
         }
         
+        .month-reminder {
+            color: #10B981;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-left: 5px;
+        }
+        
         .submit-btn {
             background: linear-gradient(135deg, #6366F1, #818CF8);
             color: #fff;
@@ -288,7 +295,6 @@
             transform: translateY(0);
             opacity: 1;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-            /* Positioned higher on the screen */
             margin-top: 20px;
         }
         
@@ -624,7 +630,6 @@
             
             .inspiration-card {
                 padding: 25px 20px;
-                /* Higher position on mobile */
                 margin-top: 40px;
             }
             
@@ -650,6 +655,10 @@
                 min-width: 100%;
                 max-width: 300px;
                 padding: 16px 20px;
+            }
+            
+            .month-reminder {
+                font-size: 0.9rem;
             }
         }
         
@@ -678,7 +687,6 @@
             
             .inspiration-card {
                 padding: 20px 15px;
-                /* Even higher position on small screens */
                 margin-top: 30px;
             }
             
@@ -710,12 +718,15 @@
             }
             
             .reset-btn {
-                /* More visible reset button */
                 background: rgba(99, 102, 241, 0.05);
                 padding: 12px 20px;
                 font-weight: 600;
                 border-radius: 10px;
                 text-decoration: none;
+            }
+            
+            .month-reminder {
+                font-size: 0.85rem;
             }
         }
         
@@ -734,7 +745,6 @@
             }
             
             .inspiration-card {
-                /* Ensure card is visible on smallest screens */
                 margin-top: 20px;
                 padding: 15px;
             }
@@ -795,6 +805,7 @@
                         <label for="unlimited">
                             <i class="fas fa-infinity payment-icon"></i>
                             <span class="payment-label">Unlimited Pass</span>
+                            <span id="current-month" class="month-reminder"></span>
                         </label>
                     </div>
                     
@@ -892,6 +903,7 @@
         const videoContainer = document.getElementById('video-container');
         const formSection = document.querySelector('.form-section');
         const inspirationQuote = document.getElementById('inspiration-quote');
+        const currentMonthSpan = document.getElementById('current-month');
         
         // Error message elements
         const nameError = document.getElementById('name-error');
@@ -928,6 +940,13 @@
         
         // Initialize the form
         document.addEventListener('DOMContentLoaded', function() {
+            // Set current month for unlimited option
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+            const currentDate = new Date();
+            const currentMonth = monthNames[currentDate.getMonth()];
+            currentMonthSpan.textContent = `For ${currentMonth}`;
+            
             // Clear any errors on input
             nameInput.addEventListener('input', function() {
                 clearError(nameInput, nameError);
