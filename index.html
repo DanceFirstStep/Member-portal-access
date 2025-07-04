@@ -19,6 +19,7 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             color: #2d3748;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -34,6 +35,7 @@
             overflow: hidden;
             border: 1px solid rgba(220, 220, 250, 0.3);
             animation: fadeIn 0.6s ease;
+            margin-bottom: 30px;
         }
         
         @keyframes fadeIn {
@@ -397,24 +399,74 @@
             border-top: 1px solid rgba(200, 200, 220, 0.3);
         }
         
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 18px;
-            flex-wrap: wrap;
+        .videos-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 30px 20px;
+            text-align: center;
         }
         
-        .footer-link {
+        .videos-title {
+            font-family: 'Playfair Display', serif;
             color: #6366F1;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
         }
         
-        .footer-link:hover {
-            color: #4F46E5;
+        .videos-title::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #6366F1, #818CF8);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .video-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .video-header {
+            background: linear-gradient(135deg, #6366F1, #818CF8);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         
         @media (max-width: 768px) {
@@ -432,6 +484,10 @@
             
             .inspiration-card {
                 padding: 25px;
+            }
+            
+            .videos-title {
+                font-size: 1.8rem;
             }
         }
         
@@ -463,6 +519,10 @@
             
             .payment-option {
                 padding: 12px;
+            }
+            
+            .videos-title {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -569,12 +629,37 @@
         
         <footer>
             <p>Daniel Palacios Dance © 2023 | Elevating dance through passion and technique</p>
-            <div class="footer-links">
-                <a href="#" class="footer-link">Class Schedule</a>
-                <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">About</a>
-            </div>
         </footer>
+    </div>
+
+    <div class="videos-container">
+        <h2 class="videos-title">Dance Inspiration</h2>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-header">Salsa Performance</div>
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/76979871?h=7c9a5e3d8f&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-header">Bachata Tutorial</div>
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/148751763?h=9b9f7f8d4f&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-header">Salsa Social Dancing</div>
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/21634025?h=af7e5f1e2d&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-header">Bachata Sensual</div>
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/101162496?h=8e8c3d4b1f&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
