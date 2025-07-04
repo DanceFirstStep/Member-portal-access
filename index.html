@@ -46,16 +46,16 @@
         
         header {
             text-align: center;
-            padding: 30px 20px 15px;
+            padding: 25px 20px 10px;
             position: relative;
             background: linear-gradient(to bottom, rgba(99, 102, 241, 0.05), transparent);
             border-bottom: 1px solid rgba(99, 102, 241, 0.1);
         }
         
         .logo {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 10px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 8px;
             background: linear-gradient(135deg, #6366F1, #818CF8);
             border-radius: 50%;
             display: flex;
@@ -76,7 +76,7 @@
         }
         
         .logo i {
-            font-size: 28px;
+            font-size: 24px;
             color: #fff;
         }
         
@@ -86,20 +86,29 @@
         }
         
         h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
+            font-size: 2rem;
+            margin-bottom: 0;
             letter-spacing: -0.5px;
             color: #6366F1;
         }
         
         .tagline {
-            font-size: 0.9rem;
-            color: #718096;
+            font-size: 0.8rem;
+            color: #a0aec0;
             max-width: 500px;
             margin: 0 auto;
             font-weight: 400;
             line-height: 1.4;
-            opacity: 0.7;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            position: relative;
+            top: -8px;
+            animation: fadeTagline 5s forwards;
+        }
+        
+        @keyframes fadeTagline {
+            0%, 100% { opacity: 0; }
+            20%, 80% { opacity: 0.5; }
         }
         
         .form-section {
@@ -542,11 +551,11 @@
         
         @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .tagline {
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
             
             .form-section {
@@ -581,15 +590,15 @@
         
         @media (max-width: 480px) {
             header {
-                padding: 25px 15px 10px;
+                padding: 20px 15px 8px;
             }
             
             h1 {
-                font-size: 1.7rem;
+                font-size: 1.6rem;
             }
             
             .tagline {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
             }
             
             .form-input {
@@ -627,12 +636,12 @@
             }
             
             .logo {
-                width: 60px;
-                height: 60px;
+                width: 55px;
+                height: 55px;
             }
             
             .logo i {
-                font-size: 24px;
+                font-size: 22px;
             }
         }
     </style>
@@ -780,6 +789,7 @@
         const closeModal = document.getElementById('close-modal');
         const videoContainer = document.getElementById('video-container');
         const formSection = document.querySelector('.form-section');
+        const inspirationQuote = document.getElementById('inspiration-quote');
         
         const cashOption = document.getElementById('cash-option');
         const venmoOption = document.getElementById('venmo-option');
@@ -793,6 +803,20 @@
         
         const salsaVideo = "https://player.vimeo.com/video/76979871";
         const bachataVideo = "https://player.vimeo.com/video/148751763";
+        
+        // Dance quotes for inspiration card
+        const danceQuotes = [
+            '"Dance is the hidden language of the soul." - Martha Graham',
+            '"To dance is to be out of yourself. Larger, more beautiful, more powerful." - Agnes De Mille',
+            '"Dancers are the messengers of the gods." - Martha Graham',
+            '"Dance is the joy of movement and the heart of life." - Anonymous',
+            '"Dancing is like dreaming with your feet." - Constanze',
+            '"Great dancers are not great because of their technique, they are great because of their passion." - Martha Graham',
+            '"Dance is the timeless interpretation of life." - Shah Asad Rizvi',
+            '"Life is the dancer and you are the dance." - Eckhart Tolle',
+            '"We should consider every day lost on which we have not danced at least once." - Friedrich Nietzsche',
+            '"Dance is the poetry of the foot." - John Dryden'
+        ];
         
         paymentOptions.forEach(option => {
             option.addEventListener('click', function() {
@@ -897,6 +921,10 @@
             // Show the inspiration card
             inspirationCard.classList.add('visible');
             
+            // Show a random dance quote
+            const randomQuote = danceQuotes[Math.floor(Math.random() * danceQuotes.length)];
+            inspirationQuote.textContent = randomQuote;
+            
             thankYou.style.display = 'none';
             venmoPayBtn.style.display = 'none';
             finishPaymentBtn.style.display = 'none';
@@ -917,9 +945,8 @@
             thankYou.style.display = 'flex';
             
             setTimeout(() => {
-                window.open(venmoPaymentLink, '_blank');
                 venmoPayBtn.style.display = 'flex';
-            }, 2000);
+            }, 1000);
         });
         
         venmoPayBtn.addEventListener('click', function(e) {
