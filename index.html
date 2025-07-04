@@ -608,6 +608,7 @@
             width: 100%;
             height: 100%;
             border: none;
+            background: #000;
         }
         
         /* Error message styling */
@@ -983,10 +984,10 @@
         let selectedOption = null;
         let currentCheckinData = {};
         
-        // External links
+        // External links - Fixed Vimeo URLs
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
-        const salsaVideo = "https://player.vimeo.com/video/76979871";
-        const bachataVideo = "https://player.vimeo.com/video/148751763";
+        const salsaVideo = "https://player.vimeo.com/video/76979871?autoplay=1&title=0&byline=0&portrait=0";
+        const bachataVideo = "https://player.vimeo.com/video/148751763?autoplay=1&title=0&byline=0&portrait=0";
         
         // Dance quotes for inspiration
         const danceQuotes = [
@@ -1235,15 +1236,15 @@
             }, 500);
         });
         
-        // Video functionality
+        // Video functionality - Fixed Vimeo player
         salsaBtn.addEventListener('click', function() {
-            videoContainer.innerHTML = `<iframe src="${salsaVideo}?autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+            videoContainer.innerHTML = `<iframe src="${salsaVideo}&background=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
             videoModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
         
         bachataBtn.addEventListener('click', function() {
-            videoContainer.innerHTML = `<iframe src="${bachataVideo}?autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+            videoContainer.innerHTML = `<iframe src="${bachataVideo}&background=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
             videoModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
