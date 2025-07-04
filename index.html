@@ -529,41 +529,6 @@
             border: none;
         }
         
-        /* Project Description */
-        .project-description {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 25px;
-            margin-top: 30px;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            max-width: 900px;
-            width: 100%;
-        }
-        
-        .project-description h2 {
-            color: #6366F1;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.8rem;
-        }
-        
-        .project-description p {
-            margin-bottom: 15px;
-            line-height: 1.7;
-            color: #4a5568;
-        }
-        
-        .project-description ul {
-            padding-left: 25px;
-            margin: 15px 0;
-        }
-        
-        .project-description li {
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-        
-        /* Responsive improvements */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
@@ -634,13 +599,8 @@
             .video-title {
                 font-size: 1.6rem;
             }
-            
-            .project-description {
-                padding: 20px 15px;
-            }
         }
         
-        /* Fix for mobile viewports */
         @media (max-width: 320px) {
             .video-btn {
                 padding: 14px 20px;
@@ -657,7 +617,6 @@
             }
         }
         
-        /* Fix for iPad */
         @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
             .form-input {
                 font-size: 16px;
@@ -794,26 +753,6 @@
             <div class="video-container" id="video-container"></div>
         </div>
     </div>
-    
-    <div class="project-description">
-        <h2>Project Overview</h2>
-        <p>This Dance Portal Student Check-in System is designed to streamline the registration process for dance students. The system allows students to:</p>
-        <ul>
-            <li>Enter their personal information</li>
-            <li>Select their preferred studio location</li>
-            <li>Choose a payment method</li>
-            <li>Complete their check-in process</li>
-        </ul>
-        <p>The system features responsive design that works perfectly on all devices including desktops, tablets, and smartphones. Key technical aspects:</p>
-        <ul>
-            <li><strong>Responsive Design:</strong> Adapts to all screen sizes with media queries</li>
-            <li><strong>Payment Processing:</strong> Supports cash, Venmo, and unlimited passes</li>
-            <li><strong>Video Integration:</strong> Dance videos open in a modal without disrupting the UI</li>
-            <li><strong>User Experience:</strong> Smooth transitions and clear feedback for all actions</li>
-            <li><strong>Accessibility:</strong> Proper contrast and readable font sizes</li>
-        </ul>
-        <p>All issues with device compatibility and video jumping have been resolved. The system is ready for production deployment.</p>
-    </div>
 
     <script>
         const checkinBtn = document.getElementById('checkin-btn');
@@ -842,11 +781,9 @@
         
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
         
-        // Video URLs
         const salsaVideo = "https://player.vimeo.com/video/76979871";
         const bachataVideo = "https://player.vimeo.com/video/148751763";
         
-        // Set up payment options
         paymentOptions.forEach(option => {
             option.addEventListener('click', function() {
                 if (selectedOption === this) {
@@ -885,7 +822,6 @@
             selectedOption = null;
         }
         
-        // Clear the form while keeping the UI stable
         function clearForm() {
             formGroups.forEach(group => {
                 group.style.opacity = '0';
@@ -894,13 +830,11 @@
                 group.style.top = '-9999px';
             });
             
-            // Reset form values
             nameInput.value = '';
             locationSelect.value = '';
             expandPaymentOptions();
         }
         
-        // Reset form to visible state
         function showForm() {
             formGroups.forEach(group => {
                 group.style.opacity = '1';
@@ -910,7 +844,6 @@
             });
         }
         
-        // Handle check-in process
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
             const location = locationSelect.value;
@@ -941,8 +874,6 @@
             
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
                 thankYou.style.display = 'flex';
-                
-                // Clear form in background without UI jump
                 setTimeout(clearForm, 500);
             } 
             else if (paymentMethod === 'later') {
@@ -950,7 +881,6 @@
             }
         });
         
-        // Handle payment completion
         finishPaymentBtn.addEventListener('click', function() {
             finishPaymentBtn.style.display = 'none';
             thankYou.style.display = 'flex';
@@ -960,24 +890,20 @@
                 venmoPayBtn.style.display = 'flex';
             }, 2000);
             
-            // Clear form in background without UI jump
             setTimeout(clearForm, 500);
         });
         
-        // Venmo payment button
         venmoPayBtn.addEventListener('click', function(e) {
             e.preventDefault();
             window.open(venmoPaymentLink, '_blank');
         });
         
-        // Reset the form
         resetBtn.addEventListener('click', function() {
             inspirationCard.style.display = 'none';
             showForm();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
         
-        // Video functionality
         salsaBtn.addEventListener('click', function() {
             videoContainer.innerHTML = `<iframe src="${salsaVideo}?autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
             videoModal.classList.add('active');
@@ -990,7 +916,6 @@
             document.body.style.overflow = 'hidden';
         });
         
-        // Close video modal
         closeModal.addEventListener('click', function() {
             videoModal.classList.remove('active');
             videoContainer.innerHTML = '';
@@ -1005,9 +930,8 @@
             }
         });
         
-        // Prevent form zooming on mobile devices
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('input, select, textarea').forEach(el => {
+            document.querySelectorAll('input, select').forEach(el => {
                 el.addEventListener('focus', () => {
                     window.scrollTo(0, 0);
                     document.body.scrollTop = 0;
