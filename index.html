@@ -273,6 +273,20 @@
             animation: fadeIn 0.6s ease;
             margin: 0 auto;
             max-width: 600px;
+            transform: translateY(50px); /* Start position for animation */
+            opacity: 0;
+        }
+        
+        .inspiration-card.visible {
+            display: block;
+            animation: slideUp 0.5s ease forwards;
+        }
+        
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         
         .inspiration-card h2 {
@@ -772,6 +786,7 @@
         const videoModal = document.getElementById('video-modal');
         const closeModal = document.getElementById('close-modal');
         const videoContainer = document.getElementById('video-container');
+        const formSection = document.querySelector('.form-section');
         
         const cashOption = document.getElementById('cash-option');
         const venmoOption = document.getElementById('venmo-option');
@@ -867,7 +882,22 @@
             
             displayName.textContent = displayNameText;
             
-            inspirationCard.style.display = 'block';
+            // Hide the form groups
+            formGroups.forEach(group => {
+                group.style.opacity = '0';
+                group.style.pointerEvents = 'none';
+                group.style.position = 'absolute';
+                group.style.top = '-9999px';
+            });
+            
+            // Hide the submit button
+            checkinBtn.style.opacity = '0';
+            checkinBtn.style.pointerEvents = 'none';
+            checkinBtn.style.position = 'absolute';
+            checkinBtn.style.top = '-9999px';
+            
+            // Show the inspiration card with animation
+            inspirationCard.classList.add('visible');
             
             thankYou.style.display = 'none';
             venmoPayBtn.style.display = 'none';
@@ -875,16 +905,13 @@
             
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
                 thankYou.style.display = 'flex';
-                setTimeout(clearForm, 300);
             } 
             else if (paymentMethod === 'later') {
                 finishPaymentBtn.style.display = 'flex';
             }
             
-            // Fixed scrolling issue - smoothly scroll to top of card
-            setTimeout(() => {
-                inspirationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
+            // Scroll to the form section to ensure visibility
+            formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
         
         finishPaymentBtn.addEventListener('click', function() {
@@ -895,8 +922,6 @@
                 window.open(venmoPaymentLink, '_blank');
                 venmoPayBtn.style.display = 'flex';
             }, 2000);
-            
-            setTimeout(clearForm, 300);
         });
         
         venmoPayBtn.addEventListener('click', function(e) {
@@ -905,9 +930,21 @@
         });
         
         resetBtn.addEventListener('click', function() {
-            inspirationCard.style.display = 'none';
-            showForm();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            inspirationCard.classList.remove('visible');
+            
+            setTimeout(() => {
+                inspirationCard.style.display = 'none';
+                showForm();
+                
+                // Show the submit button again
+                checkinBtn.style.opacity = '1';
+                checkinBtn.style.pointerEvents = 'auto';
+                checkinBtn.style.position = 'static';
+                checkinBtn.style.top = 'auto';
+                
+                // Scroll back to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
         });
         
         salsaBtn.addEventListener('click', function() {
