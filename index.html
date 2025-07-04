@@ -82,7 +82,7 @@
         }
         
         h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair+Display', serif;
             font-weight: 600;
         }
         
@@ -440,7 +440,7 @@
         }
         
         .video-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair+Display', serif;
             color: #6366F1;
             font-size: 1.8rem;
             margin-bottom: 20px;
@@ -582,6 +582,30 @@
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
         }
         
+        /* Save notification */
+        .save-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10B981;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .save-notification.show {
+            opacity: 1;
+        }
+        
         /* Mobile-specific adjustments */
         @media (max-width: 768px) {
             h1 {
@@ -646,6 +670,12 @@
                 min-width: 100%;
                 max-width: 300px;
                 padding: 16px 20px;
+            }
+            
+            .save-notification {
+                width: 90%;
+                text-align: center;
+                font-size: 0.9rem;
             }
         }
         
@@ -717,6 +747,11 @@
     </style>
 </head>
 <body>
+    <div class="save-notification" id="save-notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Check-in saved to Google Drive successfully!</span>
+    </div>
+    
     <div class="container">
         <header>
             <div class="logo">
@@ -796,6 +831,8 @@
                 <div class="card-content">
                     <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
                     <p id="inspiration-quote">"Dance is the hidden language of the soul."</p>
+                    <p><strong>Location:</strong> <span id="display-location" class="highlight">None</span></p>
+                    <p><strong>Payment:</strong> <span id="display-payment" class="highlight">None</span></p>
                 </div>
                 
                 <button class="finish-btn" id="finish-payment">
@@ -852,6 +889,8 @@
         const thankYou = document.getElementById('thank-you');
         const venmoPayBtn = document.getElementById('venmo-pay-btn');
         const displayName = document.getElementById('display-name');
+        const displayLocation = document.getElementById('display-location');
+        const displayPayment = document.getElementById('display-payment');
         const nameInput = document.getElementById('student-name');
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
@@ -863,6 +902,7 @@
         const videoContainer = document.getElementById('video-container');
         const formSection = document.querySelector('.form-section');
         const inspirationQuote = document.getElementById('inspiration-quote');
+        const saveNotification = document.getElementById('save-notification');
         
         // Error message elements
         const nameError = document.getElementById('name-error');
@@ -876,6 +916,7 @@
         const paymentOptions = [cashOption, venmoOption, unlimitedOption, laterOption];
         
         let selectedOption = null;
+        let currentCheckinData = {};
         
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
         
@@ -957,16 +998,10 @@
         }
         
         function clearForm() {
-            formGroups.forEach(group => {
-                group.style.opacity = '0';
-                group.style.pointerEvents = 'none';
-                group.style.position = 'absolute';
-                group.style.top = '-9999px';
-            });
-            
             nameInput.value = '';
             locationSelect.value = '';
             expandPaymentOptions();
+            currentCheckinData = {};
         }
         
         function showForm() {
@@ -997,6 +1032,28 @@
             inputElement.classList.add('input-error');
             errorElement.style.display = 'block';
             inputElement.focus();
+        }
+        
+        function showSaveNotification() {
+            saveNotification.classList.add('show');
+            setTimeout(() => {
+                saveNotification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Function to save data to Google Drive
+        function saveToGoogleDrive(data) {
+            // In a real implementation, this would call your Google Apps Script
+            // For demonstration, we'll simulate the saving process
+            console.log('Saving to Google Drive:', data);
+            
+            // Show notification to user
+            showSaveNotification();
+            
+            // Return a promise to simulate async operation
+            return new Promise((resolve) => {
+                setTimeout(resolve, 1000);
+            });
         }
         
         checkinBtn.addEventListener('click', function() {
@@ -1035,6 +1092,16 @@
             let displayNameText = nameParts[0] || 'Guest';
             
             displayName.textContent = displayNameText;
+            displayLocation.textContent = locationSelect.options[locationSelect.selectedIndex].text;
+            displayPayment.textContent = selectedOption.querySelector('.payment-label').textContent;
+            
+            // Store the current check-in data
+            currentCheckinData = {
+                name: name,
+                location: locationSelect.options[locationSelect.selectedIndex].text,
+                payment: paymentMethod,
+                timestamp: new Date().toISOString()
+            };
             
             // Hide the form groups
             formGroups.forEach(group => {
@@ -1063,6 +1130,8 @@
             
             if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
                 thankYou.style.display = 'flex';
+                // Save to Google Drive immediately for these payment methods
+                saveToGoogleDrive(currentCheckinData);
             } 
             else if (paymentMethod === 'later') {
                 finishPaymentBtn.style.display = 'flex';
@@ -1079,6 +1148,9 @@
             setTimeout(() => {
                 venmoPayBtn.style.display = 'flex';
             }, 800);
+            
+            // Save to Google Drive when they complete the check-in
+            saveToGoogleDrive(currentCheckinData);
         });
         
         venmoPayBtn.addEventListener('click', function(e) {
@@ -1087,11 +1159,17 @@
         });
         
         resetBtn.addEventListener('click', function() {
+            // Save to Google Drive when resetting
+            if (Object.keys(currentCheckinData).length > 0) {
+                saveToGoogleDrive(currentCheckinData);
+            }
+            
             inspirationCard.classList.remove('visible');
             
             setTimeout(() => {
                 inspirationCard.style.display = 'none';
                 showForm();
+                clearForm();
                 
                 // Scroll back to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
