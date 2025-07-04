@@ -16,26 +16,48 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            color: #2d3748;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+            color: #f0f0f0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
             overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Video backgrounds */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            transition: opacity 1s ease;
+        }
+        
+        .video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .container {
             width: 100%;
             max-width: 900px;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(25, 25, 45, 0.9);
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            border: 1px solid rgba(220, 220, 250, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             animation: fadeIn 0.6s ease;
             margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
         }
         
         @keyframes fadeIn {
@@ -47,7 +69,7 @@
             text-align: center;
             padding: 50px 30px 30px;
             position: relative;
-            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.05), transparent);
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.1), transparent);
             border-bottom: 1px solid rgba(99, 102, 241, 0.1);
         }
         
@@ -61,6 +83,7 @@
             align-items: center;
             justify-content: center;
             animation: pulse 4s infinite;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
         }
         
         @keyframes pulse {
@@ -88,12 +111,13 @@
             font-size: 2.8rem;
             margin-bottom: 12px;
             letter-spacing: -0.5px;
-            color: #6366F1;
+            color: #818CF8;
+            text-shadow: 0 0 10px rgba(129, 140, 248, 0.5);
         }
         
         .tagline {
             font-size: 1.2rem;
-            color: #4a5568;
+            color: #a3aed0;
             max-width: 500px;
             margin: 0 auto;
             font-weight: 400;
@@ -108,10 +132,10 @@
         .form-group {
             margin-bottom: 25px;
             position: relative;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(40, 40, 60, 0.7);
             border-radius: 12px;
             padding: 15px;
-            border: 1px solid rgba(200, 200, 220, 0.4);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             transition: opacity 0.3s ease;
         }
         
@@ -119,7 +143,7 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: #2d3748;
+            color: #e0e0ff;
             font-size: 1rem;
         }
         
@@ -127,9 +151,9 @@
             width: 100%;
             padding: 16px 20px;
             border-radius: 12px;
-            border: 1px solid rgba(200, 200, 220, 0.5);
-            background: rgba(255, 255, 255, 0.9);
-            color: #2d3748;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            background: rgba(30, 30, 50, 0.7);
+            color: #f0f0ff;
             font-size: 1rem;
             transition: all 0.2s ease;
         }
@@ -137,30 +161,29 @@
         #class-location {
             appearance: none;
             -webkit-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366F1'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23818CF8'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 18px center;
             background-size: 16px;
             padding-right: 40px;
             cursor: pointer;
-            background-color: rgba(99, 102, 241, 0.05);
-            border: 2px solid rgba(99, 102, 241, 0.2);
+            background-color: rgba(99, 102, 241, 0.1);
         }
         
         .form-input:focus {
             outline: none;
-            border-color: #6366F1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border-color: #818CF8;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
         }
         
         .form-input::placeholder {
-            color: rgba(74, 85, 104, 0.4);
+            color: rgba(180, 180, 220, 0.6);
             font-weight: 300;
         }
         
         .name-note {
             font-size: 0.85rem;
-            color: rgba(74, 85, 104, 0.6);
+            color: rgba(180, 180, 220, 0.7);
             margin-top: 6px;
             padding-left: 8px;
         }
@@ -177,9 +200,9 @@
             display: flex;
             align-items: center;
             padding: 14px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(40, 40, 60, 0.7);
             border-radius: 10px;
-            border: 1px solid rgba(200, 200, 220, 0.4);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             transition: all 0.2s ease;
             cursor: pointer;
             position: relative;
@@ -201,20 +224,20 @@
         }
         
         .payment-option.selected {
-            border: 2px solid #6366F1;
-            background: rgba(99, 102, 241, 0.05);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+            border: 2px solid #818CF8;
+            background: rgba(129, 140, 248, 0.15);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
         }
         
         .payment-option.selected .payment-icon {
-            color: #6366F1;
+            color: #818CF8;
         }
         
         .payment-option input[type="radio"] {
             margin-right: 10px;
             width: 18px;
             height: 18px;
-            accent-color: #6366F1;
+            accent-color: #818CF8;
         }
         
         .payment-option label {
@@ -224,12 +247,12 @@
             font-weight: 500;
             cursor: pointer;
             flex-grow: 1;
-            color: #2d3748;
+            color: #e0e0ff;
         }
         
         .payment-icon {
             font-size: 1.1rem;
-            color: #6366F1;
+            color: #818CF8;
         }
         
         .payment-label {
@@ -251,39 +274,59 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
             width: 100%;
+            position: relative;
+            overflow: hidden;
         }
         
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
         }
         
         .inspiration-card {
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(40, 40, 60, 0.9);
             border-radius: 16px;
             padding: 30px;
             margin-top: 25px;
             display: none;
             text-align: center;
-            border: 1px solid rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             animation: fadeIn 0.6s ease;
             position: relative;
             z-index: 10;
+            backdrop-filter: blur(5px);
         }
         
         .inspiration-card h2 {
-            color: #6366F1;
+            color: #818CF8;
             margin-bottom: 20px;
             font-size: 2rem;
+            text-shadow: 0 0 8px rgba(129, 140, 248, 0.3);
         }
         
         .card-icon {
             font-size: 3rem;
-            color: #6366F1;
+            color: #818CF8;
             margin-bottom: 20px;
             animation: float 3s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(129, 140, 248, 0.4);
         }
         
         @keyframes float {
@@ -295,12 +338,13 @@
             margin-bottom: 12px;
             line-height: 1.6;
             font-size: 1rem;
-            color: #4a5568;
+            color: #c0c0e0;
         }
         
         .highlight {
-            color: #6366F1;
+            color: #818CF8;
             font-weight: 600;
+            text-shadow: 0 0 5px rgba(129, 140, 248, 0.3);
         }
         
         .finish-btn {
@@ -317,11 +361,13 @@
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.1);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2);
             gap: 10px;
             width: 100%;
             max-width: 280px;
             margin: 0 auto 12px;
+            position: relative;
+            overflow: hidden;
         }
         
         .finish-btn:hover {
@@ -332,9 +378,9 @@
         .thank-you {
             margin: 18px 0 12px;
             padding: 12px;
-            background: rgba(99, 102, 241, 0.08);
+            background: rgba(99, 102, 241, 0.15);
             border-radius: 10px;
-            color: #6366F1;
+            color: #818CF8;
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -358,7 +404,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(61, 149, 206, 0.1);
+            box-shadow: 0 5px 15px rgba(61, 149, 206, 0.2);
             gap: 8px;
             margin: 12px auto;
             display: none;
@@ -377,7 +423,7 @@
         .reset-btn {
             background: transparent;
             border: none;
-            color: #6366F1;
+            color: #818CF8;
             font-size: 0.9rem;
             cursor: pointer;
             text-decoration: underline;
@@ -387,86 +433,55 @@
         }
         
         .reset-btn:hover {
-            color: #4F46E5;
-            background: rgba(99, 102, 241, 0.05);
+            color: #6366F1;
+            background: rgba(99, 102, 241, 0.1);
         }
         
         footer {
             text-align: center;
             padding: 30px;
-            color: #4a5568;
+            color: #a3aed0;
             font-size: 0.9rem;
-            border-top: 1px solid rgba(200, 200, 220, 0.3);
-        }
-        
-        .videos-container {
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
             width: 100%;
-            max-width: 1000px;
-            padding: 30px 20px;
-            text-align: center;
+            max-width: 900px;
         }
         
-        .videos-title {
-            font-family: 'Playfair Display', serif;
-            color: #6366F1;
-            font-size: 2.2rem;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .videos-title::after {
-            content: "";
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, #6366F1, #818CF8);
-            margin: 15px auto;
-            border-radius: 2px;
-        }
-        
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
-        }
-        
-        .video-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
+        .dance-preview {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 100px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+            opacity: 0.7;
+            transition: all 0.3s ease;
         }
         
-        .video-card:hover {
-            transform: translateY(-10px);
+        .dance-preview:hover {
+            opacity: 1;
+            transform: scale(1.05);
         }
         
-        .video-header {
-            background: linear-gradient(135deg, #6366F1, #818CF8);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-        
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-        
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .dance-preview video {
             width: 100%;
             height: 100%;
-            border: none;
+            object-fit: cover;
+        }
+        
+        .dance-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px;
+            text-align: center;
         }
         
         @media (max-width: 768px) {
@@ -486,8 +501,11 @@
                 padding: 25px;
             }
             
-            .videos-title {
-                font-size: 1.8rem;
+            .dance-preview {
+                width: 120px;
+                height: 80px;
+                bottom: 10px;
+                right: 10px;
             }
         }
         
@@ -521,13 +539,26 @@
                 padding: 12px;
             }
             
-            .videos-title {
-                font-size: 1.6rem;
+            .dance-preview {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Subtle background videos -->
+    <div class="video-bg" id="salsa-bg">
+        <video autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-group-of-friends-dancing-happily-in-a-night-club-4640-large.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <div class="video-bg" id="bachata-bg" style="display: none; opacity: 0;">
+        <video autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-women-dancing-at-a-party-4378-large.mp4" type="video/mp4">
+        </video>
+    </div>
+    
     <div class="container">
         <header>
             <div class="logo">
@@ -631,35 +662,20 @@
             <p>Daniel Palacios Dance © 2023 | Elevating dance through passion and technique</p>
         </footer>
     </div>
-
-    <div class="videos-container">
-        <h2 class="videos-title">Dance Inspiration</h2>
-        <div class="video-grid">
-            <div class="video-card">
-                <div class="video-header">Salsa Performance</div>
-                <div class="video-wrapper">
-                    <iframe src="https://player.vimeo.com/video/76979871?h=7c9a5e3d8f&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div class="video-card">
-                <div class="video-header">Bachata Tutorial</div>
-                <div class="video-wrapper">
-                    <iframe src="https://player.vimeo.com/video/148751763?h=9b9f7f8d4f&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div class="video-card">
-                <div class="video-header">Salsa Social Dancing</div>
-                <div class="video-wrapper">
-                    <iframe src="https://player.vimeo.com/video/21634025?h=af7e5f1e2d&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div class="video-card">
-                <div class="video-header">Bachata Sensual</div>
-                <div class="video-wrapper">
-                    <iframe src="https://player.vimeo.com/video/101162496?h=8e8c3d4b1f&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
+    
+    <!-- Small dance previews -->
+    <div class="dance-preview">
+        <video autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-women-dancing-at-a-party-4378-large.mp4" type="video/mp4">
+        </video>
+        <div class="dance-label">Bachata</div>
+    </div>
+    
+    <div class="dance-preview" style="bottom: 130px;">
+        <video autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-group-of-friends-dancing-happily-in-a-night-club-4640-large.mp4" type="video/mp4">
+        </video>
+        <div class="dance-label">Salsa</div>
     </div>
 
     <script>
@@ -681,6 +697,7 @@
         const paymentOptions = [cashOption, venmoOption, unlimitedOption, laterOption];
         
         let selectedOption = null;
+        let currentBg = 'salsa';
         
         const venmoPaymentLink = "https://venmo.com/code?user_id=2575920015605760344&created=1750346816";
         
@@ -747,6 +764,37 @@
                 group.style.top = 'auto';
             });
         }
+        
+        // Toggle background videos
+        function toggleBackground() {
+            const salsaBg = document.getElementById('salsa-bg');
+            const bachataBg = document.getElementById('bachata-bg');
+            
+            if (currentBg === 'salsa') {
+                salsaBg.style.opacity = '0';
+                setTimeout(() => {
+                    salsaBg.style.display = 'none';
+                    bachataBg.style.display = 'block';
+                    setTimeout(() => {
+                        bachataBg.style.opacity = '0.15';
+                    }, 50);
+                }, 1000);
+                currentBg = 'bachata';
+            } else {
+                bachataBg.style.opacity = '0';
+                setTimeout(() => {
+                    bachataBg.style.display = 'none';
+                    salsaBg.style.display = 'block';
+                    setTimeout(() => {
+                        salsaBg.style.opacity = '0.15';
+                    }, 50);
+                }, 1000);
+                currentBg = 'salsa';
+            }
+        }
+        
+        // Rotate backgrounds every 20 seconds
+        setInterval(toggleBackground, 20000);
         
         checkinBtn.addEventListener('click', function() {
             const name = nameInput.value.trim();
