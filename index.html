@@ -490,19 +490,20 @@
         
         .close-modal {
             position: absolute;
-            top: -40px;
+            top: -50px;
             right: 0;
             color: white;
-            font-size: 2rem;
+            font-size: 2.5rem;
             cursor: pointer;
             background: rgba(255, 255, 255, 0.1);
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            z-index: 1001;
         }
         
         .close-modal:hover {
@@ -516,6 +517,7 @@
             height: 0;
             overflow: hidden;
             border-radius: 10px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
         }
         
         .video-container iframe {
@@ -557,6 +559,11 @@
                 width: 100%;
                 max-width: 300px;
             }
+            
+            .close-modal {
+                top: -45px;
+                right: 10px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -591,6 +598,11 @@
             
             .video-title {
                 font-size: 1.6rem;
+            }
+            
+            .video-btn {
+                padding: 15px 20px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -884,30 +896,40 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
         
-        // Video functionality
-        salsaBtn.addEventListener('click', function() {
-            videoContainer.innerHTML = `<iframe src="${salsaVideo}?autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+        // Video functionality with enhanced closing
+        function openVideo(url) {
+            videoContainer.innerHTML = `<iframe src="${url}?autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
             videoModal.classList.add('active');
             document.body.style.overflow = 'hidden';
-        });
+        }
         
-        bachataBtn.addEventListener('click', function() {
-            videoContainer.innerHTML = `<iframe src="${bachataVideo}?autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
-            videoModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeModal.addEventListener('click', function() {
+        function closeVideoModal() {
             videoModal.classList.remove('active');
             videoContainer.innerHTML = '';
             document.body.style.overflow = 'auto';
+        }
+        
+        salsaBtn.addEventListener('click', function() {
+            openVideo(salsaVideo);
         });
         
+        bachataBtn.addEventListener('click', function() {
+            openVideo(bachataVideo);
+        });
+        
+        closeModal.addEventListener('click', closeVideoModal);
+        
+        // Close modal when clicking outside the video content
         videoModal.addEventListener('click', function(e) {
             if (e.target === videoModal) {
-                videoModal.classList.remove('active');
-                videoContainer.innerHTML = '';
-                document.body.style.overflow = 'auto';
+                closeVideoModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeVideoModal();
             }
         });
     </script>
