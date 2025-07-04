@@ -82,7 +82,7 @@
         }
         
         h1, h2, h3 {
-            font-family: 'Playfair+Display', serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 600;
         }
         
@@ -440,7 +440,7 @@
         }
         
         .video-title {
-            font-family: 'Playfair+Display', serif;
+            font-family: 'Playfair Display', serif;
             color: #6366F1;
             font-size: 1.8rem;
             margin-bottom: 20px;
@@ -582,30 +582,6 @@
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
         }
         
-        /* Save notification */
-        .save-notification {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #10B981;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 500;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .save-notification.show {
-            opacity: 1;
-        }
-        
         /* Mobile-specific adjustments */
         @media (max-width: 768px) {
             h1 {
@@ -670,12 +646,6 @@
                 min-width: 100%;
                 max-width: 300px;
                 padding: 16px 20px;
-            }
-            
-            .save-notification {
-                width: 90%;
-                text-align: center;
-                font-size: 0.9rem;
             }
         }
         
@@ -747,11 +717,6 @@
     </style>
 </head>
 <body>
-    <div class="save-notification" id="save-notification">
-        <i class="fas fa-check-circle"></i>
-        <span>Check-in saved to Google Drive successfully!</span>
-    </div>
-    
     <div class="container">
         <header>
             <div class="logo">
@@ -902,7 +867,6 @@
         const videoContainer = document.getElementById('video-container');
         const formSection = document.querySelector('.form-section');
         const inspirationQuote = document.getElementById('inspiration-quote');
-        const saveNotification = document.getElementById('save-notification');
         
         // Error message elements
         const nameError = document.getElementById('name-error');
@@ -1034,25 +998,21 @@
             inputElement.focus();
         }
         
-        function showSaveNotification() {
-            saveNotification.classList.add('show');
-            setTimeout(() => {
-                saveNotification.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Function to save data to Google Drive
+        // Function to save data to Google Drive (simulated)
         function saveToGoogleDrive(data) {
             // In a real implementation, this would call your Google Apps Script
-            // For demonstration, we'll simulate the saving process
+            // For demonstration, we'll log the data and simulate saving
             console.log('Saving to Google Drive:', data);
             
-            // Show notification to user
-            showSaveNotification();
+            // Here you would typically use:
+            // fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+            //   method: 'POST',
+            //   body: JSON.stringify(data)
+            // })
             
-            // Return a promise to simulate async operation
+            // For this demo, we'll just simulate the save
             return new Promise((resolve) => {
-                setTimeout(resolve, 1000);
+                setTimeout(resolve, 100);
             });
         }
         
@@ -1087,19 +1047,22 @@
             }
             
             const paymentMethod = selectedOption.querySelector('input[type="radio"]').value;
+            const paymentLabel = selectedOption.querySelector('.payment-label').textContent;
+            const locationText = locationSelect.options[locationSelect.selectedIndex].text;
             
             const nameParts = name.split(' ');
             let displayNameText = nameParts[0] || 'Guest';
             
             displayName.textContent = displayNameText;
-            displayLocation.textContent = locationSelect.options[locationSelect.selectedIndex].text;
-            displayPayment.textContent = selectedOption.querySelector('.payment-label').textContent;
+            displayLocation.textContent = locationText;
+            displayPayment.textContent = paymentLabel;
             
             // Store the current check-in data
             currentCheckinData = {
                 name: name,
-                location: locationSelect.options[locationSelect.selectedIndex].text,
+                location: locationText,
                 payment: paymentMethod,
+                paymentLabel: paymentLabel,
                 timestamp: new Date().toISOString()
             };
             
