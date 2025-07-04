@@ -288,6 +288,8 @@
             transform: translateY(0);
             opacity: 1;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            /* Positioned higher on the screen */
+            margin-top: 20px;
         }
         
         .inspiration-card.visible {
@@ -622,6 +624,8 @@
             
             .inspiration-card {
                 padding: 25px 20px;
+                /* Higher position on mobile */
+                margin-top: 40px;
             }
             
             .inspiration-card h2 {
@@ -672,6 +676,12 @@
                 font-size: 1rem;
             }
             
+            .inspiration-card {
+                padding: 20px 15px;
+                /* Even higher position on small screens */
+                margin-top: 30px;
+            }
+            
             .inspiration-card h2 {
                 font-size: 1.5rem;
             }
@@ -698,6 +708,15 @@
                 padding: 15px;
                 font-size: 0.8rem;
             }
+            
+            .reset-btn {
+                /* More visible reset button */
+                background: rgba(99, 102, 241, 0.05);
+                padding: 12px 20px;
+                font-weight: 600;
+                border-radius: 10px;
+                text-decoration: none;
+            }
         }
         
         @media (max-width: 320px) {
@@ -712,6 +731,12 @@
             
             h1 {
                 font-size: 1.5rem;
+            }
+            
+            .inspiration-card {
+                /* Ensure card is visible on smallest screens */
+                margin-top: 20px;
+                padding: 15px;
             }
         }
     </style>
@@ -1100,8 +1125,8 @@
                 finishPaymentBtn.style.display = 'flex';
             }
             
-            // Scroll to the form section to ensure visibility
-            formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Scroll to the top of the form section to ensure visibility
+            formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         
         finishPaymentBtn.addEventListener('click', function() {
