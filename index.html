@@ -399,14 +399,25 @@
             border-top: 1px solid rgba(200, 200, 220, 0.3);
         }
         
-        .video-options {
+        /* Video section - completely separate from form */
+        .video-section {
             width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            text-align: center;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid rgba(220, 220, 250, 0.3);
+            padding: 30px;
             margin-bottom: 30px;
+            z-index: 10;
+        }
+        
+        .video-header {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
             position: relative;
-            z-index: 5;
         }
         
         .video-title {
@@ -428,11 +439,20 @@
             border-radius: 2px;
         }
         
+        .video-description {
+            font-size: 1.1rem;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            text-align: center;
+            line-height: 1.7;
+        }
+        
         .video-buttons {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
             margin-top: 20px;
         }
         
@@ -440,18 +460,18 @@
             background: linear-gradient(135deg, #6366F1, #818CF8);
             color: white;
             border: none;
-            border-radius: 12px;
-            padding: 18px 30px;
-            font-size: 1.1rem;
+            border-radius: 16px;
+            padding: 20px 35px;
+            font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
-            min-width: 200px;
+            min-width: 260px;
         }
         
         .video-btn:hover {
@@ -460,7 +480,7 @@
         }
         
         .video-btn i {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
         
         .video-modal {
@@ -492,14 +512,14 @@
         
         .close-modal {
             position: absolute;
-            top: -40px;
+            top: -50px;
             right: 0;
             color: white;
-            font-size: 2rem;
+            font-size: 2.5rem;
             cursor: pointer;
             background: rgba(255, 255, 255, 0.1);
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -517,7 +537,8 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         .video-container iframe {
@@ -529,6 +550,7 @@
             border: none;
         }
         
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
@@ -553,11 +575,14 @@
             .video-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 20px;
             }
             
             .video-btn {
                 width: 100%;
                 max-width: 300px;
+                padding: 18px;
+                font-size: 1.1rem;
             }
             
             .form-input {
@@ -599,36 +624,20 @@
             .video-title {
                 font-size: 1.6rem;
             }
-        }
-        
-        @media (max-width: 320px) {
+            
+            .video-section {
+                padding: 20px;
+            }
+            
             .video-btn {
-                padding: 14px 20px;
-                font-size: 1rem;
-            }
-            
-            .logo {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .logo i {
-                font-size: 28px;
-            }
-        }
-        
-        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-            .form-input {
-                font-size: 16px;
-            }
-            
-            .video-options {
-                padding-top: 30px;
+                min-width: auto;
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Main Check-in Container -->
     <div class="container">
         <header>
             <div class="logo">
@@ -732,15 +741,20 @@
             <p>Daniel Palacios Dance © 2023 | Elevating dance through passion and technique</p>
         </footer>
     </div>
-
-    <div class="video-options">
-        <h2 class="video-title">Dance Videos</h2>
+    
+    <!-- Separate Video Section -->
+    <div class="video-section">
+        <div class="video-header">
+            <h2 class="video-title">Dance Tutorial Videos</h2>
+            <p class="video-description">Explore our dance tutorials to improve your skills. These videos are completely separate from the check-in process.</p>
+        </div>
+        
         <div class="video-buttons">
             <button class="video-btn" id="salsa-btn">
-                <i class="fas fa-play-circle"></i> Watch Salsa Video
+                <i class="fas fa-play-circle"></i> Watch Salsa Tutorial
             </button>
             <button class="video-btn" id="bachata-btn">
-                <i class="fas fa-play-circle"></i> Watch Bachata Video
+                <i class="fas fa-play-circle"></i> Watch Bachata Tutorial
             </button>
         </div>
     </div>
@@ -904,6 +918,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
         
+        // Video functionality - completely separate from check-in
         salsaBtn.addEventListener('click', function() {
             videoContainer.innerHTML = `<iframe src="${salsaVideo}?autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
             videoModal.classList.add('active');
@@ -930,6 +945,7 @@
             }
         });
         
+        // Prevent form zooming on mobile devices
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('input, select').forEach(el => {
                 el.addEventListener('focus', () => {
