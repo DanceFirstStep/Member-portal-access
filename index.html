@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Palacios Dance Portal</title>
+    <title>Dance Portal | Daniel Palacios</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -40,7 +40,7 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, var(--background) 0%, #e4e8f0 100%);
             color: var(--text);
             display: flex;
             flex-direction: column;
@@ -548,12 +548,11 @@
         
         .section-title {
             font-family: 'Playfair Display', serif;
-            color: #fff;
+            color: var(--primary);
             font-size: 2rem;
             margin-bottom: 30px;
             text-align: center;
             position: relative;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
         .section-title::after {
@@ -708,7 +707,7 @@
             background: linear-gradient(135deg, var(--bachata-blue), var(--bachata-purple));
             position: relative;
             border: 2px solid rgba(255, 255, 255, 0.2);
-            margin-top: 25px;
+            margin-top: 25px; /* Added space between buttons */
         }
         
         .bachata-btn:hover {
@@ -966,33 +965,6 @@
             font-size: 1rem;
         }
         
-        /* Background animation */
-        .dance-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .dance-element {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: floatElement 20s infinite linear;
-        }
-        
-        @keyframes floatElement {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px) rotate(360deg);
-            }
-        }
-        
         /* Mobile-specific adjustments */
         @media (max-width: 768px) {
             h1 {
@@ -1219,9 +1191,6 @@
     </style>
 </head>
 <body>
-    <!-- Animated background elements -->
-    <div class="dance-background" id="dance-bg"></div>
-    
     <div class="container">
         <header>
             <div class="logo">
@@ -1342,7 +1311,7 @@
                     <span>Thank you! Your check-in is complete.</span>
                 </div>
                 
-                <a href="https://account.venmo.com/u/Rebecca_Rose_Bachata" class="venmo-btn" id="venmo-pay-btn" target="_blank">
+                <a href="#" class="venmo-btn" id="venmo-pay-btn">
                     <i class="fab fa-venmo"></i> Complete Payment with Venmo
                 </a>
                 
@@ -1448,7 +1417,6 @@
         const welcomeMessage = document.querySelector('.welcome-message');
         const spotifyOption = document.getElementById('spotify-option');
         const itunesOption = document.getElementById('itunes-option');
-        const danceBg = document.getElementById('dance-bg');
         
         // Error message elements
         const nameError = document.getElementById('name-error');
@@ -1467,7 +1435,8 @@
         let interactionStarted = false;
         let currentMusicType = null;
         
-        // Video links
+        // External links
+        const venmoPaymentLink = "https://venmo.com/u/DanielPalaciosDance";
         const salsaVideo = "https://player.vimeo.com/video/76979871?autoplay=1&title=0&byline=0&portrait=0";
         const bachataVideo = "https://player.vimeo.com/video/148751763?autoplay=1&title=0&byline=0&portrait=0";
         
@@ -1500,36 +1469,8 @@
         // Quote rotation index
         let quoteIndex = 0;
         
-        // Create background animation
-        function createBackground() {
-            const colors = ['#6366F1', '#10B981', '#3D95CE', '#8E24AA', '#FF7043'];
-            
-            for (let i = 0; i < 15; i++) {
-                const element = document.createElement('div');
-                element.classList.add('dance-element');
-                
-                // Random properties
-                const size = Math.random() * 100 + 50;
-                const left = Math.random() * 100;
-                const top = Math.random() * 100 + 100;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const duration = Math.random() * 30 + 20;
-                
-                element.style.width = `${size}px`;
-                element.style.height = `${size}px`;
-                element.style.left = `${left}%`;
-                element.style.top = `${top}%`;
-                element.style.backgroundColor = color;
-                element.style.animationDuration = `${duration}s`;
-                
-                danceBg.appendChild(element);
-            }
-        }
-        
         // Initialize the form
         document.addEventListener('DOMContentLoaded', function() {
-            createBackground();
-            
             // Set current month for unlimited option
             const monthNames = ["January", "February", "March", "April", "May", "June",
                               "July", "August", "September", "October", "November", "December"];
@@ -1795,6 +1736,12 @@
             }, 800);
             
             saveToGoogleDrive(currentCheckinData);
+        });
+        
+        // Venmo payment
+        venmoPayBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(venmoPaymentLink, '_blank');
         });
         
         // Reset form
