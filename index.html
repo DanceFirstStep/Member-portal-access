@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dance Portal | Student Check-in</title>
+    <title>Daniel Palacios Dance Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +13,12 @@
             --primary-dark: #4F46E5;
             --secondary: #10B981;
             --accent: #3D95CE;
+            --salsa-red: #E53935;
+            --salsa-orange: #FF7043;
+            --bachata-blue: #1E88E5;
+            --bachata-purple: #8E24AA;
+            --gold: #D4AF37;
+            --platinum: #E5E4E2;
             --text: #2d3748;
             --text-light: #4a5568;
             --background: #f5f7fa;
@@ -34,7 +40,7 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--background) 0%, #e4e8f0 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: var(--text);
             display: flex;
             flex-direction: column;
@@ -529,9 +535,10 @@
             background: rgba(255, 255, 255, 0.7);
         }
         
-        .video-options {
+        /* Premium Music & Videos Section */
+        .music-videos-section {
             width: 100%;
-            max-width: 700px;
+            max-width: 900px;
             padding: 20px;
             text-align: center;
             margin-bottom: 30px;
@@ -539,16 +546,17 @@
             z-index: 5;
         }
         
-        .video-title {
+        .section-title {
             font-family: 'Playfair Display', serif;
-            color: var(--primary);
+            color: #fff;
             font-size: 2rem;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
             position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
-        .video-title::after {
+        .section-title::after {
             content: "";
             display: block;
             width: 80px;
@@ -558,20 +566,92 @@
             border-radius: 3px;
         }
         
-        .video-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 25px;
-            margin-top: 20px;
         }
         
-        .video-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        .section-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            border: 1px solid rgba(200, 200, 220, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(50, 50, 93, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .music-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 3px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .music-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            animation: goldShine 3s linear infinite;
+        }
+        
+        @keyframes goldShine {
+            0% { background-position: -100px 0; }
+            100% { background-position: 200px 0; }
+        }
+        
+        .music-card::after {
+            content: "\f001";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 10rem;
+            color: rgba(0, 0, 0, 0.02);
+            z-index: 0;
+            opacity: 0.7;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-title i {
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+        
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .action-btn {
             color: white;
             border: none;
             border-radius: 14px;
-            padding: 20px 30px;
+            padding: 20px;
             font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
@@ -580,20 +660,85 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
-            min-width: 240px;
-            flex: 1;
-            max-width: 300px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            min-height: 80px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .action-btn i {
+            font-size: 1.6rem;
+        }
+        
+        /* Enhanced Salsa Button */
+        .salsa-btn {
+            background: linear-gradient(135deg, var(--salsa-red), var(--salsa-orange));
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .salsa-btn:hover {
+            background: linear-gradient(135deg, #c62828, #f4511e);
+        }
+        
+        .salsa-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .salsa-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Enhanced Bachata Button */
+        .bachata-btn {
+            background: linear-gradient(135deg, var(--bachata-blue), var(--bachata-purple));
+            position: relative;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            margin-top: 25px;
+        }
+        
+        .bachata-btn:hover {
+            background: linear-gradient(135deg, #1565c0, #7b1fa2);
+        }
+        
+        .bachata-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .bachata-btn:hover::before {
+            opacity: 1;
+        }
+        
+        /* Video Button */
+        .video-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
         
         .video-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.3);
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-        }
-        
-        .video-btn i {
-            font-size: 1.6rem;
         }
         
         .video-modal {
@@ -664,7 +809,114 @@
             background: #000;
         }
         
-        /* Subtle error message styling */
+        /* Music Choice Modal */
+        .music-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        
+        .music-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .music-modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .music-modal-title {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .music-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .music-option-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 18px 25px;
+            border-radius: 14px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .music-option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+        }
+        
+        .spotify-btn {
+            background: linear-gradient(135deg, #1DB954, #1ED760);
+        }
+        
+        .itunes-btn {
+            background: linear-gradient(135deg, #FC2E78, #FF5C9D);
+        }
+        
+        .close-music-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--gold);
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .close-music-modal:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        /* Enhanced error message styling */
         .error-message {
             color: var(--soft-error);
             font-size: 1rem;
@@ -678,6 +930,7 @@
             border: 1px solid rgba(139, 92, 246, 0.2);
             animation: fadeIn 0.3s ease;
             font-weight: 500;
+            display: none;
         }
         
         .form-input.input-error {
@@ -711,6 +964,33 @@
             font-weight: 600;
             color: var(--primary);
             font-size: 1rem;
+        }
+        
+        /* Background animation */
+        .dance-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .dance-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: floatElement 20s infinite linear;
+        }
+        
+        @keyframes floatElement {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+            }
         }
         
         /* Mobile-specific adjustments */
@@ -772,20 +1052,19 @@
                 font-size: 2.8rem;
             }
             
-            .video-title {
+            .section-title {
                 font-size: 1.8rem;
             }
             
-            .video-buttons {
-                gap: 20px;
-                flex-direction: column;
-                align-items: center;
+            .buttons-container {
+                grid-template-columns: 1fr;
             }
             
-            .video-btn {
+            .action-btn {
                 min-width: 100%;
                 max-width: 320px;
                 padding: 18px 25px;
+                margin: 0 auto;
             }
             
             .month-reminder {
@@ -794,6 +1073,15 @@
             
             .quote-display {
                 font-size: 1.05rem;
+            }
+            
+            .music-modal-title {
+                font-size: 1.6rem;
+            }
+            
+            .music-option-btn {
+                padding: 16px 20px;
+                font-size: 1.1rem;
             }
         }
         
@@ -860,8 +1148,18 @@
                 padding: 16px 20px;
             }
             
-            .video-title {
+            .section-title {
                 font-size: 1.6rem;
+            }
+            
+            .action-btn {
+                padding: 16px 20px;
+                font-size: 1.1rem;
+                min-height: 70px;
+            }
+            
+            .action-btn i {
+                font-size: 1.4rem;
             }
             
             footer {
@@ -884,6 +1182,14 @@
             .quote-display {
                 font-size: 1rem;
             }
+            
+            .music-modal-content {
+                padding: 30px 20px;
+            }
+            
+            .music-modal-title {
+                font-size: 1.5rem;
+            }
         }
         
         @media (max-width: 360px) {
@@ -905,7 +1211,7 @@
                 padding: 22px 18px;
             }
             
-            .video-btn {
+            .action-btn {
                 padding: 16px 20px;
                 font-size: 1.1rem;
             }
@@ -913,6 +1219,9 @@
     </style>
 </head>
 <body>
+    <!-- Animated background elements -->
+    <div class="dance-background" id="dance-bg"></div>
+    
     <div class="container">
         <header>
             <div class="logo">
@@ -1033,7 +1342,7 @@
                     <span>Thank you! Your check-in is complete.</span>
                 </div>
                 
-                <a href="#" class="venmo-btn" id="venmo-pay-btn">
+                <a href="https://account.venmo.com/u/Rebecca_Rose_Bachata" class="venmo-btn" id="venmo-pay-btn" target="_blank">
                     <i class="fab fa-venmo"></i> Complete Payment with Venmo
                 </a>
                 
@@ -1050,24 +1359,62 @@
         </footer>
     </div>
 
-    <div class="video-options">
-        <h2 class="video-title">Dance Videos</h2>
-        <div class="video-buttons">
-            <button class="video-btn" id="salsa-btn">
-                <i class="fas fa-play-circle"></i> Watch Salsa Video
-            </button>
-            <button class="video-btn" id="bachata-btn">
-                <i class="fas fa-play-circle"></i> Watch Bachata Video
-            </button>
+    <!-- Premium Music & Videos Section -->
+    <div class="music-videos-section">
+        <h2 class="section-title">Music & Videos</h2>
+        
+        <div class="section-grid">
+            <div class="section-card music-card">
+                <h3 class="card-title"><i class="fas fa-music"></i>Listen to My Music</h3>
+                <div class="buttons-container">
+                    <button class="action-btn salsa-btn" id="salsa-music-btn">
+                        <i class="fas fa-headphones"></i> Salsa
+                    </button>
+                    <button class="action-btn bachata-btn" id="bachata-music-btn">
+                        <i class="fas fa-headphones"></i> Bachata
+                    </button>
+                </div>
+            </div>
+            
+            <div class="section-card">
+                <h3 class="card-title"><i class="fas fa-video"></i>Watch Dance Videos</h3>
+                <div class="buttons-container">
+                    <button class="action-btn salsa-btn" id="salsa-video-btn">
+                        <i class="fas fa-play-circle"></i> Salsa
+                    </button>
+                    <button class="action-btn bachata-btn" id="bachata-video-btn">
+                        <i class="fas fa-play-circle"></i> Bachata
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     
+    <!-- Video Modal -->
     <div class="video-modal" id="video-modal">
         <div class="modal-content">
             <div class="close-modal" id="close-modal">
                 <i class="fas fa-times"></i>
             </div>
             <div class="video-container" id="video-container"></div>
+        </div>
+    </div>
+    
+    <!-- Music Choice Modal -->
+    <div class="music-modal" id="music-modal">
+        <div class="music-modal-content">
+            <h2 class="music-modal-title">Choose Your Music Platform</h2>
+            <div class="music-options">
+                <button class="music-option-btn spotify-btn" id="spotify-option">
+                    <i class="fab fa-spotify"></i> Spotify
+                </button>
+                <button class="music-option-btn itunes-btn" id="itunes-option">
+                    <i class="fab fa-apple"></i> iTunes
+                </button>
+            </div>
+            <div class="close-music-modal" id="close-music-modal">
+                <i class="fas fa-times"></i>
+            </div>
         </div>
     </div>
 
@@ -1085,16 +1432,23 @@
         const locationSelect = document.getElementById('class-location');
         const resetBtn = document.getElementById('reset-btn');
         const formGroups = document.querySelectorAll('.form-group');
-        const salsaBtn = document.getElementById('salsa-btn');
-        const bachataBtn = document.getElementById('bachata-btn');
+        const salsaVideoBtn = document.getElementById('salsa-video-btn');
+        const bachataVideoBtn = document.getElementById('bachata-video-btn');
+        const bachataMusicBtn = document.getElementById('bachata-music-btn');
+        const salsaMusicBtn = document.getElementById('salsa-music-btn');
         const videoModal = document.getElementById('video-modal');
+        const musicModal = document.getElementById('music-modal');
         const closeModal = document.getElementById('close-modal');
+        const closeMusicModal = document.getElementById('close-music-modal');
         const videoContainer = document.getElementById('video-container');
         const formSection = document.querySelector('.form-section');
         const inspirationQuote = document.getElementById('inspiration-quote');
         const currentMonthSpan = document.getElementById('current-month');
         const initialTagline = document.querySelector('.tagline.initial');
         const welcomeMessage = document.querySelector('.welcome-message');
+        const spotifyOption = document.getElementById('spotify-option');
+        const itunesOption = document.getElementById('itunes-option');
+        const danceBg = document.getElementById('dance-bg');
         
         // Error message elements
         const nameError = document.getElementById('name-error');
@@ -1110,11 +1464,24 @@
         
         let selectedOption = null;
         let currentCheckinData = {};
+        let interactionStarted = false;
+        let currentMusicType = null;
         
-        // External links
-        const venmoPaymentLink = "https://venmo.com/u/DanielPalaciosDance";
+        // Video links
         const salsaVideo = "https://player.vimeo.com/video/76979871?autoplay=1&title=0&byline=0&portrait=0";
         const bachataVideo = "https://player.vimeo.com/video/148751763?autoplay=1&title=0&byline=0&portrait=0";
+        
+        // Music links - REPLACE THESE WITH YOUR ACTUAL LINKS
+        const musicLinks = {
+            bachata: {
+                spotify: "https://open.spotify.com/artist/your-bachata-id",
+                itunes: "https://music.apple.com/artist/your-bachata-id"
+            },
+            salsa: {
+                spotify: "https://open.spotify.com/artist/your-salsa-id",
+                itunes: "https://music.apple.com/artist/your-salsa-id"
+            }
+        };
         
         // Dance quotes for inspiration
         const danceQuotes = [
@@ -1133,8 +1500,36 @@
         // Quote rotation index
         let quoteIndex = 0;
         
+        // Create background animation
+        function createBackground() {
+            const colors = ['#6366F1', '#10B981', '#3D95CE', '#8E24AA', '#FF7043'];
+            
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.classList.add('dance-element');
+                
+                // Random properties
+                const size = Math.random() * 100 + 50;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100 + 100;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const duration = Math.random() * 30 + 20;
+                
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${left}%`;
+                element.style.top = `${top}%`;
+                element.style.backgroundColor = color;
+                element.style.animationDuration = `${duration}s`;
+                
+                danceBg.appendChild(element);
+            }
+        }
+        
         // Initialize the form
         document.addEventListener('DOMContentLoaded', function() {
+            createBackground();
+            
             // Set current month for unlimited option
             const monthNames = ["January", "February", "March", "April", "May", "June",
                               "July", "August", "September", "October", "November", "December"];
@@ -1156,12 +1551,20 @@
             
             // Clear errors on input
             nameInput.addEventListener('input', function() {
-                clearError(nameInput, nameError);
+                nameError.style.display = 'none';
+                nameInput.classList.remove('input-error');
+                hideInitialTagline();
             });
             
             locationSelect.addEventListener('change', function() {
-                clearError(locationSelect, locationError);
+                locationError.style.display = 'none';
+                locationSelect.classList.remove('input-error');
+                hideInitialTagline();
             });
+            
+            // Hide initial tagline on interaction
+            nameInput.addEventListener('focus', hideInitialTagline);
+            locationSelect.addEventListener('focus', hideInitialTagline);
             
             // Prevent zooming on input focus for mobile
             document.querySelectorAll('input, select').forEach(el => {
@@ -1173,9 +1576,21 @@
             
             // Show welcome message after initial tagline animation
             initialTagline.addEventListener('animationend', () => {
-                welcomeMessage.classList.add('visible');
+                if (!interactionStarted) {
+                    welcomeMessage.classList.add('visible');
+                }
             });
         });
+        
+        // Function to hide initial tagline
+        function hideInitialTagline() {
+            if (!interactionStarted) {
+                initialTagline.style.opacity = '0';
+                initialTagline.style.pointerEvents = 'none';
+                interactionStarted = true;
+                welcomeMessage.classList.add('visible');
+            }
+        }
         
         // Function to display quote with animation
         function displayQuote(index) {
@@ -1200,6 +1615,7 @@
                     selectPaymentOption(this);
                     paymentError.style.display = 'none';
                 }
+                hideInitialTagline();
             });
         });
         
@@ -1257,19 +1673,11 @@
             checkinBtn.style.top = 'auto';
             
             // Clear errors
-            clearError(nameInput, nameError);
-            clearError(locationSelect, locationError);
+            nameError.style.display = 'none';
+            locationError.style.display = 'none';
             paymentError.style.display = 'none';
-        }
-        
-        function clearError(inputElement, errorElement) {
-            inputElement.classList.remove('input-error');
-            errorElement.style.display = 'none';
-        }
-        
-        function showError(inputElement, errorElement) {
-            inputElement.classList.add('input-error');
-            errorElement.style.display = 'flex';
+            nameInput.classList.remove('input-error');
+            locationSelect.classList.remove('input-error');
         }
         
         // Save data to Google Drive (simulated for frontend)
@@ -1285,19 +1693,23 @@
             const location = locationSelect.value;
             
             // Reset errors
-            clearError(nameInput, nameError);
-            clearError(locationSelect, locationError);
+            nameError.style.display = 'none';
+            locationError.style.display = 'none';
             paymentError.style.display = 'none';
+            nameInput.classList.remove('input-error');
+            locationSelect.classList.remove('input-error');
             
             let hasError = false;
             
             if (!name) {
-                showError(nameInput, nameError);
+                nameError.style.display = 'flex';
+                nameInput.classList.add('input-error');
                 hasError = true;
             }
             
             if (!location) {
-                showError(locationSelect, locationError);
+                locationError.style.display = 'flex';
+                locationSelect.classList.add('input-error');
                 hasError = true;
             }
             
@@ -1385,12 +1797,6 @@
             saveToGoogleDrive(currentCheckinData);
         });
         
-        // Venmo payment
-        venmoPayBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.open(venmoPaymentLink, '_blank');
-        });
-        
         // Reset form
         resetBtn.addEventListener('click', function() {
             if (Object.keys(currentCheckinData).length > 0) {
@@ -1407,21 +1813,57 @@
         });
         
         // Video functionality
-        salsaBtn.addEventListener('click', function() {
+        salsaVideoBtn.addEventListener('click', function() {
             videoContainer.innerHTML = `<iframe src="${salsaVideo}&background=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
             videoModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
         
-        bachataBtn.addEventListener('click', function() {
+        bachataVideoBtn.addEventListener('click', function() {
             videoContainer.innerHTML = `<iframe src="${bachataVideo}&background=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
             videoModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
         
+        // Music functionality
+        bachataMusicBtn.addEventListener('click', function() {
+            currentMusicType = 'bachata';
+            musicModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        salsaMusicBtn.addEventListener('click', function() {
+            currentMusicType = 'salsa';
+            musicModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Music platform selection
+        spotifyOption.addEventListener('click', function() {
+            if (currentMusicType && musicLinks[currentMusicType]) {
+                window.open(musicLinks[currentMusicType].spotify, '_blank');
+            }
+            musicModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        itunesOption.addEventListener('click', function() {
+            if (currentMusicType && musicLinks[currentMusicType]) {
+                window.open(musicLinks[currentMusicType].itunes, '_blank');
+            }
+            musicModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modals
         closeModal.addEventListener('click', function() {
             videoModal.classList.remove('active');
             videoContainer.innerHTML = '';
+            document.body.style.overflow = 'auto';
+        });
+        
+        closeMusicModal.addEventListener('click', function() {
+            musicModal.classList.remove('active');
             document.body.style.overflow = 'auto';
         });
         
@@ -1429,6 +1871,13 @@
             if (e.target === videoModal) {
                 videoModal.classList.remove('active');
                 videoContainer.innerHTML = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        musicModal.addEventListener('click', function(e) {
+            if (e.target === musicModal) {
+                musicModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         });
