@@ -10,6 +10,7 @@
         :root {
             --primary: #6366F1;
             --primary-light: #818CF8;
+            --primary-dark: #4F46E5;
             --secondary: #10B981;
             --accent: #3D95CE;
             --text: #2d3748;
@@ -18,7 +19,9 @@
             --card-bg: rgba(255, 255, 255, 0.98);
             --success: #10B981;
             --warning: #FBBF24;
-            --error: #EF4444;
+            --soft-error: #8B5CF6;
+            --shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         * {
@@ -45,7 +48,7 @@
             max-width: 900px;
             background: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
             overflow: hidden;
             border: 1px solid rgba(220, 220, 250, 0.3);
             animation: fadeIn 0.8s ease;
@@ -166,7 +169,7 @@
             border-radius: 16px;
             padding: 22px;
             border: 1px solid rgba(200, 200, 220, 0.35);
-            transition: all 0.4s ease;
+            transition: var(--transition);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.03);
         }
         
@@ -193,7 +196,7 @@
             background: rgba(255, 255, 255, 0.95);
             color: var(--text);
             font-size: 1.1rem;
-            transition: all 0.25s ease;
+            transition: var(--transition);
         }
         
         #class-location {
@@ -226,6 +229,9 @@
             margin-top: 10px;
             padding-left: 10px;
             font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .payment-options {
@@ -233,7 +239,7 @@
             flex-direction: column;
             gap: 14px;
             margin-top: 12px;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
         
         .payment-option {
@@ -243,7 +249,7 @@
             background: rgba(255, 255, 255, 0.97);
             border-radius: 14px;
             border: 2px solid rgba(200, 200, 220, 0.45);
-            transition: all 0.25s ease;
+            transition: var(--transition);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -296,7 +302,7 @@
         .payment-icon {
             font-size: 1.3rem;
             color: var(--primary);
-            transition: all 0.25s ease;
+            transition: var(--transition);
         }
         
         .month-reminder {
@@ -307,17 +313,11 @@
         }
         
         .month-reminder.active {
-            color: var(--success); /* Green for active status */
+            color: var(--success);
         }
         
         .month-reminder.expiring {
-            color: var(--warning); /* Yellow for expiring status */
-            animation: pulseWarning 2s infinite;
-        }
-        
-        @keyframes pulseWarning {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+            color: var(--warning);
         }
         
         .submit-btn {
@@ -330,7 +330,7 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 15px;
-            transition: all 0.25s ease;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -343,6 +343,18 @@
         .submit-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+        
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .submit-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .inspiration-card {
@@ -407,41 +419,6 @@
             text-decoration-thickness: 2px;
         }
         
-        .quote-display {
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-style: italic;
-            padding: 15px;
-            background: rgba(99, 102, 241, 0.05);
-            border-radius: 12px;
-            margin: 20px 0;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .quote-display::before {
-            content: """;
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 3rem;
-            color: rgba(99, 102, 241, 0.2);
-            font-family: Georgia, serif;
-        }
-        
-        .quote-display::after {
-            content: """;
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            font-size: 3rem;
-            color: rgba(99, 102, 241, 0.2);
-            font-family: Georgia, serif;
-        }
-        
         .finish-btn {
             display: inline-flex;
             align-items: center;
@@ -454,7 +431,7 @@
             font-size: 1.15rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: var(--transition);
             text-decoration: none;
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
             gap: 12px;
@@ -498,7 +475,7 @@
             font-size: 1.15rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: var(--transition);
             text-decoration: none;
             box-shadow: 0 8px 20px rgba(61, 149, 206, 0.2);
             gap: 10px;
@@ -526,7 +503,7 @@
             font-size: 1.1rem;
             cursor: pointer;
             text-decoration: underline;
-            transition: all 0.25s ease;
+            transition: var(--transition);
             padding: 12px 18px;
             border-radius: 10px;
             font-weight: 600;
@@ -598,7 +575,7 @@
             font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -612,6 +589,7 @@
         .video-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         }
         
         .video-btn i {
@@ -659,7 +637,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
         
         .close-modal:hover {
@@ -686,26 +664,53 @@
             background: #000;
         }
         
-        /* Error message styling */
+        /* Subtle error message styling */
         .error-message {
-            color: var(--error);
+            color: var(--soft-error);
             font-size: 1rem;
             margin-top: 10px;
-            display: none;
-            padding-left: 8px;
-            animation: shake 0.5s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(139, 92, 246, 0.08);
+            border-radius: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            animation: fadeIn 0.3s ease;
             font-weight: 500;
         }
         
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-6px); }
-            40%, 80% { transform: translateX(6px); }
+        .form-input.input-error {
+            border-color: var(--soft-error);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
         }
         
-        .input-error {
-            border-color: var(--error) !important;
-            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
+        /* Quote display styling */
+        .quote-container {
+            min-height: 80px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quote-display {
+            font-style: italic;
+            text-align: center;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.05);
+            transition: opacity 0.5s ease;
+        }
+        
+        .quote-author {
+            display: block;
+            margin-top: 8px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1rem;
         }
         
         /* Mobile-specific adjustments */
@@ -788,7 +793,7 @@
             }
             
             .quote-display {
-                min-height: 100px;
+                font-size: 1.05rem;
             }
         }
         
@@ -877,7 +882,6 @@
             }
             
             .quote-display {
-                min-height: 120px;
                 font-size: 1rem;
             }
         }
@@ -927,8 +931,14 @@
                     <i class="fas fa-user"></i>Your Full Name
                 </label>
                 <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
-                <div class="name-note">Please include both first and last name</div>
-                <div class="error-message" id="name-error">Please enter your full name</div>
+                <div class="name-note">
+                    <i class="fas fa-info-circle"></i>
+                    Please include both first and last name
+                </div>
+                <div class="error-message" id="name-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Please enter your full name
+                </div>
             </div>
             
             <div class="form-group">
@@ -942,7 +952,10 @@
                     <option value="sensual-city">Sensual City</option>
                     <option value="private">Private Lessons</option>
                 </select>
-                <div class="error-message" id="location-error">Please select a studio location</div>
+                <div class="error-message" id="location-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Please select a studio location
+                </div>
             </div>
             
             <div class="form-group">
@@ -961,7 +974,7 @@
                     <div class="payment-option" id="venmo-option">
                         <input type="radio" name="payment" id="venmo" value="venmo">
                         <label for="venmo">
-                            <i class="fab fa-vimeo payment-icon"></i>
+                            <i class="fab fa-venmo payment-icon"></i>
                             <span class="payment-label">Paid Venmo</span>
                         </label>
                     </div>
@@ -983,7 +996,10 @@
                         </label>
                     </div>
                 </div>
-                <div class="error-message" id="payment-error">Please select a payment method</div>
+                <div class="error-message" id="payment-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Please select a payment method
+                </div>
             </div>
             
             <button class="submit-btn" id="checkin-btn">
@@ -997,9 +1013,13 @@
                 <h2>Welcome to Class!</h2>
                 <div class="card-content">
                     <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
-                    <div class="quote-display" id="inspiration-quote">
-                        "Dance is the hidden language of the soul."
+                    
+                    <div class="quote-container">
+                        <div id="inspiration-quote" class="quote-display">
+                            <!-- Quote will be inserted here -->
+                        </div>
                     </div>
+                    
                     <p><strong>Location:</strong> <span id="display-location" class="highlight">None</span></p>
                     <p><strong>Payment:</strong> <span id="display-payment" class="highlight">None</span></p>
                 </div>
@@ -1014,7 +1034,7 @@
                 </div>
                 
                 <a href="#" class="venmo-btn" id="venmo-pay-btn">
-                    <i class="fab fa-vimeo"></i> Complete Payment with Venmo
+                    <i class="fab fa-venmo"></i> Complete Payment with Venmo
                 </a>
                 
                 <div class="reset-container">
@@ -1096,31 +1116,21 @@
         const salsaVideo = "https://player.vimeo.com/video/76979871?autoplay=1&title=0&byline=0&portrait=0";
         const bachataVideo = "https://player.vimeo.com/video/148751763?autoplay=1&title=0&byline=0&portrait=0";
         
-        // Dance quotes for inspiration - expanded list
+        // Dance quotes for inspiration
         const danceQuotes = [
-            '"Dance is the hidden language of the soul." - Martha Graham',
-            '"To dance is to be out of yourself. Larger, more beautiful, more powerful." - Agnes De Mille',
-            '"Dancers are the messengers of the gods." - Martha Graham',
-            '"Dance is the joy of movement and the heart of life." - Anonymous',
-            '"Dancing is like dreaming with your feet." - Constanze',
-            '"Great dancers are not great because of their technique, they are great because of their passion." - Martha Graham',
-            '"Dance is the timeless interpretation of life." - Shah Asad Rizvi',
-            '"Life is the dancer and you are the dance." - Eckhart Tolle',
-            '"We should consider every day lost on which we have not danced at least once." - Friedrich Nietzsche',
-            '"Dance is the poetry of the foot." - John Dryden',
-            '"Dancing: The highest intelligence in the freest body." - Isadora Duncan',
-            '"Dance first. Think later. It\'s the natural order." - Samuel Beckett',
-            '"The dance is a poem of which each movement is a word." - Mata Hari',
-            '"Dance is your pulse, your heartbeat, your breathing. It\'s the rhythm of your life." - Jacques d\'Amboise',
-            '"When you dance, your purpose is not to get to a certain place on the floor. It\'s to enjoy each step along the way." - Wayne Dyer',
-            '"Dance is the only art of which we ourselves are the stuff of which it is made." - Ted Shawn',
-            '"Dance is a song of the body. Either of joy or pain." - Martha Graham',
-            '"To dance is to be in tune with the steps of life." - Sasha Azevedo',
-            '"Dancing is creating a sculpture that is visible only for a moment." - Erol Ozan',
-            '"Dance is the movement of the universe concentrated in an individual." - Isadora Duncan'
+            {text: '"Dance is the hidden language of the soul."', author: 'Martha Graham'},
+            {text: '"To dance is to be out of yourself. Larger, more beautiful, more powerful."', author: 'Agnes De Mille'},
+            {text: '"Dancers are the messengers of the gods."', author: 'Martha Graham'},
+            {text: '"Dance is the joy of movement and the heart of life."', author: 'Anonymous'},
+            {text: '"Dancing is like dreaming with your feet."', author: 'Constanze'},
+            {text: '"Great dancers are not great because of their technique, they are great because of their passion."', author: 'Martha Graham'},
+            {text: '"Dance is the timeless interpretation of life."', author: 'Shah Asad Rizvi'},
+            {text: '"Life is the dancer and you are the dance."', author: 'Eckhart Tolle'},
+            {text: '"We should consider every day lost on which we have not danced at least once."', author: 'Friedrich Nietzsche'},
+            {text: '"Dance is the poetry of the foot."', author: 'John Dryden'}
         ];
         
-        // Quote rotation system
+        // Quote rotation index
         let quoteIndex = 0;
         
         // Initialize the form
@@ -1140,6 +1150,9 @@
             } else {
                 currentMonthSpan.classList.add('active');
             }
+            
+            // Set initial quote
+            displayQuote(0);
             
             // Clear errors on input
             nameInput.addEventListener('input', function() {
@@ -1163,6 +1176,18 @@
                 welcomeMessage.classList.add('visible');
             });
         });
+        
+        // Function to display quote with animation
+        function displayQuote(index) {
+            const quote = danceQuotes[index];
+            inspirationQuote.innerHTML = `${quote.text}<span class="quote-author">- ${quote.author}</span>`;
+            
+            // Add fade animation
+            inspirationQuote.style.opacity = 0;
+            setTimeout(() => {
+                inspirationQuote.style.opacity = 1;
+            }, 300);
+        }
         
         // Payment option selection
         paymentOptions.forEach(option => {
@@ -1211,6 +1236,11 @@
             locationSelect.value = '';
             expandPaymentOptions();
             currentCheckinData = {};
+            
+            // Reset form groups
+            formGroups.forEach(group => {
+                group.classList.remove('error');
+            });
         }
         
         function showForm() {
@@ -1239,8 +1269,7 @@
         
         function showError(inputElement, errorElement) {
             inputElement.classList.add('input-error');
-            errorElement.style.display = 'block';
-            inputElement.focus();
+            errorElement.style.display = 'flex';
         }
         
         // Save data to Google Drive (simulated for frontend)
@@ -1273,11 +1302,19 @@
             }
             
             if (!selectedOption) {
-                paymentError.style.display = 'block';
+                paymentError.style.display = 'flex';
                 hasError = true;
             }
             
-            if (hasError) return;
+            if (hasError) {
+                // Focus on first error
+                if (!name) {
+                    nameInput.focus();
+                } else if (!location) {
+                    locationSelect.focus();
+                }
+                return;
+            }
             
             const paymentMethod = selectedOption.querySelector('input[type="radio"]').value;
             const paymentLabel = selectedOption.querySelector('.payment-label').textContent;
@@ -1316,9 +1353,9 @@
             // Show inspiration card
             inspirationCard.classList.add('visible');
             
-            // Show rotating dance quote
-            inspirationQuote.textContent = danceQuotes[quoteIndex];
+            // Show next quote in sequence
             quoteIndex = (quoteIndex + 1) % danceQuotes.length;
+            displayQuote(quoteIndex);
             
             thankYou.style.display = 'none';
             venmoPayBtn.style.display = 'none';
@@ -1363,7 +1400,6 @@
             inspirationCard.classList.remove('visible');
             
             setTimeout(() => {
-                inspirationCard.style.display = 'none';
                 showForm();
                 clearForm();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
