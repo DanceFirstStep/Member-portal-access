@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dance Class Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dance Portal | Student Check-in System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,15 +13,28 @@
             --primary-dark: #4F46E5;
             --secondary: #10B981;
             --accent: #3D95CE;
-            --gold: #D4AF37;
+            --gold: #FFC107;
+            --salsa: #FF5722;
+            --bachata: #7E57C2;
             --text: #2d3748;
             --text-light: #4a5568;
             --background: #f5f7fa;
             --card-bg: rgba(255, 255, 255, 0.98);
             --shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --whatsapp-green: #25D366;
-            --whatsapp-dark-green: #128C7E;
+            --dark-bg: #1a1a2e;
+            --schedule-primary: #2c6e9d;
+            --schedule-primary-light: #5dade2;
+            --schedule-primary-dark: #1e3a5f;
+            --stardust-gradient: linear-gradient(135deg, #2c6e9d, #1e3a5f);
+            --letsbailar-gradient: linear-gradient(135deg, #7E57C2, #5D54A4);
+            --estilo-gradient: linear-gradient(135deg, #2ac7c2, #1a8d88);
+            --serrata-gradient: linear-gradient(135deg, #3498db, #8e44ad);
+            
+            --card-gradient: linear-gradient(135deg, #2c6e9d, #1e3a5f);
+            --card-hover: 0 15px 35px rgba(0, 0, 0, 0.1);
+            --cta-gradient: linear-gradient(135deg, #6366F1, #4F46E5);
+            --cta-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
         }
         
         * {
@@ -34,7 +47,7 @@
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #16213e 100%);
             color: var(--text);
             display: flex;
             flex-direction: column;
@@ -46,7 +59,7 @@
         
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             background: var(--card-bg);
             border-radius: 20px;
             box-shadow: var(--shadow);
@@ -114,95 +127,80 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
-        .tagline-container {
-            min-height: 40px;
-            margin: 15px auto 0;
-            position: relative;
-            max-width: 500px;
-        }
-        
         .tagline {
             font-size: 1.1rem;
             color: var(--text-light);
-            margin: 0;
+            margin: 15px auto 0;
             font-weight: 400;
+            max-width: 500px;
             line-height: 1.6;
-            position: absolute;
-            left: 0;
-            right: 0;
-            transition: all 0.5s ease;
         }
         
-        .tagline.initial {
-            opacity: 0.85;
-            animation: fadeTagline 6s forwards;
-        }
-        
-        @keyframes fadeTagline {
-            0%, 100% { opacity: 0; }
-            20%, 80% { opacity: 0.85; }
-        }
-        
-        .welcome-message {
-            opacity: 0;
-            transform: translateY(10px);
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--primary);
-            text-shadow: 0 1px 2px rgba(99, 102, 241, 0.2);
-            line-height: 1.5;
-        }
-        
-        .welcome-message.visible {
-            opacity: 0.85;
-            transform: translateY(0);
-            transition: all 0.8s ease 0.5s;
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            gap: 30px;
         }
         
         .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
             padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(200, 200, 220, 0.3);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--primary);
             position: relative;
-            min-height: 500px;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 2px;
         }
         
         .form-group {
-            margin-bottom: 32px;
-            position: relative;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 26px;
-            border: 1px solid rgba(200, 200, 220, 0.35);
-            transition: var(--transition);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.03);
+            margin-bottom: 25px;
         }
         
         .form-label {
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-weight: 600;
             color: var(--text);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             display: flex;
             align-items: center;
             gap: 10px;
-            line-height: 1.4;
         }
         
         .form-label i {
             color: var(--primary);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
         
         .form-input {
             width: 100%;
-            padding: 20px;
+            padding: 18px;
             border-radius: 14px;
             border: 2px solid rgba(200, 200, 220, 0.5);
             background: rgba(255, 255, 255, 0.95);
             color: var(--text);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             transition: var(--transition);
-            line-height: 1.5;
         }
         
         #class-location {
@@ -230,50 +228,32 @@
         }
         
         .name-note {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: rgba(74, 85, 104, 0.65);
-            margin-top: 12px;
+            margin-top: 10px;
             padding-left: 10px;
             font-style: italic;
             display: flex;
             align-items: center;
             gap: 8px;
-            line-height: 1.5;
         }
         
         .payment-options {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
             margin-top: 15px;
-            transition: var(--transition);
         }
         
         .payment-option {
             display: flex;
             align-items: center;
-            padding: 20px;
+            padding: 18px;
             background: rgba(255, 255, 255, 0.97);
             border-radius: 14px;
             border: 2px solid rgba(200, 200, 220, 0.45);
             transition: var(--transition);
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            height: auto;
-            max-height: 70px;
-        }
-        
-        .payment-option.collapsed {
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            border-width: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-            opacity: 0;
-            transform: translateY(-10px);
-            pointer-events: none;
         }
         
         .payment-option.selected {
@@ -281,11 +261,6 @@
             background: rgba(99, 102, 241, 0.09);
             box-shadow: 0 8px 20px rgba(99, 102, 241, 0.13);
             transform: translateY(-2px);
-        }
-        
-        .payment-option.selected .payment-icon {
-            color: var(--primary);
-            transform: scale(1.15);
         }
         
         .payment-option input[type="radio"] {
@@ -303,8 +278,7 @@
             cursor: pointer;
             flex-grow: 1;
             color: var(--text);
-            font-size: 1.15rem;
-            line-height: 1.4;
+            font-size: 1.1rem;
         }
         
         .payment-icon {
@@ -320,33 +294,24 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         
-        .month-reminder.active {
-            color: var(--secondary);
-        }
-        
-        .month-reminder.expiring {
-            color: #FBBF24;
-        }
-        
         .submit-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: var(--cta-gradient);
             color: #fff;
             border: none;
             border-radius: 14px;
-            padding: 22px;
-            font-size: 1.25rem;
+            padding: 20px;
+            font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 20px;
+            width: 100%;
+            margin-top: 15px;
             transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 14px;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
-            width: 100%;
+            box-shadow: var(--cta-shadow);
             letter-spacing: 0.5px;
-            line-height: 1.5;
         }
         
         .submit-btn:hover {
@@ -355,178 +320,105 @@
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         }
         
-        .submit-btn:active {
-            transform: translateY(1px);
+        .combined-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
         }
         
-        .submit-btn:disabled {
-            background: #cbd5e1;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .name-section {
+            flex: 1;
+            min-width: 250px;
         }
         
-        .inspiration-card {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 20px;
-            padding: 40px 35px;
-            text-align: center;
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            position: relative;
-            z-index: 10;
-            display: none;
-            animation: fadeIn 0.6s ease;
-            margin: 0 auto;
-            max-width: 650px;
-            transform: translateY(0);
-            opacity: 1;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
+        .guest-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         
-        .inspiration-card.visible {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .inspiration-card h2 {
-            color: var(--primary);
-            margin-bottom: 25px;
-            font-size: 2.3rem;
-            letter-spacing: -0.5px;
-        }
-        
-        .card-icon {
-            font-size: 3.3rem;
-            color: var(--primary);
-            margin-bottom: 25px;
-            animation: float 3.5s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .card-content {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .card-content p {
-            margin-bottom: 20px;
-            line-height: 1.7;
-            font-size: 1.2rem;
-            color: var(--text-light);
-        }
-        
-        .highlight {
-            color: var(--primary);
-            font-weight: 700;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            text-decoration-thickness: 2px;
-        }
-        
-        .finish-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            padding: 20px 32px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
-            gap: 14px;
-            width: 100%;
-            max-width: 340px;
-            margin: 30px auto 25px;
-        }
-        
-        .finish-btn:hover {
-            transform: translateY(-3px);
-            background: #0EA371;
-            box-shadow: 0 12px 25px rgba(16, 185, 129, 0.3);
-        }
-        
-        .thank-you {
-            margin: 30px 0 20px;
-            padding: 20px;
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: 14px;
-            color: var(--primary);
-            font-weight: 700;
+        .guest-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
-            display: none;
-            animation: fadeIn 0.4s ease;
             font-size: 1.2rem;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
-            line-height: 1.5;
-        }
-        
-        .venmo-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            padding: 20px 28px;
-            font-size: 1.2rem;
-            font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
-            text-decoration: none;
-            box-shadow: 0 8px 20px rgba(61, 149, 206, 0.2);
-            gap: 12px;
-            margin: 25px auto;
-            display: none;
-            width: 100%;
-            max-width: 350px;
-            line-height: 1.5;
-        }
-        
-        .venmo-btn:hover {
-            transform: translateY(-3px);
-            background: #3484b5;
-            box-shadow: 0 12px 25px rgba(61, 149, 206, 0.3);
-        }
-        
-        .reset-container {
-            margin-top: 30px;
-            text-align: center;
-        }
-        
-        .reset-btn {
-            background: transparent;
-            border: none;
+            border: 2px solid var(--primary);
             color: var(--primary);
-            font-size: 1.15rem;
-            cursor: pointer;
-            text-decoration: underline;
-            transition: var(--transition);
-            padding: 14px 20px;
-            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+        }
+        
+        .guest-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.25);
+        }
+        
+        .guest-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f1f5f9;
+            color: #94a3b8;
+            border-color: #cbd5e1;
+        }
+        
+        .guest-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .guest-field {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .guest-field label {
             font-weight: 600;
-            display: inline-flex;
+            color: var(--text);
+            font-size: 1.05rem;
+            display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        .reset-btn:hover {
-            color: #4F46E5;
-            background: rgba(99, 102, 241, 0.08);
-            text-decoration: none;
+        .guest-field input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 14px;
+            border: 2px solid rgba(200, 200, 220, 0.5);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .guest-field input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+        
+        .guest-note {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+            padding-left: 32px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         footer {
@@ -538,228 +430,633 @@
             position: relative;
             z-index: 20;
             background: rgba(255, 255, 255, 0.7);
-            margin-top: 10px;
         }
         
-        /* WhatsApp Section */
-        .whatsapp-section {
-            width: 100%;
-            max-width: 900px;
-            padding: 25px;
+        .call-to-action-container {
+            background: var(--card-gradient);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            color: white;
             text-align: center;
-            margin-bottom: 35px;
+            box-shadow: var(--shadow);
             position: relative;
+            overflow: hidden;
             z-index: 5;
         }
         
-        .whatsapp-card {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
-            border: 1px solid rgba(200, 200, 220, 0.3);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        .letsbailar-cta {
+            background: var(--letsbailar-gradient);
         }
         
-        .whatsapp-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(50, 50, 93, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+        .cta-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
         
-        .whatsapp-card h3 {
-            color: var(--whatsapp-dark-green);
-            font-size: 1.8rem;
+        .cta-header i {
+            font-size: 1.6rem;
+            color: var(--gold);
+        }
+        
+        .cta-schedule {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px;
             margin-bottom: 20px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+        
+        .cta-action {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 16px;
+            background: white;
+            color: var(--schedule-primary-dark);
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-        }
-        
-        .whatsapp-card p {
-            margin-bottom: 30px;
-            line-height: 1.7;
-            font-size: 1.2rem;
-            color: var(--text-light);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .action-btn {
-            color: white;
-            border: none;
-            border-radius: 14px;
-            padding: 22px;
-            font-size: 1.25rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            min-height: 85px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            line-height: 1.5;
-            text-decoration: none;
-            max-width: 500px;
             margin: 0 auto;
+            max-width: 300px;
         }
         
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        .cta-action:hover {
+            background: var(--background);
+            transform: scale(1.03);
         }
         
-        .action-btn i {
-            font-size: 1.7rem;
+        .schedule-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(200, 200, 220, 0.3);
         }
         
-        .whatsapp-btn {
-            background: linear-gradient(135deg, var(--whatsapp-green), var(--whatsapp-dark-green));
-            border: 2px solid rgba(255, 255, 255, 0.2);
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
         }
         
-        .whatsapp-btn:hover {
-            background: linear-gradient(135deg, var(--whatsapp-dark-green), #0b6e5d);
+        .studio-card {
+            background: rgba(245, 247, 250, 0.95);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(200, 200, 220, 0.3);
+            position: relative;
         }
         
-        /* Enhanced error message styling */
-        .error-message {
-            color: #8B5CF6;
-            font-size: 1.05rem;
-            margin-top: 12px;
+        .studio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover);
+        }
+        
+        .studio-header {
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+        
+        .studio-header.stardust {
+            background: linear-gradient(135deg, #2c6e9d, #1e3a5f);
+        }
+        
+        .studio-header.letsbailar {
+            background: linear-gradient(135deg, #5d54a4, #3a0066);
+        }
+        
+        .studio-header.estilo {
+            background: linear-gradient(135deg, #2ac7c2, #1a8d88);
+        }
+        
+        .studio-header.serrata {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+        }
+        
+        .studio-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 14px;
-            background: rgba(139, 92, 246, 0.08);
-            border-radius: 8px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            animation: fadeIn 0.3s ease;
-            font-weight: 500;
-            display: none;
-            line-height: 1.5;
         }
         
-        .form-input.input-error {
-            border-color: #8B5CF6;
-            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        .studio-header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
         
-        /* Quote display styling */
-        .quote-container {
-            min-height: 90px;
-            margin: 20px 0;
+        .studio-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .schedule-content {
+            padding: 20px;
+        }
+        
+        .day-group {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+        
+        .day-group:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 8px;
+        }
+        
+        .day-header.stardust:before {
+            background: linear-gradient(135deg, #2c6e9d, #1e3a5f);
+        }
+        
+        .day-header.letsbailar:before {
+            background: linear-gradient(135deg, #5d54a4, #3a0066);
+        }
+        
+        .day-header.estilo:before {
+            background: linear-gradient(135deg, #2ac7c2, #1a8d88);
+        }
+        
+        .day-header.serrata:before {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+        }
+        
+        .day-header:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            border-radius: 2px;
+        }
+        
+        .day-header i {
+            font-size: 1.1rem;
+        }
+        
+        .class-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            transition: var(--transition);
+        }
+        
+        .class-item:hover {
+            background: rgba(44, 110, 157, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .class-time {
+            font-weight: 600;
+            color: var(--text);
+            min-width: 80px;
+        }
+        
+        .class-name {
+            flex: 1;
+            text-align: right;
+        }
+        
+        .salsa {
+            color: var(--salsa);
+            font-weight: 600;
+        }
+        
+        .bachata {
+            color: var(--bachata);
+            font-weight: 600;
+        }
+        
+        .today .day-header {
+            background: rgba(44, 110, 157, 0.1);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .location-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: flex-end;
+        }
+        
+        .location-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .location-icon:hover {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+        
+        .facebook-icon {
+            background: #3b5998;
+        }
+        
+        .maps-icon {
+            background: #34a853;
+        }
+        
+        .today-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff8a00, #ff0080);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 5;
+            animation: pulseGlow 2s infinite;
+        }
+        
+        .tomorrow-badge {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 8px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 138, 0, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 138, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 138, 0, 0); }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
         }
         
-        .quote-display {
-            font-style: italic;
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
             text-align: center;
-            font-size: 1.2rem;
-            line-height: 1.7;
-            padding: 18px;
-            border-radius: 12px;
-            background: rgba(99, 102, 241, 0.05);
-            transition: opacity 0.5s ease;
+            margin-bottom: 25px;
         }
         
-        .quote-author {
-            display: block;
-            margin-top: 10px;
-            font-weight: 600;
+        .modal-title {
+            font-size: 1.8rem;
             color: var(--primary);
-            font-size: 1.05rem;
         }
         
-        /* Mobile-specific adjustments */
+        .class-selection {
+            margin-bottom: 25px;
+        }
+        
+        .class-item-select {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(245, 247, 250, 0.95);
+            border-radius: 14px;
+            margin-bottom: 15px;
+            border: 2px solid rgba(200, 200, 220, 0.3);
+            transition: var(--transition);
+        }
+        
+        .class-item-select input[type="checkbox"] {
+            margin-right: 15px;
+            width: 22px;
+            height: 22px;
+            accent-color: var(--primary);
+        }
+        
+        .class-info {
+            flex: 1;
+        }
+        
+        .class-time-select {
+            font-weight: 600;
+        }
+        
+        .class-name-select {
+            font-size: 1.1rem;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 15px;
+            border-radius: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .confirm-btn {
+            background: var(--cta-gradient);
+            color: white;
+            box-shadow: var(--cta-shadow);
+        }
+        
+        .cancel-btn {
+            background: #f1f5f9;
+            color: var(--text);
+            border: 1px solid #cbd5e1;
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .select-all-container {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .select-all-container input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+        }
+        
+        .select-all-label {
+            font-weight: 600;
+        }
+        
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .payment-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s ease;
+            text-align: center;
+        }
+        
+        .payment-options-modal {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .payment-option-modal {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(245, 247, 250, 0.95);
+            border-radius: 14px;
+            border: 2px solid rgba(200, 200, 220, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .payment-option-modal:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .payment-option-modal.selected {
+            border: 2px solid var(--primary);
+            background: rgba(99, 102, 241, 0.09);
+        }
+        
+        .payment-option-modal label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+        
+        .payment-icon-modal {
+            font-size: 1.35rem;
+        }
+        
+        .cash-icon {
+            color: var(--secondary);
+        }
+        
+        .venmo-icon {
+            color: #3D95CE;
+        }
+        
+        .thank-you-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+        
+        .thank-you-icon {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-15px); }
+        }
+        
+        .thank-you-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .thank-you-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            max-width: 500px;
+            line-height: 1.6;
+        }
+        
+        .venmo-redirect {
+            background: #3D95CE;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+        
+        .venmo-redirect:hover {
+            background: #2c6e9d;
+            transform: translateY(-3px);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            width: 100%;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 10px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            animation: progressBar 2s linear forwards;
+        }
+        
+        @keyframes progressBar {
+            to { width: 100%; }
+        }
+        
         @media (max-width: 768px) {
-            body {
-                padding: 20px 10px;
+            .schedule-grid {
+                grid-template-columns: 1fr;
             }
             
-            h1 {
-                font-size: 2.1rem;
+            .section-title {
+                font-size: 1.6rem;
             }
             
-            .tagline-container {
-                min-height: 40px;
+            .payment-options {
+                grid-template-columns: 1fr;
             }
             
-            .tagline {
-                font-size: 1rem;
+            .cta-header {
+                font-size: 1.3rem;
             }
             
-            .welcome-message {
-                font-size: 1.15rem;
+            .cta-schedule {
+                font-size: 1.0rem;
             }
             
-            .form-section {
-                padding: 25px;
-                min-height: 480px;
-            }
-            
-            .form-group {
-                padding: 22px;
-                margin-bottom: 28px;
-            }
-            
-            .form-input {
-                padding: 18px;
-                font-size: 1.1rem;
-            }
-            
-            .payment-option {
-                padding: 18px;
-            }
-            
-            .payment-option label {
-                font-size: 1.1rem;
-            }
-            
-            .submit-btn {
+            .modal-content, .payment-modal-content {
                 padding: 20px;
-                font-size: 1.2rem;
             }
             
-            .inspiration-card {
-                padding: 32px 25px;
-                margin-top: 40px;
-            }
-            
-            .inspiration-card h2 {
-                font-size: 2rem;
-            }
-            
-            .card-icon {
-                font-size: 3rem;
-            }
-            
-            .month-reminder {
-                font-size: 1.05rem;
-            }
-            
-            .quote-display {
-                font-size: 1.1rem;
+            .payment-options-modal {
+                flex-direction: column;
             }
         }
         
         @media (max-width: 480px) {
-            body {
-                padding: 15px 10px;
+            .content-container {
+                padding: 20px;
             }
             
-            header {
-                padding: 25px 15px 15px;
+            .form-section, .schedule-section {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
             }
             
             .logo {
@@ -767,108 +1064,35 @@
                 height: 65px;
             }
             
-            h1 {
-                font-size: 1.9rem;
-            }
-            
-            .tagline-container {
-                min-height: 35px;
-            }
-            
-            .tagline {
-                font-size: 0.95rem;
-            }
-            
-            .welcome-message {
-                font-size: 1.05rem;
-            }
-            
-            .form-input {
-                padding: 17px;
-                font-size: 1.05rem;
-            }
-            
             .submit-btn {
-                padding: 19px;
-                font-size: 1.15rem;
-            }
-            
-            .inspiration-card {
-                padding: 28px 22px;
-                margin-top: 30px;
-            }
-            
-            .inspiration-card h2 {
-                font-size: 1.8rem;
-            }
-            
-            .card-content p {
+                padding: 18px;
                 font-size: 1.1rem;
             }
             
-            .thank-you {
-                font-size: 1.1rem;
-                padding: 17px;
+            .combined-section {
+                flex-direction: column;
             }
             
-            .venmo-btn, .finish-btn {
-                font-size: 1.1rem;
-                padding: 18px 22px;
+            .guest-controls {
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 10px;
             }
             
-            .action-btn {
-                padding: 18px 22px;
-                font-size: 1.15rem;
-                min-height: 75px;
+            .call-to-action-container {
+                padding: 20px 15px;
             }
             
-            .action-btn i {
-                font-size: 1.5rem;
+            .modal-buttons {
+                flex-direction: column;
             }
             
-            footer {
-                padding: 22px;
-                font-size: 0.95rem;
+            .thank-you-title {
+                font-size: 2rem;
             }
             
-            .reset-btn {
-                padding: 12px 18px;
-                font-weight: 600;
-                border-radius: 10px;
-                text-decoration: none;
-            }
-            
-            .month-reminder {
+            .thank-you-message {
                 font-size: 1rem;
-            }
-            
-            .quote-display {
-                font-size: 1.05rem;
-            }
-        }
-        
-        @media (max-width: 360px) {
-            .logo {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .logo i {
-                font-size: 26px;
-            }
-            
-            h1 {
-                font-size: 1.75rem;
-            }
-            
-            .inspiration-card {
-                margin-top: 25px;
-                padding: 25px 20px;
-            }
-            
-            .action-btn {
-                padding: 17px 20px;
-                font-size: 1.1rem;
             }
         }
     </style>
@@ -880,454 +1104,755 @@
                 <i class="fas fa-music"></i>
             </div>
             <h1>Dance Portal</h1>
-            <div class="tagline-container">
-                <p class="tagline initial">Where movement becomes expression and passion transforms into art</p>
-                <p class="tagline welcome-message">Welcome</p>
-            </div>
+            <p class="tagline">Where movement becomes expression and passion transforms into art</p>
         </header>
         
-        <div class="form-section">
-            <div class="form-group">
-                <label for="student-name" class="form-label">
-                    <i class="fas fa-user"></i>Your Full Name
-                </label>
-                <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
-                <div class="name-note">
-                    <i class="fas fa-info-circle"></i>
-                    Please include both first and last name
-                </div>
-                <div class="error-message" id="name-error">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Please enter your full name
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="class-location" class="form-label">
-                    <i class="fas fa-map-marker-alt"></i>Select Your Studio
-                </label>
-                <select id="class-location" class="form-input">
-                    <option value="">Choose your location...</option>
-                    <option value="stardust">Stardust Ballroom - Mon: 6:30pm Bachata, Thu: 6:30pm Salsa & Bachata</option>
-                    <option value="letsbailar">Let's Bailar - Fri: 7pm Salsa & Bachata</option>
-                    <option value="sensual-city">Sensual City - Tue: 8:30pm Bachata</option>
-                    <option value="private">Private Lessons - By Appointment</option>
-                </select>
-                <div class="error-message" id="location-error">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Please select a studio location
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">
-                    <i class="fas fa-money-bill-wave"></i>Payment Method
-                </label>
-                <div class="payment-options">
-                    <div class="payment-option" id="cash-option">
-                        <input type="radio" name="payment" id="cash" value="cash">
-                        <label for="cash">
-                            <i class="fas fa-money-bill-wave payment-icon"></i>
-                            <span class="payment-label">Paid Cash</span>
-                        </label>
-                    </div>
-                    
-                    <div class="payment-option" id="venmo-option">
-                        <input type="radio" name="payment" id="venmo" value="venmo">
-                        <label for="venmo">
-                            <i class="fab fa-venmo payment-icon"></i>
-                            <span class="payment-label">Paid Venmo</span>
-                        </label>
-                    </div>
-                    
-                    <div class="payment-option" id="unlimited-option">
-                        <input type="radio" name="payment" id="unlimited" value="unlimited">
-                        <label for="unlimited">
-                            <i class="fas fa-infinity payment-icon"></i>
-                            <span class="payment-label">Unlimited Pass</span>
-                            <span id="current-month" class="month-reminder"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="payment-option" id="later-option">
-                        <input type="radio" name="payment" id="later" value="later">
-                        <label for="later">
-                            <i class="fas fa-clock payment-icon"></i>
-                            <span class="payment-label">Pay After Check-in</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="error-message" id="payment-error">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Please select a payment method
-                </div>
-            </div>
-            
-            <button class="submit-btn" id="checkin-btn">
-                <i class="fas fa-arrow-right"></i> COMPLETE CHECK-IN
-            </button>
-            
-            <div class="inspiration-card" id="inspiration-card">
-                <div class="card-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h2>Welcome to Class!</h2>
-                <div class="card-content">
-                    <p>We're excited to dance with you today, <span id="display-name" class="highlight">Guest</span>!</p>
-                    
-                    <div class="quote-container">
-                        <div id="inspiration-quote" class="quote-display">
-                            <!-- Quote will be inserted here -->
+        <div class="content-container">
+            <div class="form-section">
+                <h2 class="section-title">Check-in</h2>
+                
+                <div class="form-group">
+                    <div class="combined-section">
+                        <div class="name-section">
+                            <label for="student-name" class="form-label">
+                                <i class="fas fa-user"></i>Your Name
+                            </label>
+                            <input type="text" id="student-name" class="form-input" placeholder="Enter your full name">
+                        </div>
+                        
+                        <div class="guest-controls">
+                            <button id="add-guest" class="guest-btn" title="Add guest">
+                                <i class="fas fa-user-plus"></i>
+                            </button>
+                            <button id="remove-guest" class="guest-btn" title="Remove guest" disabled>
+                                <i class="fas fa-user-minus"></i>
+                            </button>
                         </div>
                     </div>
                     
-                    <p><strong>Location:</strong> <span id="display-location" class="highlight">None</span></p>
-                    <p><strong>Payment:</strong> <span id="display-payment" class="highlight">None</span></p>
+                    <div class="guest-fields" id="guest-fields">
+                        <!-- Guest fields will be added here -->
+                    </div>
                 </div>
                 
-                <button class="finish-btn" id="finish-payment">
-                    <i class="fas fa-check-circle"></i> Finish Check-in
+                <div class="form-group">
+                    <label for="class-location" class="form-label">
+                        <i class="fas fa-map-marker-alt"></i>Select Studio
+                    </label>
+                    <select id="class-location" class="form-input">
+                        <option value="">Choose your location...</option>
+                        <option value="stardust">Stardust Ballroom</option>
+                        <option value="letsbailar">Let's Bailar</option>
+                        <option value="serrata">Serrata Studio</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-money-bill-wave"></i>Payment Method
+                    </label>
+                    <div class="payment-options">
+                        <div class="payment-option" id="cash-option">
+                            <input type="radio" name="payment" id="cash" value="cash">
+                            <label for="cash">
+                                <i class="fas fa-money-bill-wave payment-icon"></i>
+                                Paid Cash
+                            </label>
+                        </div>
+                        
+                        <div class="payment-option" id="venmo-option">
+                            <input type="radio" name="payment" id="venmo" value="venmo">
+                            <label for="venmo">
+                                <i class="fab fa-venmo payment-icon"></i>
+                                Paid Venmo
+                            </label>
+                        </div>
+                        
+                        <div class="payment-option" id="unlimited-option">
+                            <input type="radio" name="payment" id="unlimited" value="unlimited">
+                            <label for="unlimited">
+                                <i class="fas fa-infinity payment-icon"></i>
+                                Unlimited Pass
+                            </label>
+                        </div>
+                        
+                        <div class="payment-option" id="later-option">
+                            <input type="radio" name="payment" id="later" value="later">
+                            <label for="later">
+                                <i class="fas fa-clock payment-icon"></i>
+                                Pay Later
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="submit-btn" id="checkin-btn">
+                    <i class="fas fa-arrow-right"></i> COMPLETE CHECK-IN
                 </button>
-                
-                <div class="thank-you" id="thank-you">
+            </div>
+            
+            <div class="call-to-action-container">
+                <div class="cta-header">
+                    <i class="fas fa-calendar-day"></i>
+                    <div id="cta-title">Next Class: Tomorrow at Let's Bailar!</div>
                     <i class="fas fa-heart"></i>
-                    <span>Thank you! Your check-in is complete.</span>
                 </div>
                 
-                <a href="https://account.venmo.com/u/Rebecca_Rose_Bachata" class="venmo-btn" id="venmo-pay-btn" target="_blank">
-                    <i class="fab fa-venmo"></i> Complete Payment with Venmo
-                </a>
+                <div class="cta-schedule" id="cta-schedule">
+                    <p>7:00pm Salsa</p>
+                    <p>8:00pm Bachata</p>
+                </div>
                 
-                <div class="reset-container">
-                    <button class="reset-btn" id="reset-btn">
-                        <i class="fas fa-redo"></i> Check-in Another Student
-                    </button>
+                <div class="cta-action">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>View Location on Map</span>
+                </div>
+            </div>
+            
+            <div class="schedule-section">
+                <div class="schedule-header">
+                    <h2 class="section-title">Class Schedule</h2>
+                </div>
+                
+                <div class="schedule-grid" id="schedule-container">
+                    <!-- Schedule cards will be generated here -->
                 </div>
             </div>
         </div>
         
         <footer>
-            <p>Daniel & Rebecca Dance Studio © 2023 | Elevating dance through passion and technique</p>
+            <p>Dance Portal © 2023 | Elevating dance through passion and technique</p>
         </footer>
     </div>
 
-    <!-- WhatsApp Group Section -->
-    <div class="whatsapp-section">
-        <div class="whatsapp-card">
-            <h3><i class="fab fa-whatsapp"></i> Join Our Private Group</h3>
-            <p>Join our WhatsApp group for class videos and important updates.</p>
-            <a href="https://chat.whatsapp.com/IRz7E4pKaZaJKA53HWQIPB" class="action-btn whatsapp-btn" target="_blank">
-                <i class="fab fa-whatsapp"></i> Join Group
+    <div id="class-selection-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="welcome-title">Welcome!</h2>
+            </div>
+            
+            <div class="class-selection">
+                <p>Please select the classes you're attending:</p>
+                <div class="select-all-container">
+                    <input type="checkbox" id="select-all-classes">
+                    <label for="select-all-classes" class="select-all-label">Select All</label>
+                </div>
+                <div id="classes-container">
+                    <!-- Classes will be populated here -->
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <div class="modal-btn cancel-btn" id="cancel-selection">Cancel</div>
+                <div class="modal-btn confirm-btn" id="confirm-selection">Confirm</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="payment-modal" class="payment-modal">
+        <div class="payment-modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Payment Required</h2>
+                <p>Please select your payment method to complete check-in</p>
+            </div>
+            
+            <div class="payment-options-modal" id="payment-options-container">
+                <div class="payment-option-modal" id="modal-cash-option">
+                    <label for="modal-cash">
+                        <i class="fas fa-money-bill-wave payment-icon-modal cash-icon"></i>
+                        Pay with Cash
+                    </label>
+                    <input type="radio" name="modal-payment" id="modal-cash" value="cash">
+                </div>
+                
+                <div class="payment-option-modal" id="modal-venmo-option">
+                    <label for="modal-venmo">
+                        <i class="fab fa-venmo payment-icon-modal venmo-icon"></i>
+                        Pay with Venmo
+                    </label>
+                    <input type="radio" name="modal-payment" id="modal-venmo" value="venmo">
+                </div>
+            </div>
+            
+            <button class="submit-btn" id="submit-payment-btn">
+                <i class="fas fa-check"></i> SUBMIT PAYMENT
+            </button>
+        </div>
+    </div>
+
+    <div id="thank-you-page" class="modal">
+        <div class="thank-you-container">
+            <i class="fas fa-check-circle thank-you-icon"></i>
+            <h2 class="thank-you-title">Thank You!</h2>
+            <p class="thank-you-message">Your check-in is complete and payment has been processed. Enjoy your dance classes!</p>
+            
+            <div class="progress-bar" id="progress-container">
+                <div class="progress"></div>
+            </div>
+            
+            <a href="https://account.venmo.com/u/Rebecca_Rose_Bachata" class="venmo-redirect" id="venmo-link" style="display: none;">
+                <i class="fab fa-venmo"></i> Open Venmo
             </a>
         </div>
     </div>
 
     <script>
-        // DOM Elements
+        const classSchedule = [
+            {
+                id: "stardust",
+                name: "Stardust Ballroom",
+                location: "Bellmawr, New Jersey",
+                icon: "star",
+                schedule: {
+                    Monday: [
+                        { time: "6:30pm", name: "Bachata Intro", type: "bachata" },
+                        { time: "7:00pm", name: "Bachata Fundamentals", type: "bachata" },
+                        { time: "8:00pm", name: "Bachata Next Level", type: "bachata" }
+                    ],
+                    Thursday: [
+                        { time: "6:30pm", name: "Intro to Salsa", type: "salsa" },
+                        { time: "7:00pm", name: "Salsa Open Level", type: "salsa" },
+                        { time: "8:00pm", name: "Bachata Open Level", type: "bachata" },
+                        { time: "9:15pm", name: "Bachata ELITE*", type: "bachata" }
+                    ]
+                }
+            },
+            {
+                id: "letsbailar",
+                name: "Let's Bailar Dance Studio",
+                location: "Philly - Chinese Association",
+                icon: "city",
+                schedule: {
+                    Friday: [
+                        { time: "7:00pm", name: "Salsa", type: "salsa" },
+                        { time: "8:00pm", name: "Bachata", type: "bachata" }
+                    ]
+                }
+            },
+            {
+                id: "serrata",
+                name: "Serrata Studio",
+                location: "7157 Frankford Ave, Philly",
+                icon: "building",
+                schedule: {
+                    Wednesday: [
+                        { time: "7:15pm", name: "Salsa", type: "salsa" },
+                        { time: "8:15pm", name: "Bachata", type: "bachata" }
+                    ],
+                    Saturday: [
+                        { time: "10:30am", name: "Bachata", type: "bachata" },
+                        { time: "11:30am", name: "Salsa", type: "salsa" }
+                    ]
+                }
+            }
+        ];
+
         const checkinBtn = document.getElementById('checkin-btn');
-        const inspirationCard = document.getElementById('inspiration-card');
-        const finishPaymentBtn = document.getElementById('finish-payment');
-        const thankYou = document.getElementById('thank-you');
-        const venmoPayBtn = document.getElementById('venmo-pay-btn');
-        const displayName = document.getElementById('display-name');
-        const displayLocation = document.getElementById('display-location');
-        const displayPayment = document.getElementById('display-payment');
-        const nameInput = document.getElementById('student-name');
-        const locationSelect = document.getElementById('class-location');
-        const resetBtn = document.getElementById('reset-btn');
-        const formGroups = document.querySelectorAll('.form-group');
-        const formSection = document.querySelector('.form-section');
-        const inspirationQuote = document.getElementById('inspiration-quote');
-        const currentMonthSpan = document.getElementById('current-month');
-        const initialTagline = document.querySelector('.tagline.initial');
-        const welcomeMessage = document.querySelector('.welcome-message');
+        const scheduleContainer = document.getElementById('schedule-container');
+        const guestFields = document.getElementById('guest-fields');
+        const addGuestBtn = document.getElementById('add-guest');
+        const removeGuestBtn = document.getElementById('remove-guest');
+        const ctaTitle = document.getElementById('cta-title');
+        const ctaSchedule = document.getElementById('cta-schedule');
+        const classModal = document.getElementById('class-selection-modal');
+        const paymentModal = document.getElementById('payment-modal');
+        const thankYouPage = document.getElementById('thank-you-page');
+        const welcomeTitle = document.getElementById('welcome-title');
+        const classesContainer = document.getElementById('classes-container');
+        const cancelSelectionBtn = document.getElementById('cancel-selection');
+        const confirmSelectionBtn = document.getElementById('confirm-selection');
+        const selectAllCheckbox = document.getElementById('select-all-classes');
+        const submitPaymentBtn = document.getElementById('submit-payment-btn');
+        const venmoLink = document.getElementById('venmo-link');
+        const progressContainer = document.getElementById('progress-container');
         
-        // Error message elements
-        const nameError = document.getElementById('name-error');
-        const locationError = document.getElementById('location-error');
-        const paymentError = document.getElementById('payment-error');
+        let guestCount = 0;
+        const maxGuests = 5;
         
-        // Payment options
         const cashOption = document.getElementById('cash-option');
         const venmoOption = document.getElementById('venmo-option');
         const unlimitedOption = document.getElementById('unlimited-option');
         const laterOption = document.getElementById('later-option');
         const paymentOptions = [cashOption, venmoOption, unlimitedOption, laterOption];
         
+        const modalCashOption = document.getElementById('modal-cash-option');
+        const modalVenmoOption = document.getElementById('modal-venmo-option');
+        
         let selectedOption = null;
-        let currentCheckinData = {};
-        let interactionStarted = false;
+        let modalSelectedOption = null;
         
-        // Dance quotes for inspiration
-        const danceQuotes = [
-            {text: '"Dance is the hidden language of the soul."', author: 'Martha Graham'},
-            {text: '"To dance is to be out of yourself. Larger, more beautiful, more powerful."', author: 'Agnes De Mille'},
-            {text: '"Dancers are the messengers of the gods."', author: 'Martha Graham'},
-            {text: '"Dance is the joy of movement and the heart of life."', author: 'Anonymous'},
-            {text: '"Dancing is like dreaming with your feet."', author: 'Constanze'},
-            {text: '"Great dancers are not great because of their technique, they are great because of their passion."', author: 'Martha Graham'},
-            {text: '"Dance is the timeless interpretation of life."', author: 'Shah Asad Rizvi'},
-            {text: '"Life is the dancer and you are the dance."', author: 'Eckhart Tolle'},
-            {text: '"We should consider every day lost on which we have not danced at least once."', author: 'Friedrich Nietzsche'},
-            {text: '"Dance is the poetry of the foot."', author: 'John Dryden'}
-        ];
+        const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         
-        // Quote rotation index
-        let quoteIndex = 0;
-        
-        // Initialize the form
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set current month for unlimited option
-            const monthNames = ["January", "February", "March", "April", "May", "June",
-                              "July", "August", "September", "October", "November", "December"];
-            const currentDate = new Date();
-            const currentMonth = monthNames[currentDate.getMonth()];
-            const day = currentDate.getDate();
-            
-            currentMonthSpan.textContent = `For ${currentMonth}`;
-            
-            // Apply color based on day of month
-            if (day >= 26) {
-                currentMonthSpan.classList.add('expiring');
-            } else {
-                currentMonthSpan.classList.add('active');
-            }
-            
-            // Set initial quote
-            displayQuote(0);
-            
-            // Clear errors on input
-            nameInput.addEventListener('input', function() {
-                nameError.style.display = 'none';
-                nameInput.classList.remove('input-error');
-                hideInitialTagline();
-            });
-            
-            locationSelect.addEventListener('change', function() {
-                locationError.style.display = 'none';
-                locationSelect.classList.remove('input-error');
-                hideInitialTagline();
-            });
-            
-            // Hide initial tagline on interaction
-            nameInput.addEventListener('focus', hideInitialTagline);
-            locationSelect.addEventListener('focus', hideInitialTagline);
-        });
-        
-        // Function to hide initial tagline
-        function hideInitialTagline() {
-            if (!interactionStarted) {
-                initialTagline.style.opacity = '0';
-                initialTagline.style.pointerEvents = 'none';
-                interactionStarted = true;
-                welcomeMessage.classList.add('visible');
-            }
-        }
-        
-        // Function to display quote with animation
-        function displayQuote(index) {
-            const quote = danceQuotes[index];
-            inspirationQuote.innerHTML = `${quote.text}<span class="quote-author">- ${quote.author}</span>`;
-            
-            // Add fade animation
-            inspirationQuote.style.opacity = 0;
-            setTimeout(() => {
-                inspirationQuote.style.opacity = 1;
-            }, 300);
-        }
-        
-        // Payment option selection
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                if (selectedOption === this) {
-                    expandPaymentOptions();
-                    selectedOption = null;
-                    paymentError.style.display = 'none';
-                } else {
-                    selectPaymentOption(this);
-                    paymentError.style.display = 'none';
-                }
-                hideInitialTagline();
-            });
-        });
-        
-        function selectPaymentOption(selectedOptionElement) {
-            paymentOptions.forEach(option => {
-                option.classList.remove('selected');
-                option.querySelector('input[type="radio"]').checked = false;
-            });
-            
-            selectedOption = selectedOptionElement;
-            selectedOption.classList.add('selected');
-            selectedOption.querySelector('input[type="radio"]').checked = true;
-            
-            paymentOptions.forEach(option => {
-                if (option !== selectedOption) {
-                    option.classList.add('collapsed');
-                }
-            });
-        }
-        
-        function expandPaymentOptions() {
-            paymentOptions.forEach(option => {
-                option.classList.remove('collapsed');
-                option.classList.remove('selected');
-                option.querySelector('input[type="radio"]').checked = false;
-            });
-            
-            selectedOption = null;
-        }
-        
-        // Form management
-        function clearForm() {
-            nameInput.value = '';
-            locationSelect.value = '';
-            expandPaymentOptions();
-            currentCheckinData = {};
-            
-            // Reset form groups
-            formGroups.forEach(group => {
-                group.classList.remove('error');
-            });
-        }
-        
-        function showForm() {
-            formGroups.forEach(group => {
-                group.style.opacity = '1';
-                group.style.pointerEvents = 'auto';
-                group.style.position = 'static';
-                group.style.top = 'auto';
-            });
-            
-            checkinBtn.style.opacity = '1';
-            checkinBtn.style.pointerEvents = 'auto';
-            checkinBtn.style.position = 'static';
-            checkinBtn.style.top = 'auto';
-            
-            // Clear errors
-            nameError.style.display = 'none';
-            locationError.style.display = 'none';
-            paymentError.style.display = 'none';
-            nameInput.classList.remove('input-error');
-            locationSelect.classList.remove('input-error');
-        }
-        
-        // Check-in button handler
-        checkinBtn.addEventListener('click', function() {
-            const name = nameInput.value.trim();
-            const location = locationSelect.value;
-            
-            // Reset errors
-            nameError.style.display = 'none';
-            locationError.style.display = 'none';
-            paymentError.style.display = 'none';
-            nameInput.classList.remove('input-error');
-            locationSelect.classList.remove('input-error');
-            
-            let hasError = false;
-            
-            if (!name) {
-                nameError.style.display = 'flex';
-                nameInput.classList.add('input-error');
-                hasError = true;
-            }
-            
-            if (!location) {
-                locationError.style.display = 'flex';
-                locationSelect.classList.add('input-error');
-                hasError = true;
-            }
-            
-            if (!selectedOption) {
-                paymentError.style.display = 'flex';
-                hasError = true;
-            }
-            
-            if (hasError) {
-                // Focus on first error
-                if (!name) {
-                    nameInput.focus();
-                } else if (!location) {
-                    locationSelect.focus();
-                }
-                return;
-            }
-            
-            const paymentMethod = selectedOption.querySelector('input[type="radio"]').value;
-            const paymentLabel = selectedOption.querySelector('.payment-label').textContent;
-            const locationText = locationSelect.options[locationSelect.selectedIndex].text;
-            
-            const nameParts = name.split(' ');
-            let displayNameText = nameParts[0] || 'Guest';
-            
-            // Update display elements
-            displayName.textContent = displayNameText;
-            displayLocation.textContent = locationText;
-            displayPayment.textContent = paymentLabel;
-            
-            // Store check-in data
-            currentCheckinData = {
-                name: name,
-                location: locationText,
-                payment: paymentMethod,
-                paymentLabel: paymentLabel,
-                timestamp: new Date().toISOString()
+        let currentStudent = {
+            name: '',
+            studio: '',
+            paymentMethod: '',
+            guests: []
+        };
+
+        function getTodayInfo() {
+            const today = new Date();
+            const dayIndex = today.getDay();
+            return {
+                name: DAYS_OF_WEEK[dayIndex],
+                index: dayIndex,
+                date: today
             };
-            
-            // Hide form elements
-            formGroups.forEach(group => {
-                group.style.opacity = '0';
-                group.style.pointerEvents = 'none';
-                group.style.position = 'absolute';
-                group.style.top = '-9999px';
+        }
+        
+        function getTomorrowInfo() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dayIndex = tomorrow.getDay();
+            return {
+                name: DAYS_OF_WEEK[dayIndex],
+                index: dayIndex,
+                date: tomorrow
+            };
+        }
+        
+        function convertTimeToMinutes(timeStr) {
+            const match = timeStr.match(/^(\d+):(\d+)(am|pm)$/i);
+            if (match) {
+                let hours = parseInt(match[1]);
+                const minutes = parseInt(match[2]);
+                const period = match[3].toLowerCase();
+                if (period === 'pm' && hours !== 12) {
+                    hours += 12;
+                } else if (period === 'am' && hours === 12) {
+                    hours = 0;
+                }
+                return hours * 60 + minutes;
+            }
+            return 0;
+        }
+        
+        function sortStudiosByDay() {
+            const today = new Date();
+            const todayIndex = today.getDay();
+            const todayName = DAYS_OF_WEEK[todayIndex];
+            const tomorrowName = DAYS_OF_WEEK[(todayIndex + 1) % 7];
+
+            return [...classSchedule].sort((a, b) => {
+                const aHasToday = a.schedule[todayName] !== undefined;
+                const bHasToday = b.schedule[todayName] !== undefined;
+                const aHasTomorrow = a.schedule[tomorrowName] !== undefined;
+                const bHasTomorrow = b.schedule[tomorrowName] !== undefined;
+
+                let aRank, bRank;
+
+                if (aHasToday) {
+                    const firstClassTime = a.schedule[todayName][0].time;
+                    aRank = convertTimeToMinutes(firstClassTime);
+                } else if (aHasTomorrow) {
+                    const firstClassTime = a.schedule[tomorrowName][0].time;
+                    aRank = 1000000 + convertTimeToMinutes(firstClassTime);
+                } else {
+                    aRank = 999999999;
+                }
+
+                if (bHasToday) {
+                    const firstClassTime = b.schedule[todayName][0].time;
+                    bRank = convertTimeToMinutes(firstClassTime);
+                } else if (bHasTomorrow) {
+                    const firstClassTime = b.schedule[tomorrowName][0].time;
+                    bRank = 1000000 + convertTimeToMinutes(firstClassTime);
+                } else {
+                    bRank = 999999999;
+                }
+
+                return aRank - bRank;
             });
+        }
+        
+        function generateScheduleCards() {
+            scheduleContainer.innerHTML = '';
             
-            checkinBtn.style.opacity = '0';
-            checkinBtn.style.pointerEvents = 'none';
-            checkinBtn.style.position = 'absolute';
-            checkinBtn.style.top = '-9999px';
+            const todayInfo = getTodayInfo();
+            const tomorrowInfo = getTomorrowInfo();
+            const todayName = todayInfo.name;
+            const tomorrowName = tomorrowInfo.name;
             
-            // Show inspiration card
-            inspirationCard.classList.add('visible');
+            const sortedStudios = sortStudiosByDay();
             
-            // Show next quote in sequence
-            quoteIndex = (quoteIndex + 1) % danceQuotes.length;
-            displayQuote(quoteIndex);
+            sortedStudios.forEach(studio => {
+                const card = document.createElement('div');
+                card.className = `studio-card ${studio.id}`;
+                
+                const hasClassToday = studio.schedule[todayName] !== undefined;
+                const hasClassTomorrow = studio.schedule[tomorrowName] !== undefined;
+                
+                card.innerHTML = `
+                    <div class="studio-header ${studio.id}">
+                        ${hasClassToday ? `<div class="today-indicator">Classes Today</div>` : ''}
+                        ${hasClassTomorrow ? `<div class="tomorrow-badge">Classes Tomorrow</div>` : ''}
+                        <h3>
+                            <span class="studio-icon">
+                                <i class="fas fa-${studio.icon}"></i>
+                            </span>
+                            ${studio.name}
+                        </h3>
+                        <p>${studio.location}</p>
+                    </div>
+                    <div class="schedule-content">
+                        ${generateDayGroups(studio.schedule, studio.id, todayName, tomorrowName)}
+                        <div class="location-icons">
+                            <a href="#" class="location-icon facebook-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="location-icon maps-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                scheduleContainer.appendChild(card);
+            });
+        }
+        
+        function generateDayGroups(schedule, studioId, todayName, tomorrowName) {
+            let html = '';
             
-            thankYou.style.display = 'none';
-            venmoPayBtn.style.display = 'none';
-            finishPaymentBtn.style.display = 'none';
-            
-            if (paymentMethod === 'cash' || paymentMethod === 'venmo' || paymentMethod === 'unlimited') {
-                thankYou.style.display = 'flex';
-            } 
-            else if (paymentMethod === 'later') {
-                finishPaymentBtn.style.display = 'flex';
+            for (const day in schedule) {
+                const isToday = day === todayName;
+                const isTomorrow = day === tomorrowName;
+                const classes = schedule[day];
+                
+                html += `
+                    <div class="day-group">
+                        <div class="day-header ${studioId} ${isToday ? 'today' : ''}">
+                            <i class="fas fa-calendar-day"></i>
+                            ${day}
+                            ${isTomorrow ? '<span class="tomorrow-badge">Tomorrow</span>' : ''}
+                        </div>
+                        ${generateClassItems(classes)}
+                    </div>
+                `;
             }
             
-            // Scroll to card
-            formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+            return html;
+        }
         
-        // Finish payment button
-        finishPaymentBtn.addEventListener('click', function() {
-            finishPaymentBtn.style.display = 'none';
-            thankYou.style.display = 'flex';
+        function generateClassItems(classes) {
+            let html = '';
             
-            setTimeout(() => {
-                venmoPayBtn.style.display = 'flex';
-            }, 800);
-        });
+            classes.forEach(cls => {
+                html += `
+                    <div class="class-item">
+                        <div class="class-time">${cls.time}</div>
+                        <div class="class-name">
+                            <span class="${cls.type}">${cls.name}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            return html;
+        }
         
-        // Reset form
-        resetBtn.addEventListener('click', function() {
-            inspirationCard.classList.remove('visible');
+        function updateCallToAction() {
+            const todayInfo = getTodayInfo();
+            const todayName = todayInfo.name;
+            const tomorrowInfo = getTomorrowInfo();
+            const tomorrowName = tomorrowInfo.name;
             
+            let nextClass = null;
+            let nextStudio = null;
+            let nextDay = null;
+            
+            const letsBailarStudio = classSchedule.find(studio => studio.id === "letsbailar");
+            if (letsBailarStudio && letsBailarStudio.schedule[tomorrowName]) {
+                nextStudio = letsBailarStudio;
+                nextDay = tomorrowName;
+                nextClass = letsBailarStudio.schedule[tomorrowName][0];
+            }
+            
+            if (!nextClass) {
+                for (const studio of classSchedule) {
+                    if (studio.id !== "letsbailar" && studio.schedule[tomorrowName]) {
+                        nextStudio = studio;
+                        nextDay = tomorrowName;
+                        nextClass = studio.schedule[tomorrowName][0];
+                        break;
+                    }
+                }
+            }
+            
+            if (!nextClass) {
+                let minDays = 7;
+                const todayIndex = todayInfo.index;
+                
+                for (const studio of classSchedule) {
+                    for (const day in studio.schedule) {
+                        if (studio.schedule[day].length > 0) {
+                            const dayIndex = DAYS_OF_WEEK.indexOf(day);
+                            let daysUntil = (dayIndex - todayIndex + 7) % 7;
+                            
+                            if (daysUntil > 0 && daysUntil < minDays) {
+                                minDays = daysUntil;
+                                nextClass = studio.schedule[day][0];
+                                nextStudio = studio;
+                                nextDay = day;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if (nextClass && nextStudio && nextDay) {
+                let dayText = "Tomorrow";
+                
+                ctaTitle.textContent = `Next Class: ${dayText} at ${nextStudio.name}!`;
+                
+                const ctaContainer = document.querySelector('.call-to-action-container');
+                if (nextStudio.id === "letsbailar") {
+                    ctaContainer.classList.add('letsbailar-cta');
+                } else {
+                    ctaContainer.classList.remove('letsbailar-cta');
+                }
+                
+                ctaSchedule.innerHTML = '';
+                
+                nextStudio.schedule[nextDay].forEach(cls => {
+                    const classEl = document.createElement('p');
+                    classEl.textContent = `${cls.time} ${cls.name}`;
+                    ctaSchedule.appendChild(classEl);
+                });
+            }
+        }
+
+        function showClassSelectionModal(name, studioId) {
+            welcomeTitle.textContent = `Welcome ${name}!`;
+            
+            currentStudent.name = name;
+            currentStudent.studio = studioId;
+            
+            const today = getTodayInfo().name;
+            const studio = classSchedule.find(s => s.id === studioId);
+            const todayClasses = studio.schedule[today] || [];
+            
+            classesContainer.innerHTML = '';
+            
+            if (todayClasses.length === 0) {
+                classesContainer.innerHTML = `<p>No classes scheduled for today at ${studio.name}.</p>`;
+            } else {
+                todayClasses.forEach((cls, index) => {
+                    const classElement = document.createElement('div');
+                    classElement.className = 'class-item-select';
+                    classElement.innerHTML = `
+                        <input type="checkbox" id="class-${index}" class="class-checkbox">
+                        <div class="class-info">
+                            <div class="class-time-select">${cls.time}</div>
+                            <div class="class-name-select ${cls.type}">${cls.name}</div>
+                        </div>
+                    `;
+                    classesContainer.appendChild(classElement);
+                });
+            }
+            
+            classModal.style.display = 'flex';
+        }
+        
+        function resetForm() {
+            document.getElementById('student-name').value = '';
+            document.getElementById('class-location').value = '';
+            paymentOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.querySelector('input').checked = false;
+            });
+            selectedOption = null;
+            guestFields.innerHTML = '';
+            guestCount = 0;
+            addGuestBtn.disabled = false;
+            removeGuestBtn.disabled = true;
+            modalCashOption.classList.remove('selected');
+            modalVenmoOption.classList.remove('selected');
+            modalSelectedOption = null;
+        }
+        
+        function openVenmoApp() {
+            // Create the Venmo profile URL for Rebecca
+            const venmoAppUrl = 'venmo://users/Rebecca_Rose_Bachata';
+            const venmoWebUrl = 'https://account.venmo.com/u/Rebecca_Rose_Bachata';
+            
+            // Create a hidden iframe to attempt opening the Venmo app
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = venmoAppUrl;
+            document.body.appendChild(iframe);
+            
+            // Set a timeout to redirect to the web version if the app isn't installed
             setTimeout(() => {
-                showForm();
-                clearForm();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.body.removeChild(iframe);
+                window.location.href = venmoWebUrl;
             }, 500);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedOption = this;
+                });
+            });
+            
+            modalCashOption.addEventListener('click', function() {
+                modalCashOption.classList.add('selected');
+                modalVenmoOption.classList.remove('selected');
+                modalSelectedOption = 'cash';
+            });
+            
+            modalVenmoOption.addEventListener('click', function() {
+                modalVenmoOption.classList.add('selected');
+                modalCashOption.classList.remove('selected');
+                modalSelectedOption = 'venmo';
+            });
+            
+            addGuestBtn.addEventListener('click', function() {
+                if (guestCount < maxGuests) {
+                    guestCount++;
+                    
+                    const newField = document.createElement('div');
+                    newField.className = 'guest-field';
+                    newField.innerHTML = `
+                        <label for="guest-${guestCount}">
+                            <i class="fas fa-user-friends"></i>Guest ${guestCount}
+                        </label>
+                        <input type="text" id="guest-${guestCount}" class="form-input" placeholder="Enter guest full name">
+                    `;
+                    
+                    guestFields.appendChild(newField);
+                    
+                    removeGuestBtn.disabled = false;
+                    
+                    if (guestCount === maxGuests) {
+                        addGuestBtn.disabled = true;
+                    }
+                }
+            });
+            
+            removeGuestBtn.addEventListener('click', function() {
+                if (guestCount > 0) {
+                    const lastField = guestFields.lastChild;
+                    guestFields.removeChild(lastField);
+                    guestCount--;
+                    
+                    if (guestCount === 0) {
+                        removeGuestBtn.disabled = true;
+                    }
+                    
+                    addGuestBtn.disabled = false;
+                }
+            });
+            
+            checkinBtn.addEventListener('click', function() {
+                const name = document.getElementById('student-name').value.trim();
+                const location = document.getElementById('class-location').value;
+                
+                currentStudent.guests = [];
+                for (let i = 1; i <= guestCount; i++) {
+                    const guestInput = document.getElementById(`guest-${i}`);
+                    if (guestInput && guestInput.value.trim()) {
+                        currentStudent.guests.push(guestInput.value.trim());
+                    }
+                }
+                
+                if (!name) {
+                    alert("Please enter your name");
+                    return;
+                }
+                
+                if (!location) {
+                    alert("Please select a studio location");
+                    return;
+                }
+                
+                if (!selectedOption) {
+                    alert("Please select a payment method");
+                    return;
+                }
+                
+                currentStudent.paymentMethod = selectedOption.querySelector('input').value;
+                
+                if (currentStudent.paymentMethod === 'later') {
+                    paymentModal.style.display = 'flex';
+                } else {
+                    showClassSelectionModal(name, location);
+                }
+            });
+            
+            cancelSelectionBtn.addEventListener('click', function() {
+                classModal.style.display = 'none';
+                resetForm();
+            });
+            
+            confirmSelectionBtn.addEventListener('click', function() {
+                const selectedClasses = [];
+                document.querySelectorAll('.class-checkbox:checked').forEach(checkbox => {
+                    const index = checkbox.id.split('-')[1];
+                    const studio = classSchedule.find(s => s.id === currentStudent.studio);
+                    const today = getTodayInfo().name;
+                    const cls = studio.schedule[today][index];
+                    selectedClasses.push(`${cls.time} ${cls.name}`);
+                });
+                
+                classModal.style.display = 'none';
+                thankYouPage.style.display = 'flex';
+                
+                if (currentStudent.paymentMethod === 'venmo') {
+                    venmoLink.style.display = 'inline-flex';
+                    progressContainer.style.display = 'none';
+                    setTimeout(openVenmoApp, 1000);
+                } else {
+                    setTimeout(() => {
+                        thankYouPage.style.display = 'none';
+                        resetForm();
+                    }, 2000);
+                }
+            });
+            
+            submitPaymentBtn.addEventListener('click', function() {
+                if (!modalSelectedOption) {
+                    alert("Please select a payment method");
+                    return;
+                }
+                
+                currentStudent.paymentMethod = modalSelectedOption;
+                paymentModal.style.display = 'none';
+                thankYouPage.style.display = 'flex';
+                
+                if (currentStudent.paymentMethod === 'venmo') {
+                    venmoLink.style.display = 'inline-flex';
+                    progressContainer.style.display = 'none';
+                    setTimeout(openVenmoApp, 1000);
+                } else {
+                    setTimeout(() => {
+                        thankYouPage.style.display = 'none';
+                        resetForm();
+                    }, 2000);
+                }
+            });
+            
+            selectAllCheckbox.addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('.class-checkbox');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = selectAllCheckbox.checked;
+                });
+            });
+            
+            [classModal, paymentModal, thankYouPage].forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        resetForm();
+                    }
+                });
+            });
+            
+            generateScheduleCards();
+            updateCallToAction();
         });
     </script>
 </body>
