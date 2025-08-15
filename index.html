@@ -1672,20 +1672,18 @@
         }
         
         function openVenmoApp() {
-            // Create the Venmo profile URL for Rebecca
+            // Use Venmo deep link format to open directly to Rebecca's profile
             const venmoAppUrl = 'venmo://users/Rebecca_Rose_Bachata';
             const venmoWebUrl = 'https://account.venmo.com/u/Rebecca_Rose_Bachata';
             
-            // Create a hidden iframe to attempt opening the Venmo app
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = venmoAppUrl;
-            document.body.appendChild(iframe);
+            // Attempt to open the Venmo app directly
+            window.location.href = venmoAppUrl;
             
             // Set a timeout to redirect to the web version if the app isn't installed
-            setTimeout(() => {
-                document.body.removeChild(iframe);
-                window.location.href = venmoWebUrl;
+            setTimeout(function() {
+                if (!document.hidden) {
+                    window.location.href = venmoWebUrl;
+                }
             }, 500);
         }
         
